@@ -37,6 +37,7 @@
           <div class="eyebrow">${d.city} ・ ${d.area}</div>
           <h1>${d.title}</h1>
           <p>${d.desc}</p>
+          ${d.notice ? `<div class="warning">${d.notice}</div>` : ''}
           <div class="spot-tags"><span class="spot-tag">${d.day}</span><span class="spot-tag">${d.photos.length} 個拍照點</span><span class="spot-tag">${d.sources.length} 個正式來源</span><span class="spot-tag">${social.length} 則社群實訪</span></div>
           <div class="actions"><a class="btn" href="${root}day${dayNum}.html">查看當日動線</a><a class="btn alt" href="${map}" target="_blank" rel="noopener">Google Maps</a></div>
         </div>
