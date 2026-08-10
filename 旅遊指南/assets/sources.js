@@ -6,6 +6,8 @@
   const controls = root.querySelector('.source-controls');
   const list = root.querySelector('.source-results');
   const count = root.querySelector('[data-count]');
+  const intro = root.querySelector('.directory-hero p');
+  if (intro) intro.textContent = '資料管理目標為每個地點 20 個官方／交通／旅遊來源與 20 則可核對的社群實訪；頁面會依目前實際完成數量即時顯示。公開貼文只保留摘要與原始連結，活動、票價及營業時間仍須在出發前重新確認。';
   const cities = [...new Set(spots.map((spot) => spot.city))];
   const days = [...new Set(spots.flatMap((spot) => spot.day.split('／')))];
 
