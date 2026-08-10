@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f0e8">
+  <title>東京六天五夜｜2026 旅遊介紹</title>
+  <style>
+    :root {
+      --paper: #f4f0e8;
+      --white: #fffdf9;
+      --ink: #17232d;
+      --muted: #6c7478;
+      --red: #d95745;
+      --red-dark: #ad3e31;
+      --blue: #2f6f8f;
+      --teal: #2f7e78;
+      --gold: #bf862e;
+      --violet: #725b91;
+      --line: rgba(23, 35, 45, .14);
+      --shadow: 0 22px 60px rgba(30, 35, 40, .10);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 4%, rgba(217,87,69,.09), transparent 24rem),
+        radial-gradient(circle at 92% 24%, rgba(47,111,143,.09), transparent 28rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: Inter, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.65;
+    }
+    button, a { font: inherit; }
+    a { color: inherit; }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 16px clamp(18px, 4vw, 64px);
+      background: rgba(244, 240, 232, .86);
+      border-bottom: 1px solid rgba(23, 35, 45, .08);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 10px 32px rgba(23,35,45,.06);
+    }
+    .logo {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .19em;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .logo b { color: var(--red); }
+    .day-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .day-nav::-webkit-scrollbar { display: none; }
+    .day-nav a {
+      min-width: 38px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-align: center;
+      text-decoration: none;
+      transition: .2s ease;
+    }
+    .day-nav a:hover,
+    .day-nav a.active { background: var(--ink); color: var(--white); }
+
+    .slide {
+      position: relative;
+      min-height: 100svh;
+      padding: clamp(92px, 12vh, 128px) clamp(20px, 6vw, 96px) clamp(54px, 8vh, 84px);
+      scroll-snap-align: start;
+      overflow: hidden;
+    }
+    .slide-inner { width: min(1180px, 100%); margin: 0 auto; }
+
+    .cover {
+      display: grid;
+      place-items: center;
+      background: #e9e1d6;
+    }
+    .cover-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 68% center;
+    }
+    .cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(247,243,236,.98) 0%, rgba(247,243,236,.9) 37%, rgba(247,243,236,.22) 68%, rgba(23,35,45,.12) 100%);
+    }
+    .cover::before {
+      content: "";
+      position: absolute;
+      right: 8vw;
+      top: 50%;
+      width: min(42vw, 610px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, .45);
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+    .cover-content { position: relative; z-index: 2; width: min(1180px, 100%); }
+    .kicker {
+      margin: 0 0 18px;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .25em;
+    }
+    .cover h1 {
+      margin: 0;
+      max-width: 760px;
+      font-family: "Noto Serif TC", "Songti TC", serif;
+      font-size: clamp(62px, 10vw, 136px);
+      font-weight: 800;
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+    .cover-subtitle {
+      margin: 28px 0 0;
+      font-size: clamp(17px, 2vw, 25px);
+      letter-spacing: .13em;
+    }
+    .cover-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 30px;
+      margin-top: 58px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .cover-meta span::before { content: "—"; margin-right: 10px; color: var(--red); }
+
+    .overview { background: var(--white); }
+    .overview-photo {
+      width: 100%;
+      height: clamp(180px, 27vw, 320px);
+      margin: 0 0 clamp(34px, 5vh, 56px);
+      border-radius: var(--radius);
+      object-fit: cover;
+      object-position: center;
+      box-shadow: var(--shadow);
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: .72fr 1.28fr;
+      gap: 7vw;
+      align-items: end;
+      margin-bottom: clamp(38px, 6vh, 70px);
+    }
+    .section-head h2 {
+      margin: 0;
+      font-family: "Noto Serif TC", "Songti TC", serif;
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 1.12;
+      letter-spacing: -.04em;
+    }
+    .section-head p:last-child { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .fact-list { border-top: 1px solid var(--line); }
+    .fact-row {
+      display: grid;
+      grid-template-columns: 58px 150px 1fr;
+      gap: 18px;
+      align-items: baseline;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .fact-number { color: var(--red); font-size: 11px; font-weight: 900; }
+    .fact-label { color: var(--muted); font-size: 13px; }
+    .fact-value { font-family: "Noto Serif TC", "Songti TC", serif; font-size: clamp(18px, 2.2vw, 29px); font-weight: 700; }
+
+    .flight-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 34px;
+    }
+    .flight {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #faf8f3;
+    }
+    .flight small { color: var(--red); font-size: 11px; font-weight: 900; letter-spacing: .15em; }
+    .flight h3 { margin: 8px 0 14px; font-size: 20px; }
+    .flight p { margin: 5px 0; color: var(--muted); font-size: 14px; }
+    .flight strong { color: var(--ink); }
+
+    .outline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 34px;
+    }
+    .outline-day {
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+    }
+    .outline-day span {
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .15em;
+    }
+    .outline-day strong { display: block; margin-top: 7px; font-size: 15px; }
+    .outline-day p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+
+    .day { background: var(--paper); }
+    .day:nth-of-type(even) { background: var(--white); }
+    #day1 { --accent: #d95745; --accent-soft: rgba(217,87,69,.11); }
+    #day2 { --accent: #725b91; --accent-soft: rgba(114,91,145,.11); }
+    #day3 { --accent: #2f6f8f; --accent-soft: rgba(47,111,143,.11); }
+    #day4 { --accent: #bf862e; --accent-soft: rgba(191,134,46,.12); }
+    #day5 { --accent: #2f7e78; --accent-soft: rgba(47,126,120,.11); }
+    #day6 { --accent: #b54d67; --accent-soft: rgba(181,77,103,.11); }
+    .day::before {
+      content: "";
+      position: absolute;
+      width: min(38vw, 520px);
+      aspect-ratio: 1;
+      right: -16vw;
+      top: 14vh;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-soft), transparent 68%);
+      pointer-events: none;
+    }
+    .day-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, .68fr) minmax(0, 1.32fr);
+      gap: clamp(34px, 7vw, 92px);
+      align-items: start;
+    }
+    .day-intro { position: sticky; top: 104px; }
+    .day-photo {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      margin-top: 28px;
+      border-radius: 22px;
+      object-fit: cover;
+      box-shadow: 0 16px 42px rgba(30, 35, 40, .13);
+      border: 5px solid rgba(255,255,255,.76);
+      transform: rotate(-1deg);
+    }
+    .day-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: var(--accent, var(--red));
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .18em;
+    }
+    .day-tag::before { content: ""; width: 34px; height: 2px; background: var(--accent, var(--red)); }
+    .day h2 {
+      margin: 0;
+      font-family: "Noto Serif TC", "Songti TC", serif;
+      font-size: clamp(42px, 5.2vw, 72px);
+      line-height: 1.1;
+      letter-spacing: -.045em;
+    }
+    .date { margin: 20px 0 0; color: var(--muted); font-size: 14px; letter-spacing: .08em; }
+    .route {
+      margin-top: 34px;
+      padding: 20px 0 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 2;
+    }
+    .route b { color: var(--ink); }
+
+    .content-block + .content-block { margin-top: 36px; }
+    .content-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 16px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .content-title::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+    .transport-list { list-style: none; padding: 0; margin: 0; }
+    .transport-list li {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      padding: 13px 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 14px;
+    }
+    .transport-list time { color: var(--red-dark); font-weight: 800; white-space: nowrap; }
+
+    .reservation-list { display: grid; gap: 13px; }
+    .reservation {
+      display: grid;
+      grid-template-columns: 76px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 253, 249, .72);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .reservation:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .reservation-time { color: var(--red); font-size: 13px; font-weight: 900; }
+    .reservation-main strong { display: block; font-size: 16px; }
+    .reservation-main span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .map-link:hover { background: var(--red); }
+    .map-link::after { content: "↗"; }
+
+    .fixed-event {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 20px;
+      border-left: 3px solid var(--red);
+      background: rgba(217, 87, 69, .07);
+      font-size: 14px;
+    }
+    .fixed-event time { color: var(--red-dark); font-weight: 900; white-space: nowrap; }
+
+    .spot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .spot-card {
+      position: relative;
+      min-height: 420px;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid rgba(23,35,45,.09);
+      border-radius: 24px;
+      background: rgba(255, 253, 249, .94);
+      box-shadow: 0 14px 38px rgba(23,35,45,.08);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .spot-card:hover { transform: translateY(-5px); box-shadow: 0 22px 54px rgba(23,35,45,.14); }
+    .spot-media { position: relative; margin: 0; overflow: hidden; background: #d9d4ca; }
+    .spot-media::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 48%;
+      background: linear-gradient(transparent, rgba(16,25,32,.54));
+      pointer-events: none;
+    }
+    .spot-media img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      transition: transform .55s ease;
+    }
+    .spot-card:hover .spot-media img { transform: scale(1.045); }
+    .photo-credit {
+      position: absolute;
+      z-index: 2;
+      right: 12px;
+      bottom: 10px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(16,25,32,.68);
+      color: rgba(255,255,255,.9);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-decoration: none;
+      backdrop-filter: blur(7px);
+    }
+    .photo-credit:hover { background: var(--accent, var(--red)); color: #fff; }
+    .spot-card > .spot-location,
+    .spot-card > ul,
+    .spot-card > .photo-note,
+    .spot-card > .shoot-point { margin-left: 20px; margin-right: 20px; }
+    .spot-location {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      margin-bottom: 12px;
+    }
+    .spot-location strong { font-size: 16px; }
+    .must-shot {
+      flex: none;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft, rgba(217, 87, 69, .12));
+      color: var(--accent, var(--red-dark));
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+    .spot-card ul { padding-left: 18px; color: var(--muted); font-size: 13px; }
+    .spot-card li + li { margin-top: 5px; }
+    .photo-note {
+      margin: 13px 0 0;
+      padding-top: 11px;
+      border-top: 1px dashed var(--line);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .photo-note::before { content: "◎ "; color: var(--accent, var(--red)); }
+    .shoot-point {
+      position: relative;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      padding: 16px 16px 15px;
+      border-radius: 16px;
+      background: var(--accent-soft, rgba(217,87,69,.08));
+      border: 1px solid rgba(23,35,45,.08);
+    }
+    .shoot-label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent, var(--red));
+      font-size: 9px;
+      font-weight: 950;
+      letter-spacing: .18em;
+    }
+    .shoot-point strong { display: block; padding-right: 60px; font-size: 13px; line-height: 1.45; }
+    .shoot-point p { margin: 6px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .point-link {
+      position: absolute;
+      right: 12px;
+      top: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: var(--accent, var(--ink));
+      color: white;
+      font-size: 9px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .point-link::after { content: "↗"; }
+    .card-note {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin: -4px 20px 20px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+    .card-note::before { content: "i"; flex: none; display: grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; background: var(--ink); color: white; font-size: 9px; font-weight: 900; }
+
+    .footer-slide {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: var(--ink);
+      color: var(--white);
+    }
+    .footer-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: .48;
+    }
+    .footer-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(13,22,29,.88), rgba(23,35,45,.45) 58%, rgba(23,35,45,.2));
+    }
+    .footer-slide > div { position: relative; z-index: 2; }
+    .footer-slide .kicker { color: #f28c79; }
+    .footer-slide h2 {
+      margin: 0;
+      font-family: "Noto Serif TC", "Songti TC", serif;
+      font-size: clamp(52px, 8vw, 104px);
+      line-height: 1;
+    }
+    .footer-slide p { margin: 26px 0 0; color: rgba(255,255,255,.62); letter-spacing: .1em; }
+    .source-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin-top: 28px; }
+    .source-links a { color: rgba(255,255,255,.56); font-size: 11px; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.22); }
+    .source-links a:hover { color: #fff; }
+
+    .page-count {
+      position: absolute;
+      right: clamp(20px, 4vw, 64px);
+      bottom: 28px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .18em;
+    }
+    .footer-slide .page-count { color: rgba(255,255,255,.45); }
+    .footer-slide .page-count { z-index: 2; }
+
+    @media (max-width: 820px) {
+      .topbar { align-items: flex-start; padding: 14px 16px; }
+      .day-nav { max-width: calc(100vw - 116px); }
+      .cover::after { background: linear-gradient(180deg, rgba(247,243,236,.86), rgba(247,243,236,.68) 52%, rgba(23,35,45,.3)); }
+      .cover-photo { object-position: 66% center; }
+      .cover::before { right: -34vw; width: 92vw; top: 37%; }
+      .section-head, .day-layout { grid-template-columns: 1fr; }
+      .section-head { gap: 20px; }
+      .day-intro { position: static; }
+      .day-photo { aspect-ratio: 16 / 9; }
+      .route { margin-top: 22px; }
+      .flight-grid { grid-template-columns: 1fr; }
+      .outline-grid { grid-template-columns: repeat(2, 1fr); }
+      .fact-row { grid-template-columns: 34px 100px 1fr; gap: 10px; }
+      .reservation { grid-template-columns: 66px 1fr; }
+      .reservation .map-link { grid-column: 2; justify-self: start; }
+      .spot-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 500px) {
+      .slide { padding-left: 18px; padding-right: 18px; }
+      .logo b { display: none; }
+      .cover h1 { font-size: 58px; }
+      .cover-meta { display: grid; gap: 10px; }
+      .fact-row { grid-template-columns: 28px 1fr; }
+      .fact-value { grid-column: 2; margin-top: 3px; }
+      .transport-list li { gap: 10px; }
+      .reservation { grid-template-columns: 1fr; gap: 6px; }
+      .reservation .map-link { grid-column: 1; margin-top: 7px; }
+      .fixed-event { display: grid; gap: 6px; }
+      .outline-grid { grid-template-columns: 1fr; }
+      .spot-card { min-height: 0; }
+      .spot-media img { aspect-ratio: 4 / 3; }
+      .shoot-point strong { padding-right: 0; }
+      .point-link { position: static; margin-top: 10px; }
+    }
+
+    @media print {
+      .topbar { display: none; }
+      html { scroll-snap-type: none; }
+      .slide { min-height: 100vh; break-after: page; padding: 55px; }
+      .day-intro { position: static; }
+      .map-link { border: 1px solid var(--ink); background: transparent; color: var(--ink); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <button class="logo" type="button" data-target="cover">TOKYO <b>2026</b></button>
+    <nav class="day-nav" aria-label="行程頁面導覽">
+      <a href="旅遊指南/index.html">多頁指南</a>
+      <a href="#overview">概覽</a>
+      <a href="#day1">D1</a><a href="#day2">D2</a><a href="#day3">D3</a>
+      <a href="#day4">D4</a><a href="#day5">D5</a><a href="#day6">D6</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide cover" id="cover" data-section="封面">
+      <img class="cover-photo" src="images/tokyo-cover.png" alt="夕陽下的東京鐵塔與城市天際線" fetchpriority="high">
+      <div class="cover-content">
+        <p class="kicker">6 DAYS · 5 NIGHTS</p>
+        <h1>東京，<br>一起出發。</h1>
+        <p class="cover-subtitle">東京 × 江之島 × 熱海 × 橫濱</p>
+        <div class="cover-meta">
+          <span>2026.08.16 — 08.21</span>
+          <span>6 TRAVELERS</span>
+          <span>TOSEI HOTEL COCONE 上野</span>
+        </div>
+      </div>
+      <span class="page-count">01 / 09</span>
+    </section>
+
+    <section class="slide overview" id="overview" data-section="概覽">
+      <div class="slide-inner">
+        <header class="section-head">
+          <div>
+            <p class="kicker">TRIP OVERVIEW</p>
+            <h2>六天五夜，<br>從上野展開</h2>
+          </div>
+          <p>住宿與交通以東京上野為中心，行程延伸至江之島、熱海與橫濱。</p>
+        </header>
+
+        <img class="overview-photo" src="images/trip-overview.png" alt="列車窗邊的相機、地圖與東京灣景色" loading="lazy">
+
+        <div class="fact-list">
+          <div class="fact-row"><span class="fact-number">01</span><span class="fact-label">旅遊日期</span><strong class="fact-value">2026/8/16－8/21</strong></div>
+          <div class="fact-row"><span class="fact-number">02</span><span class="fact-label">同行人數</span><strong class="fact-value">6 人</strong></div>
+          <div class="fact-row"><span class="fact-number">03</span><span class="fact-label">住宿地點</span><strong class="fact-value">TOSEI HOTEL COCONE 上野</strong></div>
+          <div class="fact-row"><span class="fact-number">04</span><span class="fact-label">住宿費用</span><strong class="fact-value">六天每人合計 NT$10,000</strong></div>
+        </div>
+
+        <div class="flight-grid">
+          <article class="flight">
+            <small>OUTBOUND · 8/16</small>
+            <h3>捷星日本 GK012</h3>
+            <p><strong>02:40</strong> 桃園機場 T1</p>
+            <p><strong>07:00</strong> 成田機場 T3</p>
+            <p>成田機場 → 京成上野：Skyliner 約 51 分鐘</p>
+          </article>
+          <article class="flight">
+            <small>RETURN · 8/21</small>
+            <h3>星宇航空 JX803</h3>
+            <p><strong>16:00</strong> 成田機場 T2</p>
+            <p><strong>19:00</strong> 桃園機場 T1</p>
+            <p>京成上野 → 成田機場：Skyliner 約 60 分鐘</p>
+          </article>
+        </div>
+
+        <div class="outline-grid" aria-label="六日行程大綱">
+          <article class="outline-day"><span>DAY 01</span><strong>龜有・台場・新宿</strong><p>動漫街景、東京灣與夜間霓虹</p></article>
+          <article class="outline-day"><span>DAY 02</span><strong>池袋・秋葉原・六本木</strong><p>神社、購物、動漫與東京鐵塔</p></article>
+          <article class="outline-day"><span>DAY 03</span><strong>江之島・熱海</strong><p>湘南海岸、島上散策與海上煙火</p></article>
+          <article class="outline-day"><span>DAY 04</span><strong>豪德寺・原宿・澀谷</strong><p>招財貓、經典街區與城市展望</p></article>
+          <article class="outline-day"><span>DAY 05</span><strong>品川・橫濱</strong><p>水族館、港灣纜車與摩天輪夜景</p></article>
+          <article class="outline-day"><span>DAY 06</span><strong>淺草・上野</strong><p>寺院街景、阿美橫町與返程</p></article>
+        </div>
+      </div>
+      <span class="page-count">02 / 09</span>
+    </section>
+
+    <section class="slide day" id="day1" data-section="D1">
+      <div class="slide-inner day-layout">
+        <aside class="day-intro">
+          <span class="day-tag">DAY 01</span>
+          <h2>龜有、台場<br>與新宿</h2>
+          <p class="date">8/16 · SUNDAY</p>
+          <p class="route"><b>動線</b><br>成田機場 → 上野飯店 → 上野東照宮 → 龜有 → 台場 → 新宿 → 上野</p>
+          <img class="day-photo" src="images/day1-odaiba.png" alt="藍調時刻的台場彩虹大橋與東京灣" loading="lazy">
+        </aside>
+        <div>
+          <section class="content-block">
+            <h3 class="content-title">交通時間</h3>
+            <ul class="transport-list">
+              <li><span>成田機場 → 京成上野</span><time>約 51 分鐘</time></li>
+              <li><span>根津 → 龜有</span><time>約 35 分鐘</time></li>
+              <li><span>龜有 → 台場</span><time>約 66 分鐘</time></li>
+              <li><span>台場 → 新宿</span><time>約 38 分鐘</time></li>
+              <li><span>新宿 → 上野</span><time>約 25 分鐘</time></li>
+            </ul>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">地點與必拍景點</h3>
+            <div class="spot-grid">
+              <article class="spot-card">
+                <figure class="spot-media"><img src="images/spots/kameari.png" alt="龜有站周邊角色銅像合照示意" loading="lazy" decoding="async"><span class="photo-credit">AI 寫實示意</span></figure>
+                <div class="spot-location"><strong>龜有</strong><span class="must-shot">必打卡</span></div><ul><li>龜有站南北口《烏龍派出所》銅像</li><li>龜有公園與兩津勘吉場景</li><li>龜有香取神社</li></ul><p class="photo-note">車站周邊角色銅像合照</p>
+                <div class="shoot-point"><span class="shoot-label">PHOTO POINT 01</span><strong>站位：JR 龜有站北口「兩津勘吉像」前</strong><p>由站體方向往廣場拍，可把銅像、同行者與北口街景一起收進畫面；再到南口拍祭典姿勢像。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=亀有駅北口+両津勘吉像" target="_blank" rel="noopener">點位</a></div>
+                <p class="card-note">本圖為構圖示意；現場共有 15 座角色銅像，請依葛飾區官方銅像地圖尋找。</p>
+              </article>
+              <article class="spot-card">
+                <figure class="spot-media"><img src="images/spots/odaiba.jpg" alt="台場與東京灣實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Odaiba" target="_blank" rel="noopener">Wikimedia ↗</a></figure>
+                <div class="spot-location"><strong>台場</strong><span class="must-shot">必拍</span></div><ul><li>御台場海濱公園</li><li>自由女神像與彩虹大橋</li><li>DiverCity 獨角獸鋼彈</li></ul><p class="photo-note">自由女神像、彩虹大橋同框</p>
+                <div class="shoot-point"><span class="shoot-label">PHOTO POINT 02</span><strong>站位：自由女神像西北側階梯觀景平台</strong><p>鏡頭朝西北，使用約 35–50mm，把女神像放右側、彩虹大橋置於左後方；日落後 20 分鐘色彩最好。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=自由の女神像+台場" target="_blank" rel="noopener">點位</a></div>
+              </article>
+              <article class="spot-card">
+                <figure class="spot-media"><img src="images/spots/shinjuku.jpg" alt="夜間歌舞伎町一番街與霓虹街景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Kabukich%C5%8D" target="_blank" rel="noopener">Wikimedia ↗</a></figure>
+                <div class="spot-location"><strong>新宿</strong><span class="must-shot">夜拍</span></div><ul><li>歌舞伎町一番街牌樓</li><li>新宿東口霓虹街景</li><li>哥吉拉頭</li></ul><p class="photo-note">歌舞伎町牌樓與夜間霓虹</p>
+                <div class="shoot-point"><span class="shoot-label">PHOTO POINT 03</span><strong>站位：靖國通南側、歌舞伎町一番街牌樓正對面</strong><p>鏡頭朝北並稍微壓低，等行人號誌放行時拍出人流與牌樓；沿 Godzilla Road 往北可補拍哥吉拉頭。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=歌舞伎町一番街アーチ" target="_blank" rel="noopener">點位</a></div>
+              </article>
+            </div>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">餐廳</h3>
+            <div class="reservation-list">
+              <article class="reservation">
+                <span class="reservation-time">午餐</span>
+                <div class="reservation-main"><strong>Tsukemen Michi 沾麵道</strong><span>東京都葛飾区亀有5丁目28−17</span></div>
+                <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=つけ麺道+亀有" target="_blank" rel="noopener">地圖</a>
+              </article>
+              <article class="reservation">
+                <span class="reservation-time">18:30</span>
+                <div class="reservation-main"><strong>牛たんの檸檬 新宿本店</strong><span>4 人＋2 人｜東京都新宿区西新宿7丁目16−12 YSビル B1F</span></div>
+                <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=牛たんの檸檬+新宿本店" target="_blank" rel="noopener">地圖</a>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+      <span class="page-count">03 / 09</span>
+    </section>
+
+    <section class="slide day" id="day2" data-section="D2">
+      <div class="slide-inner day-layout">
+        <aside class="day-intro">
+          <span class="day-tag">DAY 02</span>
+          <h2>池袋、秋葉原<br>與六本木</h2>
+          <p class="date">8/17 · MONDAY</p>
+          <p class="route"><b>動線</b><br>上野 → 妙義神社 → 池袋太陽城 → 秋葉原 → 六本木 → 東京鐵塔 → 上野</p>
+          <img class="day-photo" src="images/day2-akihabara-tokyo-tower.png" alt="夜色中的東京街景與東京鐵塔" loading="lazy">
+        </aside>
+        <div>
+          <section class="content-block">
+            <h3 class="content-title">交通時間</h3>
+            <ul class="transport-list">
+              <li><span>上野 → 駒込</span><time>約 23 分鐘</time></li>
+              <li><span>駒込 → 池袋</span><time>約 29 分鐘</time></li>
+              <li><span>池袋 → 秋葉原</span><time>約 40 分鐘</time></li>
+              <li><span>秋葉原 → 六本木</span><time>約 38 分鐘</time></li>
+              <li><span>六本木 → 神谷町</span><time>約 17 分鐘</time></li>
+              <li><span>濱松町 → 上野</span><time>約 36 分鐘</time></li>
+            </ul>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">地點與必拍景點</h3>
+            <div class="spot-grid">
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/komagome.jpg" alt="駒込妙義神社鳥居與境內" loading="lazy" decoding="async"><a class="photo-credit" href="https://ja.wikipedia.org/wiki/%E5%A6%99%E7%BE%A9%E7%A5%9E%E7%A4%BE_(%E8%B1%8A%E5%B3%B6%E5%8C%BA)" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>駒込</strong><span class="must-shot">打卡</span></div><ul><li>妙義神社鳥居</li><li>社殿與境內石階</li></ul><p class="photo-note">鳥居與社殿正面構圖</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 04</span><strong>站位：妙義神社表參道石階最下方</strong><p>鏡頭朝西北，利用石階與鳥居形成中軸線；廣角 24–28mm 可同時帶入鳥居、階梯與社殿。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=妙義神社+豊島区" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/ikebukuro.jpg" alt="池袋 Sunshine City 建築實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Sunshine_City%2C_Tokyo" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>池袋</strong><span class="must-shot">打卡</span></div><ul><li>Sunshine City</li><li>太陽城商場與城市街景</li><li>Pokémon Center Mega Tokyo</li></ul><p class="photo-note">太陽城標誌或寶可夢中心入口</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 05</span><strong>站位：Sunshine 60 通東端入口</strong><p>由東池袋一丁目側朝 Sunshine City 拍攝，長焦可壓縮街道人潮與高樓；商場內拍攝角色區時避免阻擋入口。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=サンシャイン60通り+入口" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/akihabara.png" alt="夜間秋葉原電器街中央通" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Akihabara" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>秋葉原</strong><span class="must-shot">必拍</span></div><ul><li>秋葉原電器街中央通</li><li>秋葉原 RADIO KAIKAN</li><li>動漫與電器店大型招牌</li></ul><p class="photo-note">中央通密集招牌街景</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 06</span><strong>站位：中央通 × 神田明神通交叉口西南角</strong><p>鏡頭沿中央通朝北，約 50mm 能壓縮兩側招牌；若拍 RADIO KAIKAN，改在 JR 電器街口廣場朝南。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=秋葉原+中央通り+神田明神通り" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/tokyo-tower.jpg" alt="東京鐵塔實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Tokyo_Tower" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>六本木・東京鐵塔</strong><span class="must-shot">夜拍</span></div><ul><li>六本木街景</li><li>東京鐵塔塔下</li><li>芝公園方向的鐵塔夜景</li></ul><p class="photo-note">仰角拍攝整座亮燈鐵塔</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 07</span><strong>站位：芝公園 4 號地銀杏林蔭步道</strong><p>鏡頭朝北，以步道樹列框住整座鐵塔；藍調時刻先拍環境，亮燈後再用低角度補一張。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=芝公園4号地+東京タワー撮影スポット" target="_blank" rel="noopener">點位</a></div></article>
+            </div>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">餐廳</h3>
+            <div class="reservation-list">
+              <article class="reservation">
+                <span class="reservation-time">11:00</span>
+                <div class="reservation-main"><strong>鰻魚屋吉川 池袋店</strong><span>6 人同桌｜東京都豊島区東池袋1丁目42−4 サンライフビル 1F</span></div>
+                <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=鰻魚屋吉川+池袋店" target="_blank" rel="noopener">地圖</a>
+              </article>
+              <article class="reservation">
+                <span class="reservation-time">20:00</span>
+                <div class="reservation-main"><strong>Imakatsu 六本木本店</strong><span>4 人＋2 人、分兩區｜東京都港区六本木4丁目12−5 1F</span></div>
+                <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=イマカツ+六本木本店" target="_blank" rel="noopener">地圖</a>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+      <span class="page-count">04 / 09</span>
+    </section>
+
+    <section class="slide day" id="day3" data-section="D3">
+      <div class="slide-inner day-layout">
+        <aside class="day-intro">
+          <span class="day-tag">DAY 03</span>
+          <h2>江之島<br>與熱海</h2>
+          <p class="date">8/18 · TUESDAY</p>
+          <p class="route"><b>動線</b><br>上野 → 大船 → 湘南江之島 → 鎌倉高校前 → 七里濱 → 江之島 → 熱海 → 上野</p>
+          <img class="day-photo" src="images/day3-enoshima-atami.png" alt="夕陽下的江之電、江之島海岸與遠方花火" loading="lazy">
+        </aside>
+        <div>
+          <section class="content-block">
+            <h3 class="content-title">交通時間</h3>
+            <ul class="transport-list">
+              <li><span>上野 → 大船</span><time>約 58 分鐘</time></li>
+              <li><span>大船 → 湘南江之島</span><time>約 14 分鐘</time></li>
+              <li><span>江之島 → 鎌倉高校前</span><time>約 2 分鐘</time></li>
+              <li><span>七里濱 → 江之島</span><time>約 9 分鐘</time></li>
+              <li><span>江之島 → 熱海</span><time>約 94 分鐘</time></li>
+              <li><span>熱海 → 上野</span><time>約 134 分鐘</time></li>
+            </ul>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">地點與必拍景點</h3>
+            <div class="spot-grid">
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/kamakura-crossing.jpg" alt="鎌倉高校前站與江之電實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Kamakurak%C5%8Dk%C5%8Dmae_Station" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>鎌倉高校前</strong><span class="must-shot">必拍</span></div><ul><li>江之電平交道</li><li>電車與湘南海岸</li></ul><p class="photo-note">電車、平交道與海景同框</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 08</span><strong>站位：鎌倉高校前站東側平交道的海側人行空間</strong><p>鏡頭朝東北，等江之電進入平交道時連拍；只在人行區取景，禁止站上車道、軌道或越過護欄。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=鎌倉高校前1号踏切" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/shichirigahama.jpg" alt="七里濱海岸與江之島遠景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Shichirigahama" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>七里濱</strong><span class="must-shot">海景</span></div><ul><li>七里濱海岸</li><li>湘南海岸公路</li><li>bills 海景窗邊</li></ul><p class="photo-note">沙灘、海浪與江之島遠景</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 09</span><strong>站位：七里濱海岸停車場海側欄杆</strong><p>鏡頭朝西南，把江之島放在畫面左三分之一；傍晚逆光適合拍剪影，晴天可用長焦等待富士山。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=七里ヶ浜海岸駐車場" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/enoshima.jpg" alt="江之島與湘南海岸全景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Enoshima" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>江之島</strong><span class="must-shot">必打卡</span></div><ul><li>弁財天仲見世通</li><li>江島神社</li><li>Samuel Cocking Garden、Sea Candle</li><li>江之島岩屋</li></ul><p class="photo-note">Sea Candle 與湘南海岸全景</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 10</span><strong>站位：江之島 Sea Candle 室外展望台西側</strong><p>鏡頭朝西北可拍湘南海岸、富士山與夕陽；若要拍塔身，改到 Samuel Cocking Garden 南側廣場仰拍。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=江の島シーキャンドル" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/atami.jpg" alt="熱海灣與城市海岸實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Atami" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>熱海</strong><span class="must-shot">夜拍</span></div><ul><li>平和通商店街</li><li>熱海親水公園</li><li>熱海灣海上花火</li></ul><p class="photo-note">親水公園拍花火與海面倒影</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 11</span><strong>站位：親水公園 Moon Terrace 海側欄杆</strong><p>鏡頭朝東南覆蓋熱海灣；近拍花火用廣角，若要城市與倒影同框，可往熱海 Sun Beach 東端拉遠。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=熱海親水公園+ムーンテラス" target="_blank" rel="noopener">點位</a></div></article>
+            </div>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">餐廳與固定活動</h3>
+            <div class="reservation-list">
+              <article class="reservation">
+                <span class="reservation-time">09:30</span>
+                <div class="reservation-main"><strong>bills 七里濱</strong><span>神奈川県鎌倉市七里ガ浜1丁目1−1 Weekend House Alley 2F</span></div>
+                <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=bills+七里ヶ浜" target="_blank" rel="noopener">地圖</a>
+              </article>
+              <div class="fixed-event"><strong>熱海海上花火大會｜親水公園</strong><time>19:00－20:45</time></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <span class="page-count">05 / 09</span>
+    </section>
+
+    <section class="slide day" id="day4" data-section="D4">
+      <div class="slide-inner day-layout">
+        <aside class="day-intro">
+          <span class="day-tag">DAY 04</span>
+          <h2>豪德寺、原宿<br>與澀谷</h2>
+          <p class="date">8/19 · WEDNESDAY</p>
+          <p class="route"><b>動線</b><br>上野 → 豪德寺 → 明治神宮 → 東京歌劇城 → 原宿、表參道 → 澀谷 SKY → AFURI → 淺草 → 上野</p>
+          <img class="day-photo" src="images/day4-gotokuji.png" alt="豪德寺成排的白色招財貓與夏日綠意" loading="lazy">
+        </aside>
+        <div>
+          <section class="content-block">
+            <h3 class="content-title">交通時間</h3>
+            <ul class="transport-list">
+              <li><span>上野 → 豪德寺</span><time>約 59 分鐘</time></li>
+              <li><span>豪德寺 → 明治神宮</span><time>約 23 分鐘</time></li>
+              <li><span>明治神宮 → 東京歌劇城</span><time>約 30 分鐘</time></li>
+              <li><span>初台 → 原宿</span><time>約 23 分鐘</time></li>
+              <li><span>澀谷 SKY → AFURI</span><time>步行約 10－15 分鐘</time></li>
+              <li><span>澀谷 → 淺草</span><time>約 36 分鐘</time></li>
+              <li><span>淺草 → 上野</span><time>約 12 分鐘</time></li>
+            </ul>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">地點與必拍景點</h3>
+            <div class="spot-grid">
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/gotokuji.jpg" alt="豪德寺寺院實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/G%C5%8Dtoku-ji" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>豪德寺</strong><span class="must-shot">必拍</span></div><ul><li>招福殿招財貓群</li><li>三重塔與寺院境內</li></ul><p class="photo-note">成排招財貓的廣角畫面</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 12</span><strong>站位：招福殿旁招財貓奉納棚正面通道</strong><p>以 24–35mm 貼近前排、略低角度拍出層次；保持通道暢通，不移動或觸碰奉納招財貓。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=豪徳寺+招福殿" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/meiji.jpg" alt="明治神宮御社殿實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://ja.wikipedia.org/wiki/%E6%98%8E%E6%B2%BB%E7%A5%9E%E5%AE%AE" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>明治神宮</strong><span class="must-shot">必打卡</span></div><ul><li>森林參道與大鳥居</li><li>奉納酒樽牆</li><li>御社殿</li></ul><p class="photo-note">大鳥居與林蔭參道</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 13</span><strong>站位：南參道第二鳥居前約 20 公尺</strong><p>鏡頭朝北，以 35mm 將鳥居置中並保留參道縱深；清晨人少、光線斜入林間，畫面最乾淨。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=明治神宮+第二鳥居" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/harajuku.jpg" alt="原宿街區與車站實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Harajuku" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>原宿・表參道</strong><span class="must-shot">街拍</span></div><ul><li>竹下通入口</li><li>表參道林蔭大道</li><li>東急 PLAZA 表參道鏡面入口</li></ul><p class="photo-note">竹下通牌樓或鏡面入口</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 14</span><strong>站位：東急 PLAZA 表參道「OMOKADO」鏡面手扶梯入口</strong><p>在一樓入口中央以超廣角朝上拍鏡面萬花筒；竹下通則站在 JR 竹下口對面人行區朝東取景。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=東急プラザ表参道オモカド" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/shibuya.jpg" alt="澀谷十字路口俯瞰實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Shibuya_Crossing" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>澀谷</strong><span class="must-shot">必拍</span></div><ul><li>忠犬八公像</li><li>澀谷十字路口</li><li>澀谷 SKY 城市全景</li></ul><p class="photo-note">SKY 頂樓拍東京夕景</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 15</span><strong>站位：SHIBUYA SKY「Sky Edge」西南側玻璃角</strong><p>預約日落前 45–60 分鐘，先朝西拍富士山與夕陽，再轉東拍城市亮燈；相機背帶與大型器材須依現場規定寄放。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=SHIBUYA+SKY+Sky+Edge" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/asakusa-night.jpg" alt="淺草寺與雷門實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Sens%C5%8D-ji" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>淺草夜景</strong><span class="must-shot">夜拍</span></div><ul><li>雷門大燈籠</li><li>仲見世通與寶藏門</li><li>淺草文化觀光中心展望台</li></ul><p class="photo-note">亮燈雷門與人潮散去後的街景</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 16</span><strong>站位：淺草文化觀光中心 8F 展望露台</strong><p>鏡頭朝北可沿雷門、仲見世通一路拍到寶藏門；夜間用 50mm 壓縮中軸線，下樓後再補雷門正面。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=浅草文化観光センター+展望テラス" target="_blank" rel="noopener">點位</a></div></article>
+            </div>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">餐廳與預約景點</h3>
+            <div class="reservation-list">
+              <article class="reservation">
+                <span class="reservation-time">11:30</span>
+                <div class="reservation-main"><strong>敘敘苑 東京歌劇城53店</strong><span>6 人同桌｜東京都新宿区西新宿3丁目20−2 53F</span></div>
+                <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=叙々苑+東京オペラシティ53店" target="_blank" rel="noopener">地圖</a>
+              </article>
+              <div class="fixed-event"><strong>澀谷 SKY</strong><time>17:00</time></div>
+              <article class="reservation">
+                <span class="reservation-time">晚餐</span>
+                <div class="reservation-main"><strong>AFURI 渋谷道玄坂店</strong><span>東京都渋谷区道玄坂1丁目19−12 ReRaiMa渋谷道玄坂 1F</span></div>
+                <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=AFURI+渋谷道玄坂" target="_blank" rel="noopener">地圖</a>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+      <span class="page-count">06 / 09</span>
+    </section>
+
+    <section class="slide day" id="day5" data-section="D5">
+      <div class="slide-inner day-layout">
+        <aside class="day-intro">
+          <span class="day-tag">DAY 05</span>
+          <h2>品川水族館<br>與橫濱</h2>
+          <p class="date">8/20 · THURSDAY</p>
+          <p class="route"><b>動線</b><br>上野 → 蛇窪神社 → 大井町 → 品川水族館 → 櫻木町 → AIR CABIN → 橫濱紅磚倉庫、遊樂園 → 上野</p>
+          <img class="day-photo" src="images/day5-yokohama.png" alt="藍調時刻的橫濱港未來、摩天輪與紅磚倉庫" loading="lazy">
+        </aside>
+        <div>
+          <section class="content-block">
+            <h3 class="content-title">交通時間</h3>
+            <ul class="transport-list">
+              <li><span>上野 → 蛇窪神社</span><time>約 43 分鐘</time></li>
+              <li><span>中延 → 大井町</span><time>約 16 分鐘</time></li>
+              <li><span>大井町 → 品川水族館</span><time>約 15 分鐘</time></li>
+              <li><span>品川水族館／大井町 → 櫻木町</span><time>約 43 分鐘</time></li>
+              <li><span>AIR CABIN 單程</span><time>約 5－10 分鐘</time></li>
+              <li><span>櫻木町 → 上野</span><time>約 58 分鐘</time></li>
+            </ul>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">地點與必拍景點</h3>
+            <div class="spot-grid">
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/hebikubo.jpg" alt="蛇窪神社境內實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://ja.wikipedia.org/wiki/%E8%9B%87%E7%AA%AA%E7%A5%9E%E7%A4%BE" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>蛇窪神社</strong><span class="must-shot">打卡</span></div><ul><li>白蛇辨財天</li><li>白蛇造景與鳥居</li></ul><p class="photo-note">白蛇造景與神社鳥居</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 17</span><strong>站位：白蛇辨財天入口小鳥居正前方</strong><p>以 35mm 對準鳥居中軸，稍微降低鏡頭讓白蛇造景與社殿同框；境內狹窄，拍攝後立即讓出參拜動線。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=蛇窪神社+白蛇辨財天" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/shinagawa-aquarium.jpg" alt="品川水族館實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://ja.wikipedia.org/wiki/%E3%81%97%E3%81%AA%E3%81%8C%E3%82%8F%E6%B0%B4%E6%97%8F%E9%A4%A8" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>品川水族館</strong><span class="must-shot">館內</span></div><ul><li>海底隧道</li><li>水槽與海洋生物展示</li><li>水族館入口</li></ul><p class="photo-note">海底隧道的藍色光影</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 18</span><strong>站位：海底隧道中央、拱頂最完整處</strong><p>鏡頭向上約 30°，人物站在畫面下方形成剪影；關閉閃光燈並提高 ISO，避免反光與驚擾生物。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=しながわ水族館" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/minato-mirai.jpg" alt="橫濱港未來藍調夜景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Minato_Mirai_21" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>港未來</strong><span class="must-shot">必拍</span></div><ul><li>YOKOHAMA AIR CABIN</li><li>汽車道 Kishamichi</li><li>Cosmo Clock 21 摩天輪</li></ul><p class="photo-note">纜車、摩天輪與港灣天際線</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 19</span><strong>站位：汽車道「港一號橋梁」靠櫻木町側</strong><p>鏡頭朝東，把 AIR CABIN 纜車線當作引導線、摩天輪置於右側；藍調時刻水面倒影最明顯。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=汽車道+港一号橋梁" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/red-brick.jpg" alt="橫濱紅磚倉庫實景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Yokohama_Red_Brick_Warehouse" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>紅磚倉庫</strong><span class="must-shot">夜拍</span></div><ul><li>橫濱紅磚倉庫建築</li><li>紅磚公園海側</li><li>倉庫亮燈與港未來夜景</li></ul><p class="photo-note">紅磚建築與摩天輪同框</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 20</span><strong>站位：新港中央廣場草地北側</strong><p>鏡頭朝西南，可讓 2 號館紅磚立面與摩天輪同框；想拍完整港未來倒影，可再移動到萬國橋中央。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=新港中央広場+横浜赤レンガ倉庫" target="_blank" rel="noopener">點位</a></div></article>
+            </div>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">餐廳</h3>
+            <div class="reservation-list">
+              <article class="reservation">
+                <span class="reservation-time">午餐</span>
+                <div class="reservation-main"><strong>迴鮮壽司 鹽釜港 大井町TRACKS店</strong><span>東京都品川区広町2丁目1−21 OIMACHI TRACKS 4F</span></div>
+                <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=廻鮮寿司+塩釜港+大井町TRACKS店" target="_blank" rel="noopener">地圖</a>
+              </article>
+              <article class="reservation">
+                <span class="reservation-time">19:30</span>
+                <div class="reservation-main"><strong>LA COCORICO 橫濱紅磚倉庫店</strong><span>神奈川県横浜市中区新港1丁目1−1 赤レンガ倉庫2号館 1F</span></div>
+                <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=LA+COCORICO+横浜赤レンガ倉庫店" target="_blank" rel="noopener">地圖</a>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+      <span class="page-count">07 / 09</span>
+    </section>
+
+    <section class="slide day" id="day6" data-section="D6">
+      <div class="slide-inner day-layout">
+        <aside class="day-intro">
+          <span class="day-tag">DAY 06</span>
+          <h2>淺草、上野<br>與回程</h2>
+          <p class="date">8/21 · FRIDAY</p>
+          <p class="route"><b>動線</b><br>飯店退房、寄放行李 → 淺草寺、雷門 → 阿美橫町 → 回飯店領行李 → 京成上野 → 成田機場</p>
+          <img class="day-photo" src="images/day6-asakusa.png" alt="晨光中的淺草寺雷門與大燈籠" loading="lazy">
+        </aside>
+        <div>
+          <section class="content-block">
+            <h3 class="content-title">交通時間</h3>
+            <ul class="transport-list">
+              <li><span>上野 → 淺草</span><time>約 12 分鐘</time></li>
+              <li><span>淺草 → 上野</span><time>約 15 分鐘</time></li>
+              <li><span>京成上野 → 成田機場</span><time>約 60 分鐘</time></li>
+            </ul>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">地點與必拍景點</h3>
+            <div class="spot-grid">
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/asakusa.jpg" alt="淺草雷門與寺院街景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Asakusa" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>淺草</strong><span class="must-shot">必拍</span></div><ul><li>雷門與大燈籠</li><li>仲見世通</li><li>寶藏門、五重塔與淺草寺本堂</li></ul><p class="photo-note">早晨雷門與完整寺院軸線</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 21</span><strong>站位：雷門通、淺草文化觀光中心前人行區</strong><p>鏡頭朝北，以 35–50mm 拍完整雷門；建議 07:00 前抵達，再沿仲見世中軸往寶藏門拍對稱構圖。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=雷門+浅草文化観光センター前" target="_blank" rel="noopener">點位</a></div></article>
+              <article class="spot-card"><figure class="spot-media"><img src="images/spots/ameyoko.jpg" alt="上野阿美橫町市場街景" loading="lazy" decoding="async"><a class="photo-credit" href="https://en.wikipedia.org/wiki/Ameya-Yokoch%C5%8D" target="_blank" rel="noopener">Wikimedia ↗</a></figure><div class="spot-location"><strong>阿美橫町</strong><span class="must-shot">街拍</span></div><ul><li>阿美橫町入口招牌</li><li>市場商店街</li><li>高架鐵道下街景</li></ul><p class="photo-note">入口招牌與熱鬧市場人潮</p><div class="shoot-point"><span class="shoot-label">PHOTO POINT 22</span><strong>站位：上野側入口「アメ横」牌樓外人行區</strong><p>鏡頭朝南，使用 50–85mm 壓縮高架、招牌與人潮；避免停在通道中央，拍攝後再沿高架下補生活感街景。</p><a class="point-link" href="https://www.google.com/maps/search/?api=1&amp;query=アメ横+上野側入口" target="_blank" rel="noopener">點位</a></div></article>
+            </div>
+          </section>
+          <section class="content-block">
+            <h3 class="content-title">行李與航班</h3>
+            <div class="reservation-list">
+              <div class="fixed-event"><strong>退房後於 TOSEI HOTEL COCONE 上野寄放行李</strong><time>當日領取</time></div>
+              <div class="fixed-event"><strong>星宇航空 JX803｜成田機場 T2</strong><time>16:00</time></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <span class="page-count">08 / 09</span>
+    </section>
+
+    <section class="slide footer-slide" id="end" data-section="結尾">
+      <img class="footer-photo" src="images/tokyo-farewell.png" alt="夜間車站月台上帶著行李眺望城市的旅人" loading="lazy">
+      <div>
+        <p class="kicker">TOKYO · ENOSHIMA · ATAMI · YOKOHAMA</p>
+        <h2>旅程見。</h2>
+        <p>2026.08.16 — 08.21</p>
+        <div class="source-links" aria-label="景點資料來源">
+          <a href="https://www.gotokyo.org/en/" target="_blank" rel="noopener">GO TOKYO</a>
+          <a href="https://www.city.katsushika.lg.jp/faq/1030281/1007672/1009522.html" target="_blank" rel="noopener">葛飾區・こち亀銅像</a>
+          <a href="https://discover-fujisawa.jp/tw/" target="_blank" rel="noopener">Discover FUJISAWA</a>
+          <a href="https://www.ataminews.gr.jp/" target="_blank" rel="noopener">熱海市觀光協會</a>
+          <a href="https://www.yokohamajapan.com/en/" target="_blank" rel="noopener">Yokohama Official Visitors Guide</a>
+          <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">景點照片・Wikimedia Commons</a>
+        </div>
+      </div>
+      <span class="page-count">09 / 09</span>
+    </section>
+  </main>
+
+  <script>
+    const sections = [...document.querySelectorAll('[data-section]')];
+    const navLinks = [...document.querySelectorAll('.day-nav a')];
+
+    document.querySelector('[data-target="cover"]').addEventListener('click', () => {
+      document.getElementById('cover').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      const current = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!current) return;
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current.target.id);
+      });
+    }, { threshold: [0.42, 0.65] });
+    sections.forEach(section => observer.observe(section));
+
+    document.addEventListener('keydown', (event) => {
+      if (!['ArrowDown', 'ArrowRight', 'PageDown', 'ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) return;
+      event.preventDefault();
+      const currentIndex = sections.reduce((best, section, index) => {
+        return Math.abs(section.getBoundingClientRect().top) < Math.abs(sections[best].getBoundingClientRect().top) ? index : best;
+      }, 0);
+      const forward = ['ArrowDown', 'ArrowRight', 'PageDown'].includes(event.key);
+      const nextIndex = Math.max(0, Math.min(sections.length - 1, currentIndex + (forward ? 1 : -1)));
+      sections[nextIndex].scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

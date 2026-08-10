@@ -1,0 +1,14 @@
+# Codex and local workspace metadata
+.agents/
+.codex/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary and editor files
+*.tmp
+*.temp
+*.bak
+~$*
