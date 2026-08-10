@@ -740,4 +740,34 @@
       ['X 活動實況','歌舞伎町塔戶外舞台','公開貼文顯示塔前舞台會有免費或售票活動；熱門活動時廣場拍照點可能被舞台與排隊動線占用。','https://x.com/yumeneo_info/status/1982777286970773978','KABUKICHO TOWER STAGE']
     ]
   };
+
+  // 2026-08-10：餐飲實訪補充。摘要只用於判斷候位、份量與口味傾向，
+  // 菜單與營業資訊仍以餐廳官方公告為準。
+  addSocial('kochikame-statues', [
+    ['Yahoo 餐飲實訪','葛飾伊勢屋角色點心','使用者菜單照片與心得可用來確認角色和菓子外觀；限定包裝與庫存仍須到店確認。','https://map.yahoo.co.jp/v3/place/KKTkaF-hyVs?from_srv=loco_web','両さん商品は在庫を現地確認']
+  ]);
+  addSocial('kabukicho', [
+    ['Yahoo 餐飲實訪','KABUKI hall 多店共食','使用者菜單顯示拉麵、餃子與地方料理選擇很多，適合同行者各自點餐。','https://map.yahoo.co.jp/v3/place/kBkkKC_Fxac/menu','多地域の料理を一か所で']
+  ]);
+  addSocial('shichirigahama', [
+    ['Yahoo 2026 餐飲實訪','bills 海景與鬆餅等待','近期實訪多肯定海景與瑞可塔鬆餅，也有人提到鬆餅約等二十分鐘及價位偏高。','https://map.yahoo.co.jp/v3/place/_fBqolZRL3-/review','リコッタパンケーキ・海を眺める']
+  ]);
+  addSocial('enoshima', [
+    ['食べログ 2026 實訪','魚見亭露台與海鮮丼','近期實訪普遍肯定露台海景，也有個別評論認為海鮮丼性價比普通，適合把景觀納入選店考量。','https://tabelog.com/kanagawa/A1404/A140403/14000191/','テラス席からの景色']
+  ]);
+  addSocial('atami-fireworks', [
+    ['Hot Pepper 2026 實訪','囲炉茶屋乾物定食','近期用餐者稱讚乾物與厚實竹筴魚炸物；點市價金目鯛前宜先確認金額與等待時間。','https://www.hotpepper.jp/strJ000385751/report/','干物三種と厚いアジフライ']
+  ]);
+  addSocial('meiji-jingu', [
+    ['Reddit 2026 餐飲實訪','AFURI 原宿柚子系拉麵','近期公開分享喜歡明亮柑橘香與清爽湯頭；偏好濃厚豚骨者可能感受不同。','https://www.reddit.com/r/ramen/comments/1sna6m3g/afuri_harajuku_tokyo/','solid recommendation']
+  ]);
+  addSocial('shinagawa-aquarium', [
+    ['食べログ 2026 實訪','Dolphin Cafe 雲朵麵包','2026/4 實訪認為草莓果醬酸甜與鮮奶油平衡；戶外座位仍須考量天氣。','https://tabelog.com/tokyo/A1315/A131502/13272733/dtlrvwlst/B525253514/','にじいろ雲パンサンド']
+  ]);
+  addSocial('minatomirai', [
+    ['Hot Pepper 2026 實訪','Pie Holic 派吃到飽','近期實訪喜歡現烤派與季節口味，也有人認為地段價高且主餐加價後超過預算。','https://www.isize.com/hotpepper/Z012/J003624050/kuchikomi/','パイは次々提供']
+  ]);
+  addSocial('sensoji', [
+    ['食べログ 2026 實訪','淺草九重炸饅頭','2026/7 實訪提到文字燒口味的鹹香；現炸甜點仍以原味紅豆最容易判斷店家特色。','https://tabelog.com/tokyo/A1311/A131102/13003676/','もんじゃ揚げまんじゅう']
+  ]);
 })();

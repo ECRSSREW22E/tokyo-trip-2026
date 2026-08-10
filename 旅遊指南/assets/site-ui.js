@@ -34,6 +34,20 @@
     const sourceLink = [...dayNav.querySelectorAll('a')].find((link) => /\/sources\//.test(link.href));
     sourceLink ? sourceLink.before(themeLink) : dayNav.appendChild(themeLink);
   }
+  if (dayNav && ownScript && ![...dayNav.querySelectorAll('a')].some((link) => /\/restaurants\//.test(link.href))) {
+    const restaurantLink = doc.createElement('a');
+    restaurantLink.href = new URL('../restaurants/index.html', ownScript.src).href;
+    restaurantLink.textContent = '餐廳';
+    const dayMatch = location.pathname.match(/day([1-6])\.html/i);
+    if (dayMatch) restaurantLink.search = `?day=${dayMatch[1]}`;
+    if (location.pathname.includes('/restaurants/')) {
+      restaurantLink.classList.add('active');
+      restaurantLink.setAttribute('aria-current', 'page');
+    }
+    const themeLink = [...dayNav.querySelectorAll('a')].find((link) => /\/themes\//.test(link.href));
+    const sourceLink = [...dayNav.querySelectorAll('a')].find((link) => /\/sources\//.test(link.href));
+    (themeLink || sourceLink) ? (themeLink || sourceLink).before(restaurantLink) : dayNav.appendChild(restaurantLink);
+  }
   if (dayNav) {
     const navAnchor = doc.createComment('day navigation anchor');
     dayNav.after(navAnchor);
@@ -83,6 +97,7 @@
 
   const sceneForPage = () => {
     const path = decodeURIComponent(location.pathname).toLowerCase();
+    if (/restaurants/.test(path)) return 'shopping';
     if (/shopping/.test(path)) return 'shopping';
     if (/screen-locations|akihabara|kameari|kochikame/.test(path)) return 'screen';
     if (/enoshima|shichirigahama|atami|day3/.test(path)) return 'coast';
