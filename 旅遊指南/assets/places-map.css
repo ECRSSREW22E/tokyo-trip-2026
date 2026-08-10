@@ -1,15 +1,26 @@
-.chibi-stage { min-height: 650px; padding: 16px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg); background: linear-gradient(145deg, var(--sea-soft), var(--gold-soft)); box-shadow: var(--shadow); }
-.chibi-route { position: relative; min-height: 615px; overflow: hidden; border-radius: 24px; background-color: var(--card); background-image: radial-gradient(circle at 18% 22%, color-mix(in srgb, var(--sea) 13%, transparent) 0 11%, transparent 11.5%), radial-gradient(circle at 69% 28%, color-mix(in srgb, var(--gold) 14%, transparent) 0 13%, transparent 13.5%), radial-gradient(circle at 77% 77%, color-mix(in srgb, var(--sun) 12%, transparent) 0 16%, transparent 16.5%), linear-gradient(115deg, transparent 0 35%, color-mix(in srgb, var(--sea) 8%, transparent) 35.5% 37%, transparent 37.5% 64%, color-mix(in srgb, var(--gold) 10%, transparent) 64.5% 66%, transparent 66.5%); }
-.chibi-caption { position: absolute; z-index: 3; top: 16px; right: 18px; left: 18px; color: var(--muted); font-size: .74rem; font-weight: 750; letter-spacing: .04em; }
-.chibi-route::after { content: ""; position: absolute; left: 12%; right: 10%; top: 31%; height: 45%; border-top: 3px dashed color-mix(in srgb, var(--sea) 32%, transparent); border-bottom: 3px dashed color-mix(in srgb, var(--gold) 32%, transparent); border-radius: 45%; transform: rotate(8deg); pointer-events: none; }
-.chibi-zone { position: absolute; z-index: 1; padding: 5px 10px; border-radius: 999px; background: var(--ink); color: var(--paper); font-size: .72rem; letter-spacing: .05em; white-space: nowrap; transform: translateX(-50%); }
-.chibi-marker { position: absolute; z-index: 2; width: 44px; height: 44px; display: grid; justify-items: center; gap: 3px; margin: -22px 0 0 -22px; border: 4px solid var(--card); border-radius: 50%; background: var(--sea); color: #fff; box-shadow: 0 8px 22px rgba(18, 47, 61, .24); cursor: pointer; transition: transform .2s var(--ease), background .18s ease; }
-.chibi-marker.is-shop { background: var(--gold); }
-.chibi-marker.is-photo { background: var(--sun); }
-.chibi-marker:hover, .chibi-marker:focus-visible { z-index: 5; transform: scale(1.18); }
-.chibi-marker > span { width: 100%; height: 100%; display: grid; grid-template-columns: auto auto; place-items: center; gap: 2px; font-weight: 850; }
-.chibi-marker > span b { font-size: .56rem; }
-.chibi-marker > small { position: absolute; top: 44px; left: 50%; width: 118px; padding: 4px 7px; border: 1px solid var(--line); border-radius: 8px; background: color-mix(in srgb, var(--card) 94%, transparent); color: var(--ink); box-shadow: var(--shadow-sm); font-size: .69rem; font-weight: 750; line-height: 1.3; pointer-events: none; transform: translateX(-50%); }
+.chibi-stage { padding: 16px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg); background: linear-gradient(145deg, var(--sea-soft), var(--gold-soft)); box-shadow: var(--shadow); }
+.chibi-route { overflow: hidden; border: 1px solid var(--line); border-radius: 24px; background: color-mix(in srgb, var(--card) 94%, transparent); }
+.chibi-caption { display: flex; align-items: end; justify-content: space-between; gap: 16px; padding: 18px 20px 12px; }
+.chibi-caption strong { font-family: ui-serif, "Noto Serif TC", "Yu Mincho", Georgia, serif; font-size: 1.25rem; }
+.chibi-caption span { color: var(--muted); font-size: .76rem; }
+.chibi-zones { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(330px, 46%); gap: 14px; padding: 8px 20px 20px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline mandatory; scrollbar-width: thin; }
+.chibi-zone-card { position: relative; min-height: 360px; padding: 16px; border: 1px solid var(--line); border-radius: 20px; background: var(--card); scroll-snap-align: start; box-shadow: var(--shadow-sm); }
+.chibi-zone-card:not(:last-child)::after { content: "➜"; position: absolute; z-index: 2; top: 30px; right: -24px; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--paper); }
+.chibi-zone-card header { display: grid; grid-template-columns: 42px 1fr auto; gap: 11px; align-items: center; margin-bottom: 14px; }
+.chibi-zone-number { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px; background: var(--ink); color: var(--paper); font-weight: 850; }
+.chibi-zone-card header small { color: var(--muted); font-size: .62rem; letter-spacing: .1em; }
+.chibi-zone-card h3 { margin: 2px 0 0; font-size: 1.08rem; }
+.chibi-zone-card header > b { color: var(--sea); font-size: .74rem; }
+.chibi-point-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.chibi-point { min-width: 0; min-height: 62px; display: grid; grid-template-columns: 32px minmax(0, 1fr) 12px; gap: 9px; align-items: center; padding: 9px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); color: var(--ink); text-align: left; cursor: pointer; transition: transform .18s var(--ease), border-color .18s ease, background .18s ease; }
+.chibi-point:hover, .chibi-point:focus-visible { border-color: var(--sea); background: var(--sea-soft); transform: translateY(-2px); }
+.chibi-point-icon { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 11px; background: var(--sea); color: #fff; }
+.chibi-point.is-shop .chibi-point-icon { background: var(--gold); }
+.chibi-point.is-photo .chibi-point-icon { background: var(--sun); }
+.chibi-point b, .chibi-point small { display: block; overflow: hidden; text-overflow: ellipsis; }
+.chibi-point b { font-size: .76rem; line-height: 1.3; white-space: nowrap; }
+.chibi-point small { margin-top: 3px; color: var(--muted); font-size: .62rem; white-space: nowrap; }
+.chibi-point i { color: var(--muted); font-size: 1.1rem; font-style: normal; }
 .chibi-legend { display: flex; gap: 18px; flex-wrap: wrap; padding: 13px 6px 2px; color: var(--muted); font-size: .76rem; }
 .chibi-legend span:nth-child(1) { color: var(--sea); }
 .chibi-legend span:nth-child(2) { color: var(--gold); }
@@ -38,13 +49,13 @@
 .event-actions a:first-child { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 
 @media (max-width: 800px) {
-  .chibi-stage { min-height: 720px; padding: 10px; }
-  .chibi-route { min-height: 680px; }
-  .chibi-marker { width: 38px; height: 38px; margin: -19px 0 0 -19px; }
-  .chibi-marker > small { top: 38px; width: 86px; font-size: .62rem; }
-  .chibi-route::after { inset: 84px 6% 70px; }
+  .chibi-stage { padding: 9px; }
+  .chibi-caption { display: grid; gap: 3px; padding: 16px 14px 10px; }
+  .chibi-zones { grid-auto-columns: calc(100vw - 56px); padding: 8px 14px 16px; }
+  .chibi-zone-card { min-height: 0; }
+  .chibi-point-grid { grid-template-columns: 1fr; }
   .event-radar-head { grid-template-columns: 1fr; gap: 8px; }
   .event-cards { grid-template-columns: 1fr; }
   .event-card { min-height: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .chibi-marker { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .chibi-point { transition: none; } }
