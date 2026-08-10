@@ -647,6 +647,57 @@
     ['個人遊記','2026 品川水族館展示觀察','近期個人遊記特別留意人工物結合生物展示與海龜細節，可作為慢看重點。','https://seasawher.hatenadiary.jp/entry/2026/03/02/002338','人工物と一緒に見せる展示']
   ]);
 
+  // 2026-08-10：以日文關鍵字核對的近期公開實訪。保留摘要與原文連結，
+  // 讓人流、拍攝與停留時間建議能回饋到實際行程，不複製貼文全文。
+  addSocial('ueno-toshogu', [
+    ['note 近期實訪','上午九點人流較少','2026 年初的週六實訪在 09:00 後抵達時仍相對清靜，支持把唐門與石燈籠拍攝排在上午。','https://note.com/hanamuguri0611/n/n45e8da91ac8a','AM９時過ぎ・人はまばら']
+  ]);
+  addSocial('kochikame-statues', [
+    ['note 聖地巡禮','南口銅像起步最直覺','實訪由南口三人像開始，再前往伊勢屋與街區景點；適合依車站南北出口拆成兩段。','https://note.com/lush_zephyr406/n/nd0c29f726f10','聖地巡礼 vol.1 こち亀の街']
+  ]);
+  addSocial('sunshine-city', [
+    ['note 2026 實訪','NAMJATOWN 票種與體感','近期實訪認為入園票加單項付費適合只想逛場景者，想玩多項設施再比較一日券。','https://note.com/undergarden/n/n2851309a5032','半額の日に見てきた']
+  ]);
+  addSocial('akihabara', [
+    ['note 夏季實訪','熱門遊戲機台可能排隊','8 月實訪顯示遊戲中心與 Yodobashi 玩具樓層人流明顯，推し店應先排、逛街清單不要塞滿。','https://note.com/myogayt/n/ndfa199bdf33f','秋葉原に行ってきた']
+  ]);
+  addSocial('tokyo-tower', [
+    ['note 拍攝實訪','芝公園四號地是完整塔身視角','在地拍攝紀錄以芝公園四號地尋找正面塔景，夕暮至亮燈時段最適合安排新舊建築同框。','https://note.com/hachimitsu_tany/n/ne0fef598de77','東京タワーを観るスポットを探して']
+  ]);
+  addSocial('shichirigahama', [
+    ['note 2026 實訪','先海灘再吃 bills 早午餐','近期衝浪實訪在早晨海況活動後進 bills，窗邊能看海；熱門日仍建議先預約或提早候位。','https://note.com/whiterocky/n/n33d603cf1ab4','七里ヶ浜・billsから見た海']
+  ]);
+  addSocial('enoshima', [
+    ['note 2026 實訪','Sea Candle 後續走岩屋可行','實訪 15:00 離開 Sea Candle 後續走山二つ、見晴亭與岩屋，證明單向深走可行但需預留回程。','https://note.com/y3k_27/n/n2bfcefc2112a','江の島日帰り絶景旅']
+  ]);
+  addSocial('atami-fireworks', [
+    ['note 觀賞整理','親水公園端點可避開核心人流','公開經驗整理把親水公園海釣設施側列為較舒緩區域；仍應以 2026 官方分區與管制為準。','https://note.com/hanabisokuho04/n/n9a76f7c51815','親水公園の海釣り施設エリア']
+  ]);
+  addSocial('gotokuji', [
+    ['note 近期散策','小尺寸招福貓可能售罄','平日實訪仍遇到部分小尺寸招福貓缺貨，伴手禮不應列為一定買得到，參拜與拍照才是主行程。','https://note.com/namae_myoji/n/ned8adc3eda39','小さいサイズは売り切れ']
+  ]);
+  addSocial('meiji-jingu', [
+    ['note 夫妻實訪','南參道進入後體感明顯降溫','夏季實訪描述進入森林後較涼且安靜；可把御苑設為有餘裕才加入的支線。','https://note.com/pd_bloger/n/n3d82402bec7b','原宿の癒し穴場スポット']
+  ]);
+  addSocial('shibuya-sky', [
+    ['note 2026 實訪','臨時想去不一定訂得到','近期實訪需先協調時段才能訂票，支持把 SHIBUYA SKY 視為固定預約錨點，其餘澀谷景點前後調整。','https://note.com/violet_003173/n/n773e88cf95e4','意外と予約が取れない']
+  ]);
+  addSocial('hebikubo', [
+    ['note 平日實訪','朝一明顯比巳日舒適','2025 實訪於平日 08:50 抵達時人少；遇巳日或祭典則應另抓排隊緩衝。','https://note.com/canna_chun/n/nf6e2f6047dea','平日朝一番']
+  ]);
+  addSocial('shinagawa-aquarium', [
+    ['note 夏季實訪','真珠取出體驗宜上午先登記','夏休實訪建議上午先報名體驗，再以海豚秀與館內展示填補等待時間。','https://note.com/fine_hyssop7317/n/n748d1156808d','午前中に受付するのがおすすめ']
+  ]);
+  addSocial('minatomirai', [
+    ['note 2026 實訪','赤磚倉庫館內比外觀看起來更大','近期實訪由日本大通站步行，指出館內三層適合保留購物時間，並能順帶完成柯南場景打卡。','https://note.com/clear_lion4645/n/n84d213b66a8c','赤レンガ倉庫に行ってきた']
+  ]);
+  addSocial('sensoji', [
+    ['note 參拜實訪','先御朱印再本堂可避開一波隊伍','一月實訪先辦御朱印、待本堂稍空再參拜；旺季可依現場隊伍彈性調換支線順序。','https://note.com/otoha0522/n/n9f26b9d01b90','御本堂がちょっと空いてきた']
+  ]);
+  addSocial('tokyo-skytree', [
+    ['note 2026 實訪','展望台慢走約一小時可完成','親子實訪以約一小時完成展望台主要視角；若加入 450m 回廊與 Solamachi 購物需另加時間。','https://note.com/sano_mama2525/n/n339e4c67dae6','ゆっくり回っても1時間くらい']
+  ]);
+
   window.TRIP_SPOTS.kabukicho = {
     title: '新宿・歌舞伎町夜間散策',
     city: '東京都',
