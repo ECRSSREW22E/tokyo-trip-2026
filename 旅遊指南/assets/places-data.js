@@ -205,6 +205,29 @@
     spot.sources = [...spot.sources, ...extraSources].filter((item, index, all) => all.findIndex((candidate) => candidate[1] === item[1]) === index);
     spot.social = [...(spot.social || []), ...extraSocial].filter((item, index, all) => all.findIndex((candidate) => candidate[3] === item[3]) === index);
   };
+  const addSources = (id, items) => {
+    const spot = window.TRIP_SPOTS[id];
+    if (!spot) return;
+    spot.sources = [...spot.sources, ...items].filter((item, index, all) => all.findIndex((candidate) => candidate[1] === item[1]) === index);
+  };
+  const addSocial = (id, items) => {
+    const spot = window.TRIP_SPOTS[id];
+    if (!spot) return;
+    spot.social = [...(spot.social || []), ...items].filter((item, index, all) => all.findIndex((candidate) => candidate[3] === item[3]) === index);
+  };
+  const addPhotos = (id, items) => {
+    const spot = window.TRIP_SPOTS[id];
+    if (!spot) return;
+    spot.photos = [...spot.photos, ...items].filter((item, index, all) => all.findIndex((candidate) => candidate[0] === item[0]) === index);
+  };
+  const setPhotoMeta = (id, name, best, lat, lng) => {
+    const photo = window.TRIP_SPOTS[id]?.photos.find((item) => item[0] === name);
+    if (!photo) return;
+    photo[2] = `${lat},${lng}`;
+    photo[3] = best;
+    photo[4] = lat;
+    photo[5] = lng;
+  };
 
   enrich('sunshine-city', 2, '池袋', [
     ['Sunshine City 英文官方','https://sunshinecity.jp/en/','設施官方'],
@@ -484,6 +507,145 @@
     ['御徒町站北口','以站名與商店街入口作行程收尾。','35.70718,139.77472','15:15–15:30',35.70718,139.77472]
   ];
   window.TRIP_SPOTS.ameyoko.notice = '上野夏祭 2026 已於 8/11 結束，8/21 不要誤排。最後採買請先設定預算與行李重量上限，並預留回飯店領行李、到京成上野與 Skyliner 指定席的時間。';
+
+  addSources('ueno-toshogu', [
+    ['上野東照宮交通與地圖','https://www.uenotoshogu.com/access/','神社官方'],
+    ['上野東照宮拍攝與參拜 FAQ','https://www.uenotoshogu.com/contact/','神社官方'],
+    ['上野東照宮牡丹苑','https://uenobotanen.com/','景點官方'],
+    ['台東區上野觀光地圖 PDF','https://t-navi.city.taito.lg.jp/storage/pamphlet_pdf/20240430173115_Web%E4%B8%8A%E9%87%8E%E8%A6%B3%E5%85%89%E3%83%9E%E3%83%83%E3%83%97_%E6%97%A5%E6%9C%AC%E8%AA%9E%E7%89%88.pdf','地方官方'],
+    ['台東區綜合觀光指南 PDF','https://t-navi.city.taito.lg.jp/storage/pamphlet_pdf/20240606110019_%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%B7%8F%E5%90%88%E8%A6%B3%E5%85%89%E3%82%AC%E3%82%A4%E3%83%89%E3%83%96%E3%83%83%E3%82%AF.pdf','地方官方'],
+    ['上野動物園','https://www.tokyo-zoo.net/zoo/ueno/','設施官方'],
+    ['東京國立博物館','https://www.tnm.jp/','設施官方'],
+    ['國立西洋美術館','https://www.nmwa.go.jp/','設施官方'],
+    ['東京都美術館','https://www.tobikan.jp/','設施官方'],
+    ['京成上野站','https://www.keisei.co.jp/keisei/tetudou/accessj/keisei-ueno.php','交通官方']
+  ]);
+
+  addSources('kochikame-statues', [
+    ['こち亀記念館官方','https://kochikame-kinenkan-official.jp/','設施官方'],
+    ['こち亀記念館利用案內','https://kochikame-kinenkan-official.jp/usage-guide','設施官方'],
+    ['東京都觀光資訊站介紹','https://tokyotouristinfo.com/detail/M0613','地方官方'],
+    ['亀有中央商店街','https://www.kameari-chuo.net/','商店街官方'],
+    ['こち亀銅像集章路線','https://www.kameari-chuo.net/special/mk/km.html','商店街官方'],
+    ['こち亀商品與美食','https://www2.city.katsushika.lg.jp/tourism/1000064/1030204/1037609.html','地方官方'],
+    ['JR 亀有站構內與無障礙','https://www.jreast.co.jp/estation/stations/507.html','交通官方'],
+    ['亀有香取神社交通','https://kameari-katori.or.jp/access/','神社官方'],
+    ['こち亀遊戲館','https://kameari.ario.jp/shop/1300000041/','商場官方'],
+    ['葛飾觀光協會亀有公園','https://katsushika-kanko.jp/kame-ao/004kamearikouen.html','地方官方']
+  ]);
+
+  addSources('odaiba', [
+    ['海上公園官方台場海濱公園','https://www.tptc.co.jp/park/01_02','地方官方'],
+    ['實物大獨角獸鋼彈','https://www.unicorn-gundam-statue.jp/','設施官方'],
+    ['THE GUNDAM BASE TOKYO','https://www.gundam-base.net/','商店官方'],
+    ['東京 JOYPOLIS','https://tokyo-joypolis.com/','設施官方'],
+    ['日本科學未來館','https://www.miraikan.jst.go.jp/','設施官方'],
+    ['SMALL WORLDS','https://smallworlds.jp/','設施官方'],
+    ['東京御台場觀光指南','https://www.tokyo-odaiba.net/','地方官方'],
+    ['御台場步行指南 PDF','https://www.tokyo-odaiba.net/wordpress/wp-content/themes/odaiba_2018/assets/images/arukikata/arukikata_2024.pdf','地方官方'],
+    ['東京國際郵輪碼頭','https://www.tptc.co.jp/terminal/guide/cruise','交通官方'],
+    ['水上巴士台場海濱公園','https://www.suijobus.co.jp/','交通官方']
+  ]);
+
+  addSources('tokyo-skytree', [
+    ['晴空塔票價','https://www.tokyo-skytree.jp/ticket/','設施官方'],
+    ['晴空塔交通','https://www.tokyo-skytree.jp/access/','交通官方'],
+    ['晴空塔樓層指南','https://www.tokyo-skytree.jp/floor/','設施官方'],
+    ['晴空塔活動','https://www.tokyo-skytree.jp/event/','設施官方'],
+    ['晴空塔營業時間','https://www.tokyo-skytree.jp/open-hours/','設施官方'],
+    ['墨田水族館','https://www.sumida-aquarium.com/','設施官方'],
+    ['柯尼卡美能達星象館天空','https://planetarium.konicaminolta.jp/tenku/','設施官方'],
+    ['郵政博物館','https://www.postalmuseum.jp/','設施官方'],
+    ['東武東京晴空塔站','https://www.tobu.co.jp/railway/guide/station/info/1402/','交通官方'],
+    ['押上站東京 Metro','https://www.tokyometro.jp/station/oshiage/','交通官方']
+  ]);
+
+  addPhotos('ueno-toshogu', [
+    ['大石鳥居','從參道入口稍偏右拍鳥居與石燈籠深度。','35.71510,139.77161','10:00–10:10',35.71510,139.77161],
+    ['銅燈籠列','以中焦段壓縮燈籠層次，不站在參拜主線中央。','35.71537,139.77179','10:05–10:15',35.71537,139.77179],
+    ['神樂殿','從參道側拍屋頂曲線與前景燈籠。','35.71541,139.77190','10:10–10:20',35.71541,139.77190],
+    ['透塀細部','近拍金箔、透雕與色彩，避免使用閃光。','35.71561,139.77183','10:15–10:25',35.71561,139.77183],
+    ['御神木與靜心所','使用直幅保留樹冠與參拜者比例。','35.71569,139.77190','10:20–10:30',35.71569,139.77190],
+    ['牡丹苑入口','八月非花季，以入口牌示與參道作紀錄即可。','35.71482,139.77170','10:25–10:30',35.71482,139.77170],
+    ['參道回望','回程朝公園方向拍石燈籠形成的對稱線。','35.71519,139.77162','10:25–10:35',35.71519,139.77162]
+  ]);
+  addPhotos('kochikame-statues', [
+    ['北口歡迎兩津像','由北口廣場側拍站名與銅像，保留行人動線。','35.76672,139.84762','12:00–12:10',35.76672,139.84762],
+    ['南口歡迎兩津像','在南口圓環內側取景，避免靠近車道。','35.76519,139.84806','12:15–12:25',35.76519,139.84806],
+    ['敬禮兩津像','用眼平視角拍角色動作與商店街背景。','35.76501,139.84865','12:20–12:30',35.76501,139.84865],
+    ['麗子像','使用直幅並讓周邊店舖招牌成為街區線索。','35.76479,139.84908','12:25–12:35',35.76479,139.84908],
+    ['中川像','稍微降低視角，避免人物與後方招牌重疊。','35.76455,139.84942','12:30–12:40',35.76455,139.84942],
+    ['少年兩津像','適合人物蹲低與銅像同高合照。','35.76424,139.84977','12:35–12:45',35.76424,139.84977],
+    ['香取神社狛龜','從鳥居內側拍狛龜與參道，先完成參拜。','35.76390,139.85059','13:40–13:55',35.76390,139.85059]
+  ]);
+  addPhotos('odaiba', [
+    ['DiverCity Festival Plaza','從廣場外圈納入完整鋼彈與建築尺度。','35.62505,139.77528','16:35–16:50',35.62505,139.77528],
+    ['AQUA CiTY 西側露台','面向彩虹大橋拍東京灣全景。','35.62782,139.77245','17:25–17:45',35.62782,139.77245],
+    ['台場海濱公園沙灘','沿岸線斜拍沙灘、橋梁與城市天際線。','35.62955,139.77263','17:45–18:10',35.62955,139.77263],
+    ['LOVE 台場裝置','站在裝置正面稍低角度拍字樣與天空。','35.62695,139.77305','17:15–17:30',35.62695,139.77305],
+    ['富士電視台球體展望室外觀','由海側廣場仰拍球體與階梯。','35.62678,139.77412','17:05–17:20',35.62678,139.77412],
+    ['Decks 海濱甲板西端','藍調時刻用欄杆引導線拍彩虹大橋。','35.62924,139.77442','18:15–18:35',35.62924,139.77442],
+    ['女神像背面平台','從雕像後方把人物、雕像與橋面疊在同一軸線。','35.62773,139.77165','17:50–18:10',35.62773,139.77165]
+  ]);
+  addPhotos('tokyo-skytree', [
+    ['十間橋中央','貼近人行側以河面倒影拍完整塔身。','35.70858,139.81509','16:30–17:00',35.70858,139.81509],
+    ['西十間橋','用河道欄杆引導視線至塔身。','35.70901,139.81195','16:15–16:40',35.70901,139.81195],
+    ['押上站 B3 出口','從街角仰拍塔身與站口資訊。','35.71010,139.81333','15:30–15:45',35.71010,139.81333],
+    ['晴空塔城 4F Sky Arena','廣角仰拍塔基鋼構與人物比例。','35.71042,139.81081','15:45–16:05',35.71042,139.81081],
+    ['天望甲板 Floor 350','貼近玻璃遮光，先找隅田川與淺草方向。','35.71006,139.81070','17:00–17:25',35.71006,139.81070],
+    ['天望回廊 Floor 450','沿螺旋坡道拍高度變化，避免拍到他人正面。','35.71006,139.81070','17:25–17:45',35.71006,139.81070],
+    ['玻璃地板','將鏡頭貼近地面向下拍，握緊手機。','35.71006,139.81070','17:45–17:55',35.71006,139.81070],
+    ['枕橋','傍晚由淺草側拍東武列車、河道與塔身。','35.71155,139.80437','18:00–18:25',35.71155,139.80437],
+    ['隅田公園櫻橋方向','以樹木作前景，藍調時刻拍亮燈塔身。','35.71424,139.80394','18:20–18:45',35.71424,139.80394]
+  ]);
+  [
+    ['ueno-toshogu','石燈籠參道','10:05–10:15',35.71537,139.77179],
+    ['ueno-toshogu','唐門正面','10:15–10:25',35.71557,139.77186],
+    ['ueno-toshogu','五重塔方向','10:20–10:30',35.71569,139.77095],
+    ['kochikame-statues','北口兩津像','12:00–12:10',35.76671,139.84763],
+    ['kochikame-statues','南口祭典像','12:15–12:25',35.76517,139.84808],
+    ['kochikame-statues','商店街角色群','12:25–12:40',35.76478,139.84916],
+    ['odaiba','鋼彈廣場','16:40–17:10',35.62513,139.77537],
+    ['odaiba','自由女神平台','17:45–18:15',35.62782,139.77148],
+    ['odaiba','Decks 海側','18:20–18:45',35.62917,139.77518],
+    ['tokyo-skytree','北十間川方向','16:30–17:00',35.70858,139.81509],
+    ['tokyo-skytree','Solamachi 外圍廣場','15:45–16:05',35.71042,139.81081],
+    ['tokyo-skytree','天望甲板','17:00–17:25',35.71006,139.81070],
+    ['tokyo-skytree','隅田公園','18:20–18:45',35.71424,139.80394]
+  ].forEach((item) => setPhotoMeta(...item));
+
+  addSocial('ueno-toshogu', [
+    ['YouTube 實訪','上野公園散步順訪東照宮','公開散步影片由韻松亭一路走到上野東照宮，可觀察參道距離與現場步行節奏。','https://www.youtube.com/watch?v=HnnOxslbV18','上野東照宮へ参拝してきました'],
+    ['YouTube 紀錄','正式參拜與境內樣貌','德川紀念財團的公開紀錄可核對金色殿、境內空間與參拜氣氛。','https://www.youtube.com/watch?v=O8hCfuGmoD0','変わらない姿を拝むことができます']
+  ]);
+  addSocial('kochikame-statues', [
+    ['YouTube Vlog','こち亀記念館與銅像集章','公開街走影片完成記念館與集章路線，適合預估館外銅像巡禮所需時間。','https://www.youtube.com/watch?v=akDFbnxYme0','街全体が作品とともに歩んできた'],
+    ['YouTube 實訪','記念館與香取神社無障礙視角','公開實訪同時走訪記念館與香取神社，並補充輪椅動線觀察。','https://www.youtube.com/watch?v=wMisRWz_awg','バリアフリー情報も満載']
+  ]);
+  addSocial('odaiba', [
+    ['Lemon8 實訪','夜間獨角獸鋼彈拍攝','實訪建議抵達後先確認變身演出告示，夜間可把鋼彈與台場燈光安排在同一路線。','https://www.lemon8-app.com/%40user5316115471502/7554231461998592523?region=jp','到着したらまず案内板をチェック'],
+    ['Reddit 實訪','台場夕陽後的彩虹大橋','公開旅客貼文提到日落後能看見彩虹大橋與東京鐵塔亮燈，支持把海濱安排在黃昏。','https://www.reddit.com/r/lowlevelaware/comments/1fpscse','夕阳之后能看到彩虹桥']
+  ]);
+  addSocial('tokyo-skytree', [
+    ['note 實訪','展望台方向辨識與鐵道路線','2025 個人旅行照片紀錄指出從高處辨識放射狀鐵道很有趣，可作為展望台找景物的提示。','https://note.com/gentle_tern358/n/nd913dd322a53','線路が分かれている所を見る'],
+    ['note 實訪','展望台與回廊照片紀錄','公開照片實訪整理從塔下、電梯到 350m 與 450m 的視角，可先理解兩層展望差異。','https://note.com/akmima7/n/nb1d7a721c0c4','天空のパノラマ']
+  ]);
+  addSocial('ameyoko', [
+    ['Reddit 實訪','阿美橫町像主題樂園般熱鬧','公開旅客貼文記錄逛中田商店與購買紀念服飾的互動，顯示商店街適合邊走邊比較。','https://www.reddit.com/r/lowlevelaware/comments/1pxlcej/','テーマパークに来たみたい'],
+    ['Ameblo 實訪','阿美橫町地下街文化混合','公開實訪提到地下街語言與商品文化多元；若進地下層應留意環境與個人財物。','https://ameblo.jp/sekaino-world-0714/entry-12952581608.html','外国語が飛び交い']
+  ]);
+  addSocial('gotokuji', [
+    ['note 實訪','招福貓右手與無小判特色','近期個人實訪整理招福貓造型差異，適合作為奉納所近拍時的觀察重點。','https://note.com/kt_west/n/n2c1743df12d1','小判を持ってない'],
+    ['ことりっぷ投稿','使用者的豪德寺貓散步','公開使用者投稿以貓主題街區與招福貓作記錄，適合搭配商店街順走。','https://co-trip.jp/post/662302','お金を持たず右手を上げて縁を招く']
+  ]);
+  addSocial('meiji-jingu', [
+    ['ホトカミ投稿','慢走參拜比只在初詣到訪舒適','個人參拜投稿提到避開初詣人潮後慢慢走更能感受森林與參道。','https://hotokami.jp/area/tokyo/Hkrtp/Hkrtptk/Dztam/143882/23075/','ゆっくり参拝するととても気持ちよかった'],
+    ['note 實訪','親子由原宿進入明治神宮','公開個人投稿記錄週日親子參拜，可作為一般假日人流情境參考。','https://note.com/yuki_no_ko/n/n65ee3454f2bb','息子と共に参拝']
+  ]);
+  addSocial('shinagawa-aquarium', [
+    ['攝影實訪','暗水槽適合高感光拍攝','個人攝影實訪指出水族館光線偏暗，拍攝前宜關閉閃光並調高感光度。','https://www.yozoutsutsu.com/%CE%B17siii-shinasui','暗い水槽でもかなり綺麗に撮れる'],
+    ['個人遊記','2026 品川水族館展示觀察','近期個人遊記特別留意人工物結合生物展示與海龜細節，可作為慢看重點。','https://seasawher.hatenadiary.jp/entry/2026/03/02/002338','人工物と一緒に見せる展示']
+  ]);
 
   window.TRIP_SPOTS.kabukicho = {
     title: '新宿・歌舞伎町夜間散策',

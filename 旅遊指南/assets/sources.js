@@ -10,6 +10,21 @@
   if (intro) intro.textContent = '資料管理目標為每個地點 20 個官方／交通／旅遊來源與 20 則可核對的社群實訪；頁面會依目前實際完成數量即時顯示。公開貼文只保留摘要與原始連結，活動、票價及營業時間仍須在出發前重新確認。';
   const cities = [...new Set(spots.map((spot) => spot.city))];
   const days = [...new Set(spots.flatMap((spot) => spot.day.split('／')))];
+  const targetPerSpot = 20;
+  const targetTotal = spots.length * targetPerSpot;
+  const formalTotal = spots.reduce((total, spot) => total + spot.sources.length, 0);
+  const socialTotal = spots.reduce((total, spot) => total + (spot.social || []).length, 0);
+  const formalReady = spots.filter((spot) => spot.sources.length >= targetPerSpot).length;
+  const socialReady = spots.filter((spot) => (spot.social || []).length >= targetPerSpot).length;
+
+  const stats = document.createElement('section');
+  stats.className = 'source-stats';
+  stats.setAttribute('aria-label', '資料完成度');
+  stats.innerHTML = `
+    <article class="source-stat"><small>景點資料頁</small><strong>${spots.length} 個</strong><span>全部已建立獨立頁面</span></article>
+    <article class="source-stat"><small>正式來源完成度</small><strong>${formalTotal} 個</strong><span>${formalReady}／${spots.length} 頁達到 20 筆</span><progress max="${spots.length}" value="${formalReady}" aria-label="正式來源頁面完成度"></progress></article>
+    <article class="source-stat is-social"><small>可信社群實訪完成度</small><strong>${socialTotal}／${targetTotal}</strong><span>${socialReady}／${spots.length} 頁達到 20 筆</span><progress max="${targetTotal}" value="${socialTotal}" aria-label="社群實訪完成度"></progress></article>`;
+  controls.before(stats);
 
   controls.innerHTML = `
     <label>搜尋景點或來源
@@ -62,7 +77,7 @@
       return `
         <details class="panel source-group">
           <summary>
-            <strong>${spot.title}</strong>
+            <strong>${spot.title}<span class="source-coverage ${social.length >= targetPerSpot ? 'is-complete' : ''}">社群 ${social.length}／${targetPerSpot}</span></strong>
             <span>${spot.day} · ${spot.city} · ${spot.sources.length} 個正式來源 · ${social.length} 則社群實訪</span>
           </summary>
           <section class="formal-source-section" aria-label="${spot.title}正式資料來源">
