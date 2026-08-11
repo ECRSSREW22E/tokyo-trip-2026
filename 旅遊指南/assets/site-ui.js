@@ -48,6 +48,17 @@
     const sourceLink = [...dayNav.querySelectorAll('a')].find((link) => /\/sources\//.test(link.href));
     (themeLink || sourceLink) ? (themeLink || sourceLink).before(restaurantLink) : dayNav.appendChild(restaurantLink);
   }
+  if (dayNav && ownScript && ![...dayNav.querySelectorAll('a')].some((link) => /\/rain-plan\.html/.test(link.href))) {
+    const rainLink = doc.createElement('a');
+    rainLink.href = new URL('../rain-plan.html', ownScript.src).href;
+    rainLink.textContent = '雨天';
+    if (/\/rain-plan\.html$/i.test(location.pathname)) {
+      rainLink.classList.add('active');
+      rainLink.setAttribute('aria-current', 'page');
+    }
+    const destinationLink = [...dayNav.querySelectorAll('a')].find((link) => /\/destinations\//.test(link.href));
+    destinationLink ? destinationLink.before(rainLink) : dayNav.appendChild(rainLink);
+  }
   if (dayNav) {
     const navAnchor = doc.createComment('day navigation anchor');
     dayNav.after(navAnchor);
@@ -97,6 +108,7 @@
 
   const sceneForPage = () => {
     const path = decodeURIComponent(location.pathname).toLowerCase();
+    if (/rain-plan/.test(path)) return 'coast';
     if (/restaurants/.test(path)) return 'shopping';
     if (/shopping/.test(path)) return 'shopping';
     if (/screen-locations|akihabara|kameari|kochikame/.test(path)) return 'screen';
@@ -187,5 +199,27 @@
   });
   doc.querySelectorAll('a[target="_blank"]').forEach((link) => {
     if (!link.rel.includes('noopener')) link.rel = `${link.rel} noopener`.trim();
+  });
+
+  const revealTargets = doc.querySelectorAll('.section-head, .day-card, .branch-card, .panel, .rain-day, .restaurant-card, .local-food-card, .source-group');
+  if (!reduceMotion.matches && 'IntersectionObserver' in window) {
+    revealTargets.forEach((node) => node.classList.add('reveal-ready'));
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+    revealTargets.forEach((node) => revealObserver.observe(node));
+  }
+
+  doc.addEventListener('click', (event) => {
+    if (reduceMotion.matches || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest('a[href]');
+    if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || (url.pathname === location.pathname && url.hash)) return;
+    doc.body.classList.add('page-leaving');
   });
 })();

@@ -770,4 +770,26 @@
   addSocial('sensoji', [
     ['食べログ 2026 實訪','淺草九重炸饅頭','2026/7 實訪提到文字燒口味的鹹香；現炸甜點仍以原味紅豆最容易判斷店家特色。','https://tabelog.com/tokyo/A1311/A131102/13003676/','もんじゃ揚げまんじゅう']
   ]);
+
+  // Rain Plan v9：只收錄會影響天候決策的設施與地方官方來源。
+  addSources('atami-fireworks', [
+    ['熱海海上花火大會：2026 日期、時間與雨天決行','https://www.ataminews.gr.jp/event/8','地方觀光官方'],
+    ['熱海花火 2026 追加場次公告','https://www.ataminews.gr.jp/notices/414','地方觀光官方']
+  ]);
+  addSources('enoshima', [
+    ['新江之島水族館：2026 營業時間與最後入場','https://www.enosui.com/basicinfo.php','設施官方'],
+    ['新江之島水族館：鐵路與步行交通','https://www.enosui.com/access.php','設施官方']
+  ]);
+  addSources('sunshine-city', [
+    ['Sunshine City 官方營業時間與館內設施','https://sunshinecity.jp/information/opening_hour.html','設施官方'],
+    ['Sunshine City 2026 夏季室內活動','https://sunshinecity.jp/file/official/summer/','設施官方']
+  ]);
+  addSources('shibuya-sky', [
+    ['SHIBUYA SKY 當日 ROOFTOP／INDOOR 狀態','https://www.shibuya-scramble-square.com/sky/','設施官方'],
+    ['SHIBUYA SKY 天候與票券 FAQ','https://www.shibuya-scramble-square.com/sky/faq/','設施官方']
+  ]);
+  addSources('minatomirai', [
+    ['YOKOHAMA AIR CABIN 運行資訊','https://yokohama-air-cabin.jp/','交通設施官方'],
+    ['橫濱紅磚倉庫營業與館內店舖','https://www.yokohama-akarenga.jp/','設施官方']
+  ]);
 })();

@@ -3,28 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="東京六天五夜每日餐廳指南：已選餐廳的菜單、推薦菜色、價格與各區代表美食。">
-  <title>每日餐廳指南｜東京 2026</title>
-  <link rel="stylesheet" href="../style.css?v=8">
-  <link rel="stylesheet" href="../assets/restaurants.css?v=8">
+  <meta name="description" content="依原始 Word 行程整理的東京六日餐廳：已預約、現場候位備案與地方美食分層呈現。">
+  <title>餐桌筆記｜東京 2026</title>
+  <link rel="stylesheet" href="../style.css?v=9">
+  <link rel="stylesheet" href="../assets/restaurants.css?v=9">
 </head>
-<body>
-  <header class="topbar"><div class="shell nav"><a class="brand" href="../index.html">TOKYO 2026</a><nav class="day-nav" aria-label="主要導覽"><a href="../day1.html">D1</a><a href="../day2.html">D2</a><a href="../day3.html">D3</a><a href="../day4.html">D4</a><a href="../day5.html">D5</a><a href="../day6.html">D6</a><a href="../destinations/index.html">地點</a><a class="active" href="index.html">餐廳</a><a href="../themes/index.html">主題</a><a href="../sources/index.html">來源</a><a href="../checklist/index.html">清單</a></nav></div></header>
+<body class="food-page">
+  <header class="topbar"><div class="shell nav"><a class="brand" href="../index.html"><span>TOKYO</span><small>SUMMER 2026</small></a><nav class="day-nav" aria-label="主要導覽"><a href="../day1.html">D1</a><a href="../day2.html">D2</a><a href="../day3.html">D3</a><a href="../day4.html">D4</a><a href="../day5.html">D5</a><a href="../day6.html">D6</a><a href="../rain-plan.html">雨天</a><a class="active" href="index.html">餐廳</a><a href="../themes/index.html">主題</a><a href="../sources/index.html">來源</a></nav></div></header>
   <main id="restaurant-main">
-    <section class="food-hero"><div class="shell food-hero-grid"><div><div class="eyebrow">DAILY MENU COMPANION</div><h1>餐廳已選好，<br>現在決定吃什麼</h1><p>只整理這趟已選 14 間餐廳的現行菜單、推薦點法與日圓價格；下方另附六天各區代表美食，方便現場加吃。</p><div class="food-stats"><span><b>14</b> 間已選餐廳</span><span><b>21</b> 款地方味</span><span><b>2026.08.10</b> 查核</span></div></div><aside class="food-note"><small>HOW TO USE</small><h2>先選日期，再決定菜色</h2><ol><li>用日期篩選當天餐廳</li><li>比較菜名、價格與「這次怎麼點」</li><li>出發前重開官方菜單確認季節價</li></ol></aside></div></section>
+    <section class="food-hero"><div class="shell food-hero-grid"><div><div class="eyebrow">TABLE NOTES / 16—21 AUGUST</div><h1>沿著行程，<br>把每一餐放回正確的位置。</h1><p>正式安排只以《日本行》原始行程為準。已預約、原行程現場候位、備案餐廳與自由加吃各自分層，不再用網路人氣取代真正的用餐計畫。</p><div class="food-stats"><span><b>6</b> 原行程已預約</span><span><b>3</b> 原行程現場入店</span><span><b>18</b> 沿線備案</span></div></div><aside class="food-note"><small>STATUS GUIDE</small><dl><div><dt>RESERVED</dt><dd>已有明確訂位或安排</dd></div><div><dt>WALK-IN CANDIDATE</dt><dd>原行程或備案，仍需現場候位</dd></div><div><dt>OPTIONAL FOOD</dt><dd>自由選擇，不代表既定正餐</dd></div></dl></aside></div></section>
     <section class="section food-section"><div class="shell">
       <div class="food-toolbar" aria-label="餐廳篩選"><div class="day-filter" id="day-filter" role="group" aria-label="依日期篩選"></div><label class="food-search"><span class="sr-only">搜尋餐廳或菜色</span><input id="food-search" type="search" placeholder="搜尋餐廳、地區或菜色…" autocomplete="off"></label></div>
-      <div class="food-legend"><span><i class="dot dot-official"></i>官方／店家菜單</span><span>價格皆為日圓・「約／依現場」代表未能取得固定官方價</span></div>
+      <div class="food-tier-filter" id="food-tier-filter" role="group" aria-label="依安排類型篩選"></div>
       <p class="food-result" id="food-result" aria-live="polite"></p>
       <div class="restaurant-grid" id="restaurant-grid"></div>
-      <div class="food-empty" id="food-empty" hidden><strong>沒有符合的餐廳</strong><p>請改用地區、餐廳名稱或菜色關鍵字。</p></div>
-      <aside class="verification-note"><h2>關於「當日菜單」</h2><p>本頁顯示截至 2026/8/10 可查到的最新官方或店家菜單快照，不代表 8/16–8/21 一定供應。生白吻仔魚、季節甜點、限定飲品與市價海鮮容易受漁況、天候及庫存影響；出發前請再次點開官方菜單。</p></aside>
+      <div class="food-empty" id="food-empty" hidden><strong>沒有符合的餐廳</strong><p>請改用日期、安排類型或其他關鍵字。</p></div>
+      <aside class="verification-note"><h2>價格與候位提醒</h2><p>菜單價格為 2026 年可查到的官方或店家公開快照；季節菜、現場牌價與食材供應仍可能變動。WALK-IN CANDIDATE 只表示可考慮現場詢問，絕不代表保證入店或免排隊。</p></aside>
     </div></section>
-    <section class="section local-food-section"><div class="shell"><div class="section-head"><div><div class="eyebrow">LOCAL FLAVOR ATLAS</div><h2>六天各區必吃與代表美食</h2></div><p class="section-note">「在地代表／發祥料理」有地方官方或店家資料支持；「商圈代表／順路人氣」則是符合當區動線的熱門吃法，兩者分開標示。</p></div><div class="local-food-grid" id="local-food-grid"></div>
-    </div></section>
+    <section class="section local-food-section"><div class="shell"><div class="section-head"><div><div class="eyebrow">OPTIONAL FOOD</div><h2>各區代表味，留給有空間的胃。</h2></div><p class="section-note">這些是地方美食與順路加吃，不會被標示成當日既定午餐或晚餐。</p></div><div class="local-food-grid" id="local-food-grid"></div></div></section>
   </main>
-  <footer class="footer"><div class="shell">東京六天五夜旅行指南 · 餐廳資料查核 2026/8/10</div></footer>
-  <script src="../assets/restaurants.js?v=8"></script>
-  <script src="../assets/site-ui.js?v=8"></script>
+  <footer class="footer"><div class="shell">餐廳安排依《日本行》原始行程 · 價格與營業資訊請於出發前再確認</div></footer>
+  <script src="../assets/restaurants.js?v=9"></script>
+  <script src="../assets/site-ui.js?v=9"></script>
 </body>
 </html>

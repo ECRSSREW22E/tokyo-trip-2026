@@ -1,5 +1,5 @@
 (()=>{
-const styleHref=new URL('places-map.css?v=8',document.currentScript.src).href;if(!document.querySelector(`link[href="${styleHref}"]`)){const l=document.createElement('link');l.rel='stylesheet';l.href=styleHref;document.head.appendChild(l)}
+const styleHref=new URL('places-map.css?v=9',document.currentScript.src).href;if(!document.querySelector(`link[href="${styleHref}"]`)){const l=document.createElement('link');l.rel='stylesheet';l.href=styleHref;document.head.appendChild(l)}
 const S=(n,mode,mins,stay,note,map,href='')=>({n,mode,mins,stay,note,map,href});
 const routes={
 1:{title:'龜有・台場・新宿',google:'https://www.google.com/maps/dir/?api=1&origin=上野駅&destination=上野駅&waypoints=上野東照宮|亀有駅|お台場海浜公園|新宿駅',stops:[

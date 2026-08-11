@@ -1,0 +1,60 @@
+.rain-hero { padding:clamp(120px,15vw,190px) 0 90px; border-bottom:1px solid var(--line); }
+.rain-hero-grid { display:grid; grid-template-columns:minmax(0,.85fr) minmax(380px,1.15fr); gap:clamp(40px,8vw,110px); align-items:end; }
+.rain-hero h1 { margin:.2em 0 .35em; font-size:clamp(3rem,7vw,7rem); line-height:1; }
+.rain-hero p { max-width:580px; color:var(--ink-soft); line-height:1.9; }
+.rain-hero figure { margin:0; }
+.rain-hero img { width:100%; aspect-ratio:4/3; object-fit:cover; filter:saturate(.55) contrast(.92); }
+.rain-hero figcaption { margin-top:10px; color:var(--muted); font-size:.68rem; letter-spacing:.1em; }
+.decision-section { padding:80px 0 100px; border-bottom:1px solid var(--line); }
+.decision-intro { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:end; }
+.decision-intro h2 { margin:.2em 0 0; font-size:clamp(2rem,4vw,4rem); }
+.decision-intro p { max-width:500px; margin:0; color:var(--muted); line-height:1.8; }
+.weather-selector { display:grid; grid-template-columns:repeat(4,1fr); margin-top:48px; border:1px solid var(--line); }
+.weather-selector button { min-height:170px; padding:22px; border:0; border-right:1px solid var(--line); background:var(--card); color:var(--ink); text-align:left; cursor:pointer; transition:background .45s,color .45s; }
+.weather-selector button:last-child { border-right:0; }
+.weather-selector button small,.weather-selector button span { display:block; color:var(--muted); }
+.weather-selector button small { margin-bottom:30px; font-family:var(--editorial-serif); }
+.weather-selector button strong { display:block; margin-bottom:8px; font-size:.78rem; letter-spacing:.12em; }
+.weather-selector button span { font-size:.78rem; line-height:1.5; }
+.weather-selector button[aria-pressed="true"] { background:var(--ink); color:var(--paper); }
+.weather-selector button[aria-pressed="true"] small,.weather-selector button[aria-pressed="true"] span { color:color-mix(in srgb,var(--paper) 66%,transparent); }
+.weather-readout { display:grid; grid-template-columns:180px 240px 1fr; gap:24px; align-items:baseline; padding:24px 0; border-bottom:1px solid var(--line); }
+.weather-readout span { color:var(--muted); font-size:.65rem; letter-spacing:.16em; }
+.weather-readout strong { font-family:var(--editorial-serif); font-size:1.35rem; }
+.weather-readout p { margin:0; color:var(--ink-soft); }
+.rain-days { padding:clamp(80px,10vw,140px) 0; }
+.rain-day { margin-bottom:clamp(90px,12vw,170px); scroll-margin-top:90px; }
+.rain-day>header { display:grid; grid-template-columns:1fr minmax(280px,.75fr); gap:40px; align-items:end; padding-bottom:24px; border-bottom:1px solid var(--ink); }
+.rain-day>header small { color:var(--sea); letter-spacing:.18em; }
+.rain-day>header h2 { max-width:760px; margin:.2em 0 0; font-size:clamp(2.1rem,4.6vw,4.8rem); line-height:1.05; }
+.rain-day>header img { width:100%; aspect-ratio:16/8; object-fit:cover; filter:saturate(.52); }
+.keep-strip { display:flex; flex-wrap:wrap; gap:10px 26px; align-items:center; padding:20px 0; border-bottom:1px solid var(--line); }
+.keep-strip span { color:var(--sea); font-size:.65rem; letter-spacing:.15em; }
+.keep-strip strong { font-size:.82rem; }
+.plan-compare { display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:46px; border:1px solid var(--line); }
+.plan-compare section { min-height:240px; padding:clamp(24px,4vw,48px); }
+.plan-compare section+section { border-left:1px solid var(--line); }
+.plan-compare small { color:var(--muted); font-size:.67rem; letter-spacing:.16em; }
+.plan-compare p { margin:36px 0 0; font-family:var(--editorial-serif); font-size:clamp(1.25rem,2.2vw,2rem); line-height:1.75; }
+.plan-compare i { color:var(--sea); font-family:var(--editorial-sans); font-style:normal; }
+:root[data-weather="heavy"] [data-plan="heavy"],:root[data-weather="severe"] [data-plan="heavy"] { background:var(--ink); color:var(--paper); }
+.decision-notes { margin-top:22px; }
+.decision-notes p { display:grid; grid-template-columns:95px 1fr; gap:16px; margin:0; padding:16px 0; border-bottom:1px solid var(--line); color:var(--ink-soft); }
+.decision-notes b { color:var(--sea); font-size:.68rem; letter-spacing:.13em; }
+.indoor-list,.source-inline { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+.indoor-list span,.source-inline a { min-height:44px; padding:11px 13px; border:1px solid var(--line); color:var(--ink); font-size:.72rem; text-decoration:none; }
+.official-callout { display:grid; grid-template-columns:180px 1fr; gap:25px; margin:30px 0; padding:28px 0; border-block:1px solid var(--sun); }
+.official-callout strong { color:var(--sun); letter-spacing:.13em; }
+.official-callout p { margin:0; line-height:1.7; }
+.status-pair { display:grid; grid-template-columns:1fr 1fr; gap:1px; margin-top:20px; background:var(--line); }
+.status-pair div { padding:24px; background:var(--card); }
+.status-pair small { display:block; margin-bottom:8px; color:var(--sea); letter-spacing:.13em; }
+.rain-sources { padding:90px 0 130px; border-top:1px solid var(--line); }
+.rain-sources h2 { max-width:750px; font-size:clamp(2rem,4vw,4rem); }
+.source-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; margin-top:40px; background:var(--line); }
+.source-grid a { min-height:150px; padding:28px; background:var(--card); color:var(--ink); text-decoration:none; }
+.source-grid small { display:block; margin-bottom:14px; color:var(--sea); letter-spacing:.14em; }
+.source-grid strong { font-family:var(--editorial-serif); font-size:1.25rem; font-weight:500; }
+@media(max-width:760px){.rain-hero-grid,.decision-intro,.rain-day>header{grid-template-columns:1fr}.rain-hero{padding-top:110px}.rain-hero figure{order:-1}.rain-hero h1{font-size:3.4rem}.weather-selector{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}.weather-selector button{flex:0 0 78%;min-height:150px;scroll-snap-align:start}.weather-readout{grid-template-columns:1fr}.plan-compare{grid-template-columns:1fr}.plan-compare section{min-height:0}.plan-compare section+section{border-top:1px solid var(--line);border-left:0}.decision-notes p{grid-template-columns:75px 1fr}.status-pair,.source-grid{grid-template-columns:1fr}.official-callout{grid-template-columns:1fr}.rain-day>header img{aspect-ratio:16/9}}
+@media(max-width:430px){.rain-hero h1{font-size:3rem}.weather-selector button{flex-basis:86%}.plan-compare p{font-size:1.2rem}.keep-strip{align-items:flex-start;flex-direction:column}.source-inline a{width:100%}}
+@media(prefers-reduced-motion:reduce){.weather-selector button{transition:none}}
