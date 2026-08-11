@@ -1,5 +1,91 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>日本旅遊必買購物清單｜東京六天五夜</title><link rel="stylesheet" href="../style.css?v=9"><link rel="stylesheet" href="../assets/theme-pages.css?v=9"></head><body>
-<header class="topbar"><div class="shell nav"><a class="brand" href="../index.html">TOKYO 2026</a><nav class="day-nav" aria-label="每日頁面"><a href="../day1.html">D1</a><a href="../day2.html">D2</a><a href="../day3.html">D3</a><a href="../day4.html">D4</a><a href="../day5.html">D5</a><a href="../day6.html">D6</a><a href="../destinations/index.html">景點</a><a class="active" href="index.html">主題</a><a href="../sources/index.html">來源</a><a href="../checklist/index.html">清單</a></nav></div></header>
-<main id="shopping-main" data-theme-tool="shopping"><section class="theme-hero"><div class="shell"><div class="eyebrow">SHOPPING LIST</div><h1>只買真正想帶回去的。</h1><p>依這趟六天行程整理 36 項具體商品、規格與順路店鋪。預算為規劃區間、不是即時售價；限定品、庫存與免稅資格請以店家當日公告為準。</p><div class="theme-switcher"><a class="btn" href="shopping.html">購物清單</a><a class="btn alt" href="screen-locations.html">作品場景</a></div></div></section>
-<section><div class="shell"><div class="theme-dashboard"><div><h2>我的必買清單</h2><p>勾選狀態只儲存在目前裝置，不會傳送個人資料。</p></div><div class="theme-progress"><strong data-theme-status>0／36 已加入清單</strong><progress value="0" max="36" aria-label="購物清單完成度"></progress></div></div><div class="theme-controls" data-theme-filters aria-label="購物分類"></div><div class="theme-grid" data-theme-grid aria-live="polite"></div></div></section></main>
-<footer class="footer"><div class="shell">免稅提醒：2026/8 仍適用店頭免稅制度；請攜帶護照並依店家及海關規定辦理。</div></footer><script src="../assets/site-ui.js?v=9"></script><script src="../assets/theme-pages.js?v=9"></script></body></html>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="依 2025–2026 社群實買、官方資料與東京六日動線重新篩選的日本購物指南。">
+  <title>Social-driven 日本購物指南｜東京六天五夜</title>
+  <link rel="stylesheet" href="../style.css?v=10">
+  <link rel="stylesheet" href="../assets/shopping.css?v=10">
+</head>
+<body class="shopping-page">
+  <header class="topbar"><div class="shell nav"><a class="brand" href="../index.html">TOKYO 2026</a><nav class="day-nav" aria-label="主要頁面"><a href="../day1.html">D1</a><a href="../day2.html">D2</a><a href="../day3.html">D3</a><a href="../day4.html">D4</a><a href="../day5.html">D5</a><a href="../day6.html">D6</a><a href="../destinations/index.html">景點</a><a class="active" href="index.html">主題</a><a href="../sources/index.html">來源</a><a href="../checklist/index.html">清單</a></nav></div></header>
+
+  <main id="shopping-guide">
+    <section class="shopping-hero">
+      <div class="shell shopping-hero-grid">
+        <div class="shopping-hero-copy">
+          <p class="shopping-kicker">SHOPPING / TOKYO 2026</p>
+          <h1>東京不是只有「買什麼」，<br>還要知道在哪裡買最值得。</h1>
+          <p class="shopping-lede">從近期旅客實買、回購與踩雷開始，再用官方資料核對商品與店舖。這份指南把選擇縮小成真正順路、值得比較的 45 件 CORE PICKS。</p>
+          <div class="shopping-hero-actions"><a class="shopping-link-primary" href="#what-to-buy">EXPLORE THE PICKS <span>↘</span></a><button class="shopping-link-quiet" type="button" data-open-list>MY LIST <span data-list-count>0</span></button></div>
+        </div>
+        <aside class="shopping-hero-note" aria-label="推薦原則">
+          <span>THE EDITOR’S RULE</span>
+          <p>熱門不等於必買。台灣好買、價差不清楚、要大幅繞路，或有電壓與保存風險的商品，都會明確降級。</p>
+          <dl><div><dt>DISCOVERY</dt><dd>Social voices</dd></div><div><dt>VERIFICATION</dt><dd>Official facts</dd></div><div><dt>DECISION</dt><dd>Your route</dd></div></dl>
+        </aside>
+      </div>
+    </section>
+
+    <nav class="shopping-index" aria-label="購物指南章節"><div class="shell"><a href="#what-to-buy">WHAT TO BUY</a><a href="#where-to-buy">WHERE TO BUY</a><a href="#by-area">BY AREA</a><a href="#by-day">ON YOUR ROUTE</a></div></nav>
+
+    <section class="shopping-intro shell" aria-labelledby="looking-heading">
+      <div class="section-heading"><p>01 / START HERE</p><h2 id="looking-heading">What are you looking for?</h2><span>先選需求，再看推薦理由與最順路店舖。</span></div>
+      <div class="category-gateway" data-category-gateway></div>
+    </section>
+
+    <section class="shopping-section shell" id="what-to-buy" aria-labelledby="picks-heading">
+      <div class="section-heading section-heading-split"><div><p>02 / WHAT TO BUY</p><h2 id="picks-heading">Social picks, edited down.</h2></div><span>不是 Top 100。只有能說清楚「為什麼買」與「為什麼可以不買」的選擇。</span></div>
+      <div class="shopping-toolbar" aria-label="商品搜尋與篩選">
+        <label class="search-field"><span>SEARCH</span><input type="search" data-product-search placeholder="商品、品牌、用途"></label>
+        <label><span>CATEGORY</span><select data-filter-category><option value="">全部分類</option></select></label>
+        <label><span>AREA</span><select data-filter-area><option value="">全部區域</option></select></label>
+        <label><span>DAY</span><select data-filter-day><option value="">全部日期</option><option value="1">DAY 01</option><option value="2">DAY 02</option><option value="3">DAY 03</option><option value="4">DAY 04</option><option value="5">DAY 05</option><option value="6">DAY 06</option></select></label>
+        <label><span>TIER</span><select data-filter-tier><option value="">全部等級</option><option>S</option><option>A</option><option>B</option><option>C</option></select></label>
+        <label><span>PRICE</span><select data-filter-price><option value="">全部價格</option><option value="low">UNDER ¥1,500</option><option value="mid">¥1,500–5,000</option><option value="high">OVER ¥5,000</option></select></label>
+      </div>
+      <div class="result-line"><strong data-product-count></strong><button type="button" data-clear-filters>RESET FILTERS</button></div>
+      <div class="product-grid" data-product-grid aria-live="polite"></div>
+    </section>
+
+    <section class="shopping-section shopping-places" id="where-to-buy" aria-labelledby="places-heading">
+      <div class="shell">
+        <div class="section-heading section-heading-split"><div><p>03 / WHERE TO BUY</p><h2 id="places-heading">Choose the right kind of store.</h2></div><span>百貨、都市商場、藥妝與專門店各自解決不同問題。沒有一家店永遠最便宜。</span></div>
+        <div class="place-type-nav" data-place-types aria-label="店舖類型"></div>
+        <div class="place-grid" data-place-grid></div>
+        <button class="load-more" type="button" data-more-places>SHOW MORE PLACES</button>
+      </div>
+    </section>
+
+    <section class="shopping-section shell" id="by-area" aria-labelledby="area-heading">
+      <div class="section-heading section-heading-split"><div><p>04 / SHOPPING BY AREA</p><h2 id="area-heading">One district, one clear role.</h2></div><span>用區域定位降低現場選擇成本；不必每間店都走進去。</span></div>
+      <div class="district-list" data-district-list></div>
+    </section>
+
+    <section class="shopping-section route-shopping" id="by-day" aria-labelledby="route-heading">
+      <div class="shell">
+        <div class="section-heading section-heading-split"><div><p>05 / ON YOUR ROUTE</p><h2 id="route-heading">Six days, six buying moments.</h2></div><span>把重量、保存期、預約時間與交通一起納入。</span></div>
+        <div class="day-tabs" data-day-tabs role="tablist" aria-label="每日購物策略"></div>
+        <div class="day-strategy" data-day-strategy></div>
+      </div>
+    </section>
+
+    <section class="shopping-method shell">
+      <p>RESEARCH NOTE</p><h2>Social discovers. Official verifies.</h2>
+      <div><p>社群訊號用於找到近期實買、回購與踩雷；正式名稱、規格、店舖和服務以官方資料核對。無法完整讀取的社群只標記搜尋索引證據，不會被寫成「大量推薦」。</p><a href="../sources/index.html">OPEN SOURCE LIBRARY →</a></div>
+    </section>
+  </main>
+
+  <button class="floating-list" type="button" data-open-list aria-label="開啟我的購物清單"><span>MY LIST</span><strong data-list-count>0</strong></button>
+
+  <dialog class="shopping-dialog" data-product-dialog aria-labelledby="product-dialog-title"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉">×</button><div data-product-detail></div></dialog>
+  <dialog class="shopping-dialog place-dialog" data-place-dialog aria-labelledby="place-dialog-title"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉">×</button><div data-place-detail></div></dialog>
+  <dialog class="shopping-dialog list-dialog" data-list-dialog aria-labelledby="list-dialog-title"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉">×</button><div class="list-dialog-head"><p>YOUR SHOPPING LIST</p><h2 id="list-dialog-title">帶著這份清單去旅行。</h2><span>資料只儲存在這台裝置。</span></div><div data-list-detail></div></dialog>
+
+  <footer class="footer"><div class="shell">價格、庫存、活動與免稅條件會變動；標示 CHECK BEFORE VISIT 的資料請於出發前再次核對官方。</div></footer>
+  <script src="../assets/site-ui.js?v=10"></script>
+  <script src="../assets/shopping-data.js?v=10"></script>
+  <script src="../assets/shopping.js?v=10"></script>
+</body>
+</html>

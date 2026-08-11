@@ -16,6 +16,7 @@
   const socialTotal = spots.reduce((total, spot) => total + (spot.social || []).length, 0);
   const formalReady = spots.filter((spot) => spot.sources.length >= targetPerSpot).length;
   const socialReady = spots.filter((spot) => (spot.social || []).length >= targetPerSpot).length;
+  const shoppingData = window.TokyoShoppingData;
 
   const stats = document.createElement('section');
   stats.className = 'source-stats';
@@ -93,4 +94,17 @@
 
   controls.addEventListener('input', render);
   render();
+
+  if (shoppingData) {
+    const library = document.createElement('section');
+    const accessible = shoppingData.shoppingSources.filter((source) => source.sourceAccessible);
+    const restricted = shoppingData.shoppingSources.filter((source) => !source.sourceAccessible);
+    const platformCounts = shoppingData.shoppingSources.reduce((result, source) => {
+      result[source.platform] = (result[source.platform] || 0) + 1;
+      return result;
+    }, {});
+    library.className = 'shopping-source-library shell';
+    library.innerHTML = `<div class="shopping-source-head"><div class="eyebrow">SHOPPING RESEARCH</div><h2>購物指南來源帳本</h2><p>社群用於發現需求，官方用於核對事實。登入受限或只能讀取搜尋索引的來源會明確分開，不列為完整實訪。</p><dl><div><dt>ITEMS</dt><dd>${shoppingData.shoppingItems.length}</dd></div><div><dt>PLACES</dt><dd>${shoppingData.shoppingPlaces.length}</dd></div><div><dt>SOURCES</dt><dd>${shoppingData.shoppingSources.length}</dd></div></dl></div><details class="panel source-group" open><summary><strong>可完整核對的購物來源</strong><span>${accessible.length} 筆 · ${Object.entries(platformCounts).map(([name,total]) => `${name} ${total}`).join(' · ')}</span></summary><ol class="source-list shopping-source-list">${accessible.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a><small>${source.kind.toUpperCase()} · ${source.platform.toUpperCase()} · ${source.evidence}</small></li>`).join('')}</ol></details><details class="panel source-group"><summary><strong>存取受限／只保留索引證據</strong><span>${restricted.length} 筆 · 不作 HIGH evidence</span></summary><ol class="source-list shopping-source-list">${restricted.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a><small>${source.platform.toUpperCase()} · ${source.evidence}</small></li>`).join('')}</ol></details>`;
+    root.append(library);
+  }
 })();
