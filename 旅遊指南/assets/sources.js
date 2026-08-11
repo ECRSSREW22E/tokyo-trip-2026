@@ -95,6 +95,20 @@
   controls.addEventListener('input', render);
   render();
 
+  const screenData = window.TokyoScreenData;
+  if (screenData) {
+    const screenLibrary = document.createElement('section');
+    const accessible = screenData.screenSources.filter((source) => source.sourceAccessible);
+    const restricted = screenData.screenSources.filter((source) => !source.sourceAccessible);
+    const typeCounts = screenData.screenSources.reduce((result, source) => {
+      result[source.type] = (result[source.type] || 0) + 1;
+      return result;
+    }, {});
+    screenLibrary.className = 'shopping-source-library shell';
+    screenLibrary.innerHTML = `<div class="shopping-source-head"><div class="eyebrow">SCREEN PILGRIMAGE RESEARCH</div><h2>作品場景證據帳本</h2><p>作品、實體地點與場景關係分開管理。官方合作地不等於取景地；社群共識也不會顯示成官方確認。無法完整讀取的 SNS 只保留搜尋索引，不升級為高可信度。</p><dl><div><dt>WORKS</dt><dd>${screenData.screenWorks.length}</dd></div><div><dt>LOCATIONS</dt><dd>${screenData.screenLocations.length}</dd></div><div><dt>APPEARANCES</dt><dd>${screenData.screenAppearances.length}</dd></div><div><dt>SOURCES</dt><dd>${screenData.screenSources.length}</dd></div></dl></div><details class="panel source-group" open><summary><strong>可完整核對的作品場景來源</strong><span>${accessible.length} 筆 · ${Object.entries(typeCounts).map(([name,total]) => `${name} ${total}`).join(' · ')}</span></summary><ol class="source-list shopping-source-list">${accessible.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a><small>${source.type.toUpperCase()} · ${source.evidence} · VERIFIED ${source.lastVerified}</small></li>`).join('')}</ol></details><details class="panel source-group"><summary><strong>登入受限／搜尋索引</strong><span>${restricted.length} 筆 · 不作 HIGH evidence</span></summary><ol class="source-list shopping-source-list">${restricted.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a><small>${source.type.toUpperCase()} · ${source.evidence}</small></li>`).join('')}</ol></details>`;
+    root.append(screenLibrary);
+  }
+
   if (shoppingData) {
     const library = document.createElement('section');
     const accessible = shoppingData.shoppingSources.filter((source) => source.sourceAccessible);

@@ -59,6 +59,14 @@
     const destinationLink = [...dayNav.querySelectorAll('a')].find((link) => /\/destinations\//.test(link.href));
     destinationLink ? destinationLink.before(rainLink) : dayNav.appendChild(rainLink);
   }
+  const screenDayMatch = location.pathname.match(/day([1-6])\.html$/i);
+  if (screenDayMatch && ownScript && main && !main.querySelector('[data-screen-day-link]')) {
+    const screenCallout = doc.createElement('section');
+    screenCallout.className = 'panel shell';
+    screenCallout.dataset.screenDayLink = screenDayMatch[1];
+    screenCallout.innerHTML = `<div class="eyebrow">SCREEN PILGRIMAGE NEARBY</div><h2>DAY ${screenDayMatch[1].padStart(2,'0')} 的作品場景</h2><p>只顯示今天順路、附近與可選支線的場景；正式取景、官方合作與社群辨識會分開標示。</p><a class="btn alt" href="${new URL(`../themes/screen-locations.html?day=D${screenDayMatch[1]}`, ownScript.src).href}">VIEW D${screenDayMatch[1]} SCREEN LOCATIONS →</a>`;
+    main.appendChild(screenCallout);
+  }
   if (dayNav) {
     const navAnchor = doc.createComment('day navigation anchor');
     dayNav.after(navAnchor);
