@@ -44,3 +44,18 @@ The UI continues to use `tokyo-trip-shopping-list-v1`. Legacy aliases are migrat
 ## Store classification
 
 `DEPARTMENT_STORE`, `DRUGSTORE`, `BEAUTY_SELECT`, `DISCOUNT_STORE`, `URBAN_SHOPPING`, `ELECTRONICS`, `SPECIALTY_STORE`, `SPECIALTY_MALL` and `LOCAL_SHOPPING` are intentionally distinct. In particular, @cosme TOKYO and Don Quijote are not labelled as pharmacies, while PARCO, LUMINE and Tokyu Plaza are not labelled as department stores.
+
+## Store Directory V2
+
+The normalized directory is authored in `assets/shopping-directory-data.js` and aggregated by `assets/shopping-data.js` into the existing `window.TokyoShoppingData` contract. The relationship is:
+
+`shoppingVenues` → contains `shoppingBranches` → belongs to `shoppingBrands` → relates to `shoppingItems`.
+
+- A brand appears once even when it has several route branches.
+- `OPEN` requires a current official venue/store source. Unresolved tenant records are `CHECK_BEFORE_VISIT`; they are not silently treated as open.
+- Official tenant pages establish existence. Social reports only affect traveller strategy and popularity signals.
+- Unknown popularity dimensions remain `null`; the UI does not manufacture numeric scores.
+- Product records are not bulk rewritten. `brandId`, `recommendedBranchIds` and `recommendedVenueIds` are added by the aggregation layer when a reliable alias exists.
+- `tokyo-trip-shopping-list-v1` remains unchanged.
+
+Run `node 旅遊指南/tests/validate-shopping-directory.cjs` before integration. It checks record counts, duplicate IDs, enum values, relation IDs, trip days, source IDs, product relations and branch status values.

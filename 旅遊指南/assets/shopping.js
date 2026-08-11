@@ -3,10 +3,18 @@
   const data = window.TokyoShoppingData;
   if (!root || !data) return;
 
-  const {shoppingItems: items, shoppingPlaces: places, shoppingDistricts: districts, shoppingStrategies: strategies, shoppingSources: sources, meta} = data;
+  const {shoppingItems: items, shoppingPlaces: places, shoppingDistricts: districts, shoppingStrategies: strategies, shoppingSources: sources,
+    shoppingBrands: brands = [], shoppingVenues: venues = [], shoppingBranches: branches = [], shoppingTaxonomy: taxonomy = {}, meta} = data;
   const itemById = new Map(items.map(item => [item.id, item]));
   const placeById = new Map(places.map(place => [place.id, place]));
   const sourceById = new Map(sources.map(source => [source.id, source]));
+  const brandById = new Map(brands.map(brand => [brand.id,brand]));
+  const venueById = new Map(venues.map(venue => [venue.id,venue]));
+  const branchesByBrand = branches.reduce((index,branch) => {
+    if (!index.has(branch.brandId)) index.set(branch.brandId,[]);
+    index.get(branch.brandId).push(branch);
+    return index;
+  },new Map());
   const categoryNames = {
     DRUGSTORE:'藥妝與日常保養', BEAUTY:'百貨美妝', FASHION:'時裝與配件', DEPARTMENT_STORE_FOOD:'百貨地下街',
     CONVENIENCE_STORE:'便利商店', SUPERMARKET:'超市食品', LIFESTYLE:'生活選品', STATIONERY:'文具',
@@ -32,8 +40,10 @@
   if (migrated) persist();
 
   const productState = {query:'',category:'',area:'',day:'',tier:'',price:''};
+  const directoryState = {query:'',area:'',day:'',category:'',style:'',price:'',japanese:'',gender:'',trend:'',value:'',venueType:'',format:'',onRoute:false,taxFree:false,rainy:false};
   let placeType = 'ALL';
   let showAllPlaces = false;
+  let showAllBrands = false;
   let activeDay = 1;
 
   function persist() {
@@ -91,6 +101,119 @@
     const visible = items.filter(item => item.core && productMatches(item)).sort((a,b) => b.recommendationScore - a.recommendationScore);
     document.querySelector('[data-product-count]').textContent = `${visible.length} / ${items.filter(item => item.core).length} CORE PICKS`;
     document.querySelector('[data-product-grid]').innerHTML = visible.map(productCard).join('') || '<p class="empty-state">沒有符合條件的商品。放寬一個篩選再試一次。</p>';
+  }
+
+  function activeBranchesForBrand(brand) {
+    return (branchesByBrand.get(brand.id) || []).filter(branch => {
+      const venue = venueById.get(branch.venueId);
+      if (!venue || branch.currentStatus === 'CLOSED') return false;
+      const taxFree = /AVAILABLE|ELIGIBLE/.test(String(branch.taxFree));
+      return (!directoryState.area || branch.area.includes(directoryState.area)) &&
+        (!directoryState.day || branch.tripDays.includes(Number(directoryState.day))) &&
+        (!directoryState.venueType || venue.venueType === directoryState.venueType) &&
+        (!directoryState.format || branch.branchFormat === directoryState.format) &&
+        (!directoryState.onRoute || branch.onRoute) &&
+        (!directoryState.taxFree || taxFree) &&
+        (!directoryState.rainy || branch.rainyDay);
+    });
+  }
+
+  function brandMatches(brand) {
+    const matchingBranches = activeBranchesForBrand(brand);
+    const allBranches = branchesByBrand.get(brand.id) || [];
+    const routeFilterActive = directoryState.area || directoryState.day || directoryState.venueType || directoryState.format || directoryState.onRoute || directoryState.taxFree || directoryState.rainy;
+    const searchable = `${brand.name} ${brand.nameZh} ${brand.nameJa} ${brand.category} ${brand.styles.join(' ')} ${allBranches.map(branch => `${branch.name} ${branch.area} ${venueById.get(branch.venueId)?.name || ''}`).join(' ')}`.toLowerCase();
+    return (!directoryState.query || searchable.includes(directoryState.query)) &&
+      (!directoryState.category || brand.primaryCategory === directoryState.category) &&
+      (!directoryState.style || brand.styleTags.includes(directoryState.style)) &&
+      (!directoryState.price || brand.priceLevel === Number(directoryState.price)) &&
+      (!directoryState.japanese || String(brand.japaneseBrand) === directoryState.japanese) &&
+      (!directoryState.gender || brand.targetGender.includes(directoryState.gender)) &&
+      (!directoryState.trend || brand.trendStatus === directoryState.trend) &&
+      (!directoryState.value || brand.japanValue === directoryState.value) &&
+      (!routeFilterActive || matchingBranches.length > 0);
+  }
+
+  function branchStatus(branch) {
+    if (branch.currentStatus === 'OPEN') return 'OFFICIAL TENANT CHECKED';
+    return branch.currentStatus.replaceAll('_',' ');
+  }
+
+  function brandCard(brand) {
+    const allBranches = (branchesByBrand.get(brand.id) || []).filter(branch => branch.currentStatus !== 'CLOSED');
+    const visibleBranches = activeBranchesForBrand(brand);
+    const routeBranches = (directoryState.area || directoryState.day || directoryState.venueType || directoryState.format || directoryState.onRoute || directoryState.taxFree || directoryState.rainy) ? visibleBranches : allBranches;
+    const days = unique(routeBranches.flatMap(branch => branch.tripDays)).sort();
+    const branchPreview = routeBranches.slice(0,3);
+    return `<article class="brand-card" data-brand-id="${e(brand.id)}">
+      <div class="brand-card-top"><span>${e(brand.primaryCategory.replaceAll('_',' '))}</span><b>${'¥'.repeat(brand.priceLevel)}</b></div>
+      <h3>${e(brand.nameEn)}</h3><p class="brand-origin">${brand.japaneseBrand?'JAPANESE BRAND':e(brand.originCountry)} · ${e(brand.japanValue.replaceAll('_',' '))} JAPAN VALUE</p>
+      <div class="brand-tags">${brand.styleTags.slice(0,3).map(tag => `<span>${e(tag.replaceAll('_',' '))}</span>`).join('')}</div>
+      <p class="brand-route">${days.length?`ON YOUR ROUTE · ${days.map(day => `D${day}`).join(' / ')}`:'DETOUR / NO MATCHING BRANCH'}</p>
+      <ul class="brand-branch-preview">${branchPreview.map(branch => `<li><button type="button" data-open-branch="${e(branch.id)}"><strong>${e(venueById.get(branch.venueId)?.name || branch.name)}</strong><span>${e(branch.area)} · ${e(branch.branchFormat.replaceAll('_',' '))}</span></button></li>`).join('')}</ul>
+      <button class="card-link" type="button" data-open-brand="${e(brand.id)}">VIEW BRAND & ${routeBranches.length} BRANCHES <span>→</span></button>
+    </article>`;
+  }
+
+  function renderDirectory() {
+    const found = brands.filter(brandMatches).sort((a,b) => {
+      const routeA = activeBranchesForBrand(a).length;
+      const routeB = activeBranchesForBrand(b).length;
+      return routeB-routeA || Number(b.japaneseBrand)-Number(a.japaneseBrand) || b.japanValue.localeCompare(a.japanValue) || a.name.localeCompare(b.name);
+    });
+    const visible = showAllBrands ? found : found.slice(0,18);
+    const target = document.querySelector('[data-brand-directory]');
+    if (!target) return;
+    target.innerHTML = visible.map(brandCard).join('') || '<p class="empty-state">沒有同時符合這組條件的品牌。可先取消一個行程或店舖條件。</p>';
+    document.querySelector('[data-directory-count]').textContent = `${found.length} BRANDS · ${found.reduce((sum,brand) => sum + activeBranchesForBrand(brand).length,0)} MATCHING BRANCHES`;
+    const more = document.querySelector('[data-more-brands]');
+    more.hidden = found.length <= 18;
+    more.textContent = showAllBrands ? 'SHOW FEWER BRANDS' : `SHOW ${found.length-18} MORE BRANDS`;
+
+    const area = directoryState.area;
+    const day = directoryState.day;
+    const venueType = directoryState.venueType;
+    const filteredVenues = venues.filter(venue => (!area || venue.area.includes(area)) && (!day || venue.tripDays.includes(Number(day))) && (!venueType || venue.venueType === venueType));
+    document.querySelector('[data-venue-directory]').innerHTML = filteredVenues.slice(0,12).map(venue => {
+      const tenantCount = branches.filter(branch => branch.venueId === venue.id && branch.currentStatus !== 'CLOSED').length;
+      return `<button class="venue-index-card" type="button" data-open-venue="${e(venue.id)}"><span>${e(venue.venueType.replaceAll('-',' '))}</span><strong>${e(venue.nameEn)}</strong><small>${e(venue.area)} · D${venue.tripDays.join(' / D')} · ${tenantCount} CURATED BRANDS</small><i>→</i></button>`;
+    }).join('');
+  }
+
+  function directorySourceLinks(ids) {
+    return ids.map(id => sourceById.get(id)).filter(Boolean).map(source => `<a href="${e(source.url)}" target="_blank" rel="noopener noreferrer">${e(source.title)} ↗</a>`).join('');
+  }
+
+  function openBrand(id) {
+    const brand = brandById.get(id); if (!brand) return;
+    const brandBranches = (branchesByBrand.get(id) || []).filter(branch => branch.currentStatus !== 'CLOSED').sort((a,b) => (a.tripDays[0] || 9)-(b.tripDays[0] || 9));
+    document.querySelector('[data-directory-detail]').innerHTML = `<header class="detail-head"><p>${e(brand.primaryCategory)} · ${brand.japaneseBrand?'JAPANESE BRAND':e(brand.originCountry)}</p><h2 id="directory-dialog-title">${e(brand.nameEn)}</h2><span>${'¥'.repeat(brand.priceLevel)} · ${e(brand.trendStatus.replaceAll('_',' '))} · ${e(brand.japanValue.replaceAll('_',' '))} JAPAN VALUE</span></header>
+      <div class="directory-detail-intro"><p>${e(brand.summary || '品牌定位依官方資料與本次行程相關店舖整理。')}</p><div>${brand.styleTags.map(tag => `<span>${e(tag.replaceAll('_',' '))}</span>`).join('')}</div></div>
+      <section class="directory-branch-list"><p>BRANCHES ON THIS TRIP</p>${brandBranches.map(branch => `<article><div><span>D${branch.tripDays.join(' / D')} · ${e(branch.area)}</span><h3>${e(venueById.get(branch.venueId)?.nameEn || branch.nameEn)}</h3><small>${e(branch.branchFormat.replaceAll('_',' '))} · ${e(branchStatus(branch))}</small></div><button type="button" data-open-branch="${e(branch.id)}">DETAILS →</button></article>`).join('') || '<p>本次行程沒有已建立的分店。</p>'}</section>
+      ${brand.needsVerification?'<p class="verify-note">BRAND CLASSIFICATION CHECK · 尚缺完整官方品牌分類資料，分店狀態仍以商場官方頁為準。</p>':''}
+      <section class="detail-sources"><p>SOURCES</p><div>${directorySourceLinks(brand.sourceIds)}${brand.officialUrl?`<a href="${e(brand.officialUrl)}" target="_blank" rel="noopener noreferrer">BRAND OFFICIAL ↗</a>`:''}</div></section>`;
+    showDialog(document.querySelector('[data-directory-dialog]'));
+  }
+
+  function openVenue(id) {
+    const venue = venueById.get(id); if (!venue) return;
+    const tenantBranches = branches.filter(branch => branch.venueId === id && branch.currentStatus !== 'CLOSED');
+    const groups = unique(tenantBranches.map(branch => brandById.get(branch.brandId)?.primaryCategory).filter(Boolean));
+    document.querySelector('[data-directory-detail]').innerHTML = `<header class="detail-head"><p>${e(venue.venueType.replaceAll('-',' '))} · ${e(venue.area)}</p><h2 id="directory-dialog-title">${e(venue.nameEn)}</h2><span>D${venue.tripDays.join(' / D')} · ${e(venue.nearestStation)} · ${venue.rainyDayFriendly?'RAIN READY':'FAIR WEATHER'}</span></header>
+      <div class="directory-detail-intro"><p>${e(venue.summary || `本次收錄 ${tenantBranches.length} 個具行程價值的品牌，不等於整棟完整 tenant list。`)}</p><div>${groups.map(group => `<span>${e(group.replaceAll('_',' '))}</span>`).join('')}</div></div>
+      <section class="directory-branch-list"><p>CURATED TENANTS</p>${tenantBranches.map(branch => `<article><div><span>${e(branch.branchFormat.replaceAll('_',' '))} · ${e(branchStatus(branch))}</span><h3>${e(brandById.get(branch.brandId)?.nameEn || branch.nameEn)}</h3><small>${e(branch.floor)}</small></div><button type="button" data-open-brand="${e(branch.brandId)}">BRAND →</button></article>`).join('')}</section>
+      <div class="detail-actions"><a href="${e(venue.mapUrl)}" target="_blank" rel="noopener noreferrer">GOOGLE MAPS ↗</a><a href="${e(venue.officialUrl)}" target="_blank" rel="noopener noreferrer">OFFICIAL FLOOR GUIDE ↗</a></div><section class="detail-sources"><p>SOURCES</p><div>${directorySourceLinks(venue.sourceIds)}</div></section>`;
+    showDialog(document.querySelector('[data-directory-dialog]'));
+  }
+
+  function openBranch(id) {
+    const branch = branches.find(item => item.id === id); if (!branch) return;
+    const brand = brandById.get(branch.brandId); const venue = venueById.get(branch.venueId);
+    document.querySelector('[data-directory-detail]').innerHTML = `<header class="detail-head"><p>${e(branch.branchFormat.replaceAll('_',' '))} · ${e(branchStatus(branch))}</p><h2 id="directory-dialog-title">${e(brand?.nameEn || branch.nameEn)}</h2><span>${e(venue?.nameEn || '')} · ${e(branch.area)} · D${branch.tripDays.join(' / D')}</span></header>
+      <div class="branch-facts"><dl><div><dt>FLOOR</dt><dd>${e(branch.floor)}</dd></div><div><dt>HOURS</dt><dd>${e(branch.openingHours)}</dd></div><div><dt>TAX FREE</dt><dd>${e(branch.taxFree)}</dd></div><div><dt>ROUTE</dt><dd>${e(branch.onRouteLevel)}</dd></div></dl></div>
+      ${branch.needsVerification?'<p class="verify-note">CHECK BEFORE VISIT · 2026 年 8 月樓層、營業與免稅條件請由官方商場指南再次確認。</p>':''}
+      <div class="detail-actions"><a href="${e(branch.mapUrl)}" target="_blank" rel="noopener noreferrer">GOOGLE MAPS ↗</a>${branch.officialUrl?`<a href="${e(branch.officialUrl)}" target="_blank" rel="noopener noreferrer">OFFICIAL ↗</a>`:''}</div><section class="detail-sources"><p>STATUS EVIDENCE</p><div>${directorySourceLinks(branch.sourceIds)}</div></section>`;
+    showDialog(document.querySelector('[data-directory-dialog]'));
   }
 
   function selectedForPlace(place) { return place.recommendedItemIds.map(id => itemById.get(id)).filter(item => item && isSelected(item)); }
@@ -162,18 +285,39 @@
     document.querySelector('[data-filter-area]').insertAdjacentHTML('beforeend', areas.map(area => `<option value="${e(area)}">${e(area.toUpperCase())}</option>`).join(''));
     const placeTypes = ['ALL','DRUGSTORE','BEAUTY_SELECT','DISCOUNT_STORE','DEPARTMENT_STORE','URBAN_SHOPPING','ELECTRONICS','SPECIALTY','LOCAL_SHOPPING'];
     document.querySelector('[data-place-types]').innerHTML = placeTypes.map(type => `<button type="button" data-place-type="${type}" aria-pressed="${type === placeType}">${e(placeTypeNames[type])}</button>`).join('');
+    const optionList = (selector,values,format=value => value.replaceAll('_',' ')) => {
+      const select = document.querySelector(selector);
+      if (select) select.insertAdjacentHTML('beforeend',values.map(value => `<option value="${e(value)}">${e(format(value))}</option>`).join(''));
+    };
+    optionList('[data-dir-filter="area"]',unique(venues.map(venue => venue.area)).sort());
+    optionList('[data-dir-filter="category"]',taxonomy.brandCategories || []);
+    optionList('[data-dir-filter="style"]',taxonomy.styles || []);
+    optionList('[data-dir-filter="trend"]',taxonomy.trends || []);
+    optionList('[data-dir-filter="value"]',taxonomy.japanValues || []);
+    optionList('[data-dir-filter="venueType"]',taxonomy.venueTypes || []);
+    const japaneseCount = brands.filter(brand => brand.japaneseBrand).length;
+    document.querySelector('[data-directory-summary]').innerHTML = `<div><span>CURATED VENUES</span><strong>${venues.length}</strong></div><div><span>BRANDS</span><strong>${brands.length}</strong></div><div><span>BRANCH RELATIONS</span><strong>${branches.length}</strong></div><div><span>JAPANESE / FOREIGN</span><strong>${japaneseCount} / ${brands.length-japaneseCount}</strong></div>`;
   }
 
   document.addEventListener('click', event => {
     const toggle = event.target.closest('[data-toggle-item]'); if (toggle) { toggleItem(toggle.dataset.toggleItem); if (event.target.closest('[data-product-dialog]')) openProduct(toggle.dataset.toggleItem); return; }
     const product = event.target.closest('[data-open-product]'); if (product) { closeDialog(document.querySelector('[data-place-dialog]')); closeDialog(document.querySelector('[data-list-dialog]')); openProduct(product.dataset.openProduct); return; }
     const place = event.target.closest('[data-open-place]'); if (place) { openPlace(place.dataset.openPlace); return; }
+    const brand = event.target.closest('[data-open-brand]'); if (brand) { openBrand(brand.dataset.openBrand); return; }
+    const venue = event.target.closest('[data-open-venue]'); if (venue) { openVenue(venue.dataset.openVenue); return; }
+    const branch = event.target.closest('[data-open-branch]'); if (branch) { openBranch(branch.dataset.openBranch); return; }
     const category = event.target.closest('[data-category-jump]'); if (category) { productState.category = category.dataset.categoryJump; document.querySelector('[data-filter-category]').value = productState.category; renderProducts(); document.getElementById('what-to-buy').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); return; }
     const placeButton = event.target.closest('[data-place-type]'); if (placeButton) { placeType = placeButton.dataset.placeType; showAllPlaces = false; document.querySelectorAll('[data-place-type]').forEach(button => button.setAttribute('aria-pressed', String(button === placeButton))); renderPlaces(); return; }
     const day = event.target.closest('[data-strategy-day]'); if (day) { activeDay = Number(day.dataset.strategyDay); renderStrategy(); return; }
     if (event.target.closest('[data-open-list]')) { renderList(); showDialog(document.querySelector('[data-list-dialog]')); return; }
     if (event.target.closest('[data-close-dialog]')) { closeDialog(event.target.closest('dialog')); return; }
     if (event.target.closest('[data-more-places]')) { showAllPlaces = !showAllPlaces; renderPlaces(); return; }
+    if (event.target.closest('[data-more-brands]')) { showAllBrands = !showAllBrands; renderDirectory(); return; }
+    if (event.target.closest('[data-clear-directory]')) {
+      Object.keys(directoryState).forEach(key => { directoryState[key] = typeof directoryState[key] === 'boolean' ? false : ''; });
+      document.querySelectorAll('[data-dir-filter]').forEach(control => { if (control.type === 'checkbox') control.checked = false; else control.value = ''; });
+      showAllBrands = false; renderDirectory(); return;
+    }
     if (event.target.closest('[data-clear-filters]')) { Object.keys(productState).forEach(key => productState[key] = ''); document.querySelectorAll('.shopping-toolbar input,.shopping-toolbar select').forEach(control => control.value = ''); renderProducts(); }
   });
 
@@ -181,5 +325,12 @@
   [['[data-filter-category]','category'],['[data-filter-area]','area'],['[data-filter-day]','day'],['[data-filter-tier]','tier'],['[data-filter-price]','price']].forEach(([selector,key]) => document.querySelector(selector).addEventListener('change', event => { productState[key] = event.target.value; renderProducts(); }));
   document.querySelectorAll('dialog').forEach(dialog => dialog.addEventListener('click', event => { if (event.target === dialog) closeDialog(dialog); }));
 
-  initControls(); updateListCount(); renderProducts(); renderPlaces(); renderDistricts(); renderStrategy();
+  document.querySelectorAll('[data-dir-filter]').forEach(control => control.addEventListener(control.type === 'search'?'input':'change',event => {
+    const key = event.target.dataset.dirFilter;
+    directoryState[key] = event.target.type === 'checkbox' ? event.target.checked : (key === 'query' ? event.target.value.trim().toLowerCase() : event.target.value);
+    showAllBrands = false;
+    renderDirectory();
+  }));
+
+  initControls(); updateListCount(); renderProducts(); renderDirectory(); renderPlaces(); renderDistricts(); renderStrategy();
 })();
