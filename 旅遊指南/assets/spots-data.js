@@ -180,16 +180,20 @@ const socialInsights = {
     ['Instagram轉載', '自由女神像適合留到藍調時刻', '貼文以自由女神、彩虹大橋和東京鐵塔同框為主角；下午先逛鋼彈，天色轉暗再到海側平台。', 'https://instagrammernews.com/detail/2365332580729241132', '夜空に映える、自由の女神']
   ],
   'sunshine-city': [
-    ['官方社群入口', '出發前看即時景觀與限定活動', '展望台與水族館分別經營Instagram、X；官方說明會發布即時眺望、動物近況和館內活動。', 'https://sunshinecity.jp/sns/', '展望台から見える眺望']
+    ['官方社群入口', '出發前看即時景觀與限定活動', '展望台與水族館分別經營Instagram、X；官方說明會發布即時眺望、動物近況和館內活動。', 'https://sunshinecity.jp/sns/', '展望台から見える眺望'],
+    ['Dcard', '角色商店與室內設施足以安排半天以上', '在池袋生活兩個月的公開實訪，把扭蛋、角色店、水族館與餐飲列為同一基地；實際限定活動仍要回官方確認。', 'https://www.dcard.tw/f/japan_travel/p/257285704', '保證可以逛一整天'],
+    ['PTT', '2026 實訪顯示 IP 店鋪密度仍高', '近期公開紀錄提到 Sunshine City 周邊多個 IP 商店與期間活動，適合 D2 雨天集中處理；限定企劃不能視為固定設施。', 'https://www.ptt.cc/bbs/Japan_Travel/M.1777793689.A.61A.html', '期間活動']
   ],
   'akihabara': [
     ['攝影實訪', '18:00後霓虹層次最明顯', '攝影者實走電氣街外圍與巷弄，建議用中長焦壓縮招牌，但不要在繁忙路口停下架腳架。', 'https://framebyframe.tokyo/akihabara-night-snap-photo-spot/2203/', 'ネオンや看板、街灯が作り出す光と影']
   ],
   'tokyo-tower': [
-    ['Instagram轉載', '芝公園四號地適合人物與整塔同框', '東京鐵塔官方貼文也把四號地作為拍攝與活動位置；拍攝時要保留步道通行空間。', 'https://instagrammernews.com/detail/3217634655637830433', '東京タワーを写して自撮り']
+    ['Instagram轉載', '芝公園四號地適合人物與整塔同框', '東京鐵塔官方貼文也把四號地作為拍攝與活動位置；拍攝時要保留步道通行空間。', 'https://instagrammernews.com/detail/3217634655637830433', '東京タワーを写して自撮り'],
+    ['Dcard', '熱門階梯點應早到並避免擋住通道', '公開攝影實訪反覆提到東京鐵塔周邊熱門構圖會排隊；早上約 09:30 抵達較能降低等待，但現場人流仍會變動。', 'https://www.dcard.tw/f/japan_travel/p/257544014', '11點就開始排隊']
   ],
   'shichirigahama': [
-    ['Instagram嵌入整理', '停車場高處較不容易拍到路人', '多則Instagram範例顯示，海岸停車場高差能避開背景人潮；夕暮可拍人物剪影，但不要坐在危險邊緣。', 'https://shonanlovers.com/shichirigahama/shichirigahama/', '夕暮れ時に、あえて影']
+    ['Instagram嵌入整理', '停車場高處較不容易拍到路人', '多則Instagram範例顯示，海岸停車場高差能避開背景人潮；夕暮可拍人物剪影，但不要坐在危險邊緣。', 'https://shonanlovers.com/shichirigahama/shichirigahama/', '夕暮れ時に、あえて影'],
+    ['Dcard', '湘南單軌轉江之電的實走順序可行', '近期實訪採大船搭湘南單軌、七里濱海岸再往江之島的順序，與 D3 方向一致；海岸停留時間仍應依高溫、浪況與 bills 預約反推。', 'https://www.dcard.tw/f/japan_travel/p/259981025', '湘南單軌']
   ],
   'enoshima': [
     ['攝影者實訪', '島內後半段才是海蝕地形主景', '長期在湘南拍攝的作者把稚兒淵、太平洋展望台與Sea Candle列為核心；保留體力走到島西側會比只逛神社完整。', 'https://photodou.com/spot-enoshima', '島の中に魅力がギュッ']
@@ -205,7 +209,9 @@ const socialInsights = {
   ],
   'shibuya-sky': [
     ['旅遊社群', '夕陽時段票券需要優先處理', '社群討論顯示熱門日落時段可能在海外通路開賣後很快消失；行程應以預約時段反推澀谷抵達時間。', 'https://www.reddit.com/r/JapanTravelTips/comments/1gm5ouq/', 'sunset hours is already gone'],
-    ['X', '十字路口不是停留拍攝區', '公開討論提醒遊客邊看鏡頭邊穿越容易碰撞；建議在人行道外側或高樓觀景點拍攝。', 'https://x.com/nuoooo00000/status/2026649704059253077', '横断歩道は撮影場所じゃない']
+    ['X', '十字路口不是停留拍攝區', '公開討論提醒遊客邊看鏡頭邊穿越容易碰撞；建議在人行道外側或高樓觀景點拍攝。', 'https://x.com/nuoooo00000/status/2026649704059253077', '横断歩道は撮影場所じゃない'],
+    ['Dcard', '日落前 1–2 小時入場可預留排隊緩衝', '完整實訪指出電梯、置物櫃與 Sky Edge 都可能等待；把預約時段當作入場窗口，不要壓縮到只剩日落前幾分鐘。', 'https://www.dcard.tw/f/japan_travel/p/253829561', '日落前1~2小時前入場'],
+    ['Dcard', 'Sky Edge 並非唯一好拍點', '實訪者在 16:00 入場後因熱門角落隊伍很長而接近日落，也指出手扶梯構圖不必排同一條長隊；拍攝不可阻塞出入口。', 'https://www.dcard.tw/f/japan_travel/p/241879064?cid=174A1C25-3A29-4041-9BD3-66003E8F1435', '手扶梯不用排隊']
   ],
   'hebikubo': [
     ['X官方', '巳日與限定御朱印資訊要看當日更新', '神社官方X集中發布祈願、御朱印與白蛇相關資訊；特殊日可能和普通平日完全不同。', 'https://x.com/hebikubojinja/with_replies', '#白蛇神社 #蛇窪神社'],
@@ -216,7 +222,8 @@ const socialInsights = {
   ],
   'minatomirai': [
     ['Instagram轉載', 'AIR CABIN營業前只能拍外觀', '實訪貼文在早上8時抵達但纜車尚未營業；若要搭乘和夜景同時完成，應安排傍晚後。', 'https://instagrammernews.com/detail/2694141051664081959', '8時ごろはまだ営業前'],
-    ['影片實訪', '車廂弧形窗容易出現反光與變形', '拍攝者指出隔著彎曲車窗會產生倒影；鏡頭貼近玻璃並穿深色衣服會比較容易成功。', 'https://www.ciaonihon.com/277063/', '映り込みや映像の歪み']
+    ['影片實訪', '車廂弧形窗容易出現反光與變形', '拍攝者指出隔著彎曲車窗會產生倒影；鏡頭貼近玻璃並穿深色衣服會比較容易成功。', 'https://www.ciaonihon.com/277063/', '映り込みや映像の歪み'],
+    ['Dcard', '紅磚倉庫可順接 World Porters', '近期實走從橫濱站搭 SEA BASS 到紅磚倉庫，再步行到 World Porters；可作路線體驗參考，但船班與票價需查官方。', 'https://www.dcard.tw/f/japan_travel/p/255537586', '步行到購物中心']
   ],
   'sensoji': [
     ['公開討論', '氣氛很好，但人潮是最大變數', '旅客喜歡雷門、傳統街景與甜點，但也反覆提到擁擠；完整參拜與乾淨構圖應排在早晨。', 'https://www.reddit.com/r/ja/comments/1uew4oi/', '人多いけど'],
