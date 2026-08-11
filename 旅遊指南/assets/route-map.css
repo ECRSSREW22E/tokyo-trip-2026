@@ -136,3 +136,7 @@
   .route-sheet { background: var(--card); backdrop-filter: none; }
   .route-backdrop { backdrop-filter: none; }
 }
+
+/* Viewport-safe route sheet */
+.route-sheet{display:grid;grid-template-rows:minmax(0,1fr);max-height:calc(100dvh - 40px);padding:0;overflow:hidden}.sheet-close{position:absolute;z-index:4;top:16px;right:16px}.sheet-content{min-height:0;padding:28px;padding-top:72px;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}.sheet-copy{color:var(--text-secondary,var(--ink-soft))}.sheet-meta small{color:var(--text-muted,var(--muted))}
+@media(max-width:800px){.route-sheet{max-height:min(88dvh,calc(100dvh - env(safe-area-inset-top)));border-radius:22px 22px 0 0}.sheet-content{padding:68px 20px calc(24px + env(safe-area-inset-bottom))}.sheet-close{top:14px;right:14px}}

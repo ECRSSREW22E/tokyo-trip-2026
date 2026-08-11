@@ -134,4 +134,23 @@
     ledger.innerHTML = `<div class="shopping-source-head"><div class="eyebrow">MEDIA RIGHTS LEDGER</div><h2>圖片與 PDF 部署資格</h2><p>私人、非營利不會自動取得圖片重製權。只有同時留存原始作品頁、授權條款與必要署名的檔案，才會進入 GitHub Pages。</p><dl><div><dt>APPROVED</dt><dd>${approved.length}</dd></div><div><dt>DO NOT DEPLOY</dt><dd>${blocked.length}</dd></div><div><dt>REFERENCE ONLY</dt><dd>${referenceOnly.length}</dd></div></dl></div><details class="panel source-group" open><summary><strong>目前媒體審核結果</strong><span>${mediaRights.media.length} 筆 · ${mediaRights.reviewedAt}</span></summary><ol class="source-list shopping-source-list">${mediaRights.media.map(item => `<li><strong>${item.fileName}</strong><small>${item.deploymentStatus} · ${item.area} · ${item.reason}</small></li>`).join('')}</ol></details><details class="panel source-group"><summary><strong>官方授權規則</strong><span>${mediaRights.policySources.length} 筆</span></summary><ol class="source-list shopping-source-list">${mediaRights.policySources.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a><small>${source.decision}</small></li>`).join('')}</ol></details>`;
     root.append(ledger);
   }
+
+  const specialData = window.TokyoSpecialItems;
+  if (specialData) {
+    const typeLabels = {
+      'official-seasonal':'官方季節情報', 'official-shrine':'神社官方',
+      'official-temple':'寺院官方', 'official-product':'商品官方',
+      'official-event':'活動官方', social:'社群公開內容', community:'社群公開內容',
+      'local-media':'地方媒體', 'travel-blog':'旅遊實訪'
+    };
+    const specialLibrary = document.createElement('section');
+    const official = specialData.sources.filter((source) => source.type.startsWith('official'));
+    const social = specialData.sources.filter((source) => ['social','community','local-media','travel-blog'].includes(source.type));
+    const current = specialData.items.filter((item) => item.tripDateOverlap === 'AVAILABLE_DURING_TRIP');
+    const check = specialData.items.filter((item) => item.tripDateOverlap === 'CHECK_BEFORE_VISIT');
+    const sourceRows = (rows) => rows.map((source) => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a><small>${typeLabels[source.type] || source.type} · ${source.confidence} 信心 · ${source.freshness} · ${source.retrievedDate} 擷取 · ${source.scope}</small></li>`).join('');
+    specialLibrary.className = 'shopping-source-library shell';
+    specialLibrary.innerHTML = `<div class="shopping-source-head"><div class="eyebrow">2026 夏季現場情報</div><h2>限定商品與季節活動證據帳本</h2><p>社群只用來發現實走重點；正式名稱、日期、價格與規則一律回到官方核對。常設代表商品不會被誤標成限定。</p><dl><div><dt>情報項目</dt><dd>${specialData.items.length}</dd></div><div><dt>旅程期間確認</dt><dd>${current.length}</dd></div><div><dt>出發前再確認</dt><dd>${check.length}</dd></div><div><dt>官方來源</dt><dd>${official.length}</dd></div><div><dt>社群來源</dt><dd>${social.length}</dd></div></dl></div><details class="panel source-group" open><summary><strong>官方季節、神社、寺院與活動來源</strong><span>${official.length} 筆</span></summary><ol class="source-list shopping-source-list">${sourceRows(official)}</ol></details><details class="panel source-group"><summary><strong>社群探索與實走參考</strong><span>${social.length} 筆 · 不取代官方</span></summary><ol class="source-list shopping-source-list">${sourceRows(social)}</ol></details>`;
+    root.append(specialLibrary);
+  }
 })();

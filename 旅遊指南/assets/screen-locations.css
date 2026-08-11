@@ -33,3 +33,7 @@
 .word-time strong{font-size:1rem;line-height:1.55;word-break:keep-all}
 .dialog-facts dd{line-height:1.55;word-break:keep-all}
 @media(max-width:520px){.screen-hero h1{font-size:clamp(2.15rem,10vw,3rem)}.screen-work-card h2{font-size:1.55rem}.screen-work-card h2.is-long{font-size:1.18rem}.screen-work-card h2.is-very-long{font-size:1.02rem}.screen-location-row>button{grid-template-columns:1.8rem minmax(0,1fr) auto;min-height:100px}.location-time{font-size:.7rem}.screen-filter-grid select{font-size:.95rem}}
+
+/* Viewport-safe screen-location dialog */
+.screen-dialog{overflow:hidden}.screen-dialog[open]{display:block}.screen-dialog-inner{position:relative;max-height:min(90dvh,860px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-top:clamp(4.5rem,7vw,5.5rem)}.screen-dialog-close{position:sticky;z-index:5;top:0;float:right;display:grid;place-items:center;width:46px;height:46px;margin:-3rem 0 0;border:1px solid var(--screen-rule);background:var(--screen-ink);color:var(--screen-paper);font-size:1.35rem;cursor:pointer}.dialog-actions{clear:both}.dialog-ja,.screen-dialog p,.screen-dialog li,.dialog-facts dd{color:#424742}
+@media(max-width:520px){.screen-dialog{width:calc(100vw - .75rem);max-height:calc(100dvh - .75rem)}.screen-dialog-inner{max-height:calc(100dvh - .75rem);padding:4.25rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom))}.screen-dialog-close{margin:-3rem 0 0}.dialog-actions{position:static;padding:1rem 0 0}}

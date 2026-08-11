@@ -97,7 +97,7 @@
     const work = works.get(item.workId); const place = locations.get(item.locationId);
     const featured = data.screenAppearances.filter(entry => entry.locationId === place.id);
     const sourceList = [...new Set([...item.sourceIds,...place.sourceIds])].map(sourceId => sources.get(sourceId)).filter(Boolean);
-    dialog.querySelector('[data-dialog-content]').innerHTML = `<div class="dialog-kicker">${escapeHtml(work.nameZh)} · ${mediaLabel[mediaGroup(work.mediaType)]}</div>
+    dialog.querySelector('[data-dialog-content]').innerHTML = `<button class="screen-dialog-close" type="button" data-dialog-close aria-label="關閉視窗">×</button><div class="dialog-kicker">${escapeHtml(work.nameZh)} · ${mediaLabel[mediaGroup(work.mediaType)]}</div>
       <h2 id="screen-dialog-title">${escapeHtml(place.nameZh)}</h2><p class="dialog-ja">${escapeHtml(place.nameJa)}</p>
       <div class="word-time"><small>Word 原行程時間</small><strong>${escapeHtml(item.suggestedTime)}</strong></div>
       <dl class="dialog-facts"><div><dt>場景</dt><dd>${escapeHtml(item.sceneTitleZh)}</dd></div><div><dt>證據</dt><dd>${escapeHtml(evidenceText(item.evidenceType))} · 可信度${confidenceLabel[item.evidenceConfidence]}</dd></div><div><dt>地區</dt><dd>${escapeHtml(areas.get(place.areaId)?.nameZh || place.areaId)} · ${escapeHtml(place.subArea)}</dd></div><div><dt>動線</dt><dd>${escapeHtml(routeLabel[item.routeRelevance])}${item.detourMinutes ? ` · 約 ${item.detourMinutes} 分鐘支線` : ''}</dd></div><div><dt>停留</dt><dd>${escapeHtml(visitLabel[item.visitTime] || item.visitTime)}</dd></div><div><dt>地點類型</dt><dd>${escapeHtml(locationTypeLabel[place.locationType] || place.locationType)}</dd></div></dl>
@@ -107,6 +107,7 @@
       <section><h3>資料來源</h3><ol>${sourceList.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.title)} ↗</a><small>${escapeHtml(evidenceText(source.evidence))}</small></li>`).join('')}</ol></section>
       <div class="dialog-actions"><a class="btn" href="${place.mapUrl}" target="_blank" rel="noopener noreferrer">Google Maps 導航</a><button class="btn alt" type="button" data-dialog-close>關閉</button></div>`;
     dialog.showModal();
+    document.body.classList.add('dialog-open');
     dialog.querySelector('[data-dialog-close]').focus();
   };
 
@@ -124,7 +125,9 @@
     if (workButton) { const list = results.querySelector(`[data-work-locations="${workButton.dataset.workOpen}"]`); list.hidden = !list.hidden; workButton.setAttribute('aria-expanded', String(!list.hidden)); }
     const locationButton = event.target.closest('[data-location-open]'); if (locationButton) openDialog(locationButton.dataset.locationOpen);
   });
-  dialog.addEventListener('click', event => { if (event.target === dialog || event.target.closest('[data-dialog-close]')) dialog.close(); });
+  const closeScreenDialog = () => { if (dialog.open) dialog.close(); document.body.classList.remove('dialog-open'); };
+  dialog.addEventListener('click', event => { if (event.target === dialog || event.target.closest('[data-dialog-close]')) closeScreenDialog(); });
+  dialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
   window.addEventListener('popstate', () => { Object.keys(state).forEach(key => state[key] = 'all'); readUrl(); render(); });
   readUrl(); writeUrl(true); render();
 })();

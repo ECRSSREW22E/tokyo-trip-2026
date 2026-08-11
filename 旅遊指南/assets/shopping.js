@@ -353,8 +353,9 @@
     document.querySelector('[data-list-detail]').innerHTML = selected.length ? `<div class="saved-list">${selected.map(item => `<article><button class="product-check is-selected" type="button" data-toggle-item="${e(item.id)}" aria-label="移除 ${e(item.nameZh)}">✓</button><div><span>${e(displayDay(item.tripDays))} · ${e(item.buyTiming)}</span><h3>${e(item.nameZh)}</h3><p>${e(item.priceRange)} · TIER ${e(item.recommendationTier)}</p></div><button type="button" data-open-product="${e(item.id)}">DETAILS →</button></article>`).join('')}</div>${unknownCount ? `<p class="legacy-note">另保留 ${unknownCount} 個舊版清單 ID，未清除你的既有資料。</p>` : ''}` : '<p class="empty-state">還沒有加入商品。從 CORE PICKS 點選「＋」開始。</p>';
   }
 
-  function showDialog(dialog) { if (dialog && !dialog.open) dialog.showModal(); }
-  function closeDialog(dialog) { if (dialog?.open) dialog.close(); }
+  function syncDialogLock() { document.body.classList.toggle('dialog-open', Boolean(document.querySelector('dialog[open]'))); }
+  function showDialog(dialog) { if (dialog && !dialog.open) { dialog.showModal(); syncDialogLock(); } }
+  function closeDialog(dialog) { if (dialog?.open) { dialog.close(); syncDialogLock(); } }
 
   function initControls() {
     const categories = unique(items.filter(item => item.core).map(item => item.category));
@@ -409,7 +410,7 @@
 
   document.querySelector('[data-product-search]').addEventListener('input', event => { productState.query = event.target.value.trim().toLowerCase(); renderProducts(); });
   [['[data-filter-category]','category'],['[data-filter-area]','area'],['[data-filter-day]','day'],['[data-filter-tier]','tier'],['[data-filter-price]','price']].forEach(([selector,key]) => document.querySelector(selector).addEventListener('change', event => { productState[key] = event.target.value; renderProducts(); }));
-  document.querySelectorAll('dialog').forEach(dialog => dialog.addEventListener('click', event => { if (event.target === dialog) closeDialog(dialog); }));
+  document.querySelectorAll('dialog').forEach(dialog => { dialog.addEventListener('click', event => { if (event.target === dialog) closeDialog(dialog); }); dialog.addEventListener('close', syncDialogLock); });
 
   document.querySelectorAll('[data-dir-filter]').forEach(control => control.addEventListener(control.type === 'search'?'input':'change',event => {
     const key = event.target.dataset.dirFilter;
