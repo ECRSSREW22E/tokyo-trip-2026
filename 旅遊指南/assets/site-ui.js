@@ -64,7 +64,7 @@
     const screenCallout = doc.createElement('section');
     screenCallout.className = 'panel shell';
     screenCallout.dataset.screenDayLink = screenDayMatch[1];
-    screenCallout.innerHTML = `<div class="eyebrow">SCREEN PILGRIMAGE NEARBY</div><h2>DAY ${screenDayMatch[1].padStart(2,'0')} 的作品場景</h2><p>只顯示今天順路、附近與可選支線的場景；正式取景、官方合作與社群辨識會分開標示。</p><a class="btn alt" href="${new URL(`../themes/screen-locations.html?day=D${screenDayMatch[1]}`, ownScript.src).href}">VIEW D${screenDayMatch[1]} SCREEN LOCATIONS →</a>`;
+    screenCallout.innerHTML = `<div class="eyebrow">當日作品場景</div><h2>第 ${screenDayMatch[1]} 天的場景巡禮</h2><p>正式停留時間完全依照《日本行.docx》；未列入原行程的地點只會標示為可選支線，不會擠壓交通與訂位時間。</p><a class="btn alt" href="${new URL(`../themes/screen-locations.html?day=D${screenDayMatch[1]}`, ownScript.src).href}">查看第 ${screenDayMatch[1]} 天作品場景 →</a>`;
     main.appendChild(screenCallout);
   }
   if (dayNav) {

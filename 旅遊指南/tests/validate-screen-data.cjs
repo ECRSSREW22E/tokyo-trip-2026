@@ -26,6 +26,14 @@ const locationIds = unique(data.screenLocations, 'location');
 const appearanceIds = unique(data.screenAppearances, 'appearance');
 const sourceIds = unique(data.screenSources, 'source');
 const areaIds = unique(data.screenAreas, 'area');
+const scheduleIds = unique(data.screenSchedule || [], 'schedule');
+
+(data.screenSchedule || []).forEach(item => {
+  if (!/^D[1-6]$/.test(item.day)) failures.push(`Invalid schedule day: ${item.id}`);
+  if (!/^\d{2}:\d{2}$/.test(item.start) || !/^\d{2}:\d{2}$/.test(item.end)) failures.push(`Invalid schedule time: ${item.id}`);
+  if (item.source !== '日本行.docx' || item.isAbsolute !== true) failures.push(`Schedule must use Word source of truth: ${item.id}`);
+  item.locationIds.forEach(id => { if (!locationIds.has(id)) failures.push(`Unknown schedule locationId ${id}: ${item.id}`); });
+});
 
 data.screenWorks.forEach(item => {
   if (!allowed.mediaType.includes(item.mediaType)) failures.push(`Invalid mediaType: ${item.id}`);
@@ -50,6 +58,9 @@ data.screenAppearances.forEach(item => {
   if (item.appearanceType.startsWith('ANIME') && !data.screenWorks.find(work => work.id === item.workId).mediaType.startsWith('ANIME')) failures.push(`Anime appearance on non-anime work: ${item.id}`);
   if (item.appearanceType.includes('DRAMA') && !['DRAMA_SERIES','DRAMA_SPECIAL','STREAMING_SERIES'].includes(data.screenWorks.find(work => work.id === item.workId).mediaType)) failures.push(`Drama appearance on non-drama work: ${item.id}`);
   if (item.evidenceType === 'REFERENCE_ONLY' && item.evidenceConfidence === 'HIGH') failures.push(`Reference-only cannot be HIGH: ${item.id}`);
+  if (item.scheduleId && !scheduleIds.has(item.scheduleId)) failures.push(`Unknown scheduleId: ${item.id}`);
+  if (['DIRECT','NEARBY','SMALL_DETOUR'].includes(item.routeRelevance) && !item.scheduleId) failures.push(`On-route appearance missing Word schedule: ${item.id}`);
+  if (!item.scheduleId && item.suggestedTime !== '未列入 Word 正式行程；僅作可選支線') failures.push(`Optional route has an invented time: ${item.id}`);
 });
 
 const coordinateOwner = new Map();
@@ -60,5 +71,5 @@ data.screenLocations.filter(item => item.coordinates).forEach(item => {
 });
 
 if (data.screenAppearances.filter(item => item.legacyId).length < 24) failures.push('Not all 24 legacy scenes have a migration id');
-console.log(JSON.stringify({ works: workIds.size, locations: locationIds.size, appearances: appearanceIds.size, sources: sourceIds.size, legacyMigrated: data.screenAppearances.filter(item => item.legacyId).length, warnings, failures }, null, 2));
+console.log(JSON.stringify({ works: workIds.size, locations: locationIds.size, appearances: appearanceIds.size, sources: sourceIds.size, schedules: scheduleIds.size, wordTimedAppearances: data.screenAppearances.filter(item => item.scheduleId).length, optionalUntimedAppearances: data.screenAppearances.filter(item => !item.scheduleId).length, legacyMigrated: data.screenAppearances.filter(item => item.legacyId).length, warnings, failures }, null, 2));
 if (failures.length) process.exit(1);

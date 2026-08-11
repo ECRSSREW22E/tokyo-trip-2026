@@ -3,3 +3,33 @@
 @media(max-width:520px){.screen-hero{padding:4.5rem 0 3rem}.screen-app{padding-top:2.5rem}.screen-filter-grid{grid-template-columns:1fr}.screen-filter-footer{align-items:flex-start;flex-direction:column}.screen-results{margin-top:2.5rem}.screen-work-card{padding:1.35rem}.screen-location-row>button{grid-template-columns:1.8rem minmax(0,1fr) auto}.dialog-facts{grid-template-columns:1fr}.screen-dialog{width:calc(100% - 1rem);max-height:94vh}.screen-dialog-inner{padding:1.25rem}.dialog-actions{position:sticky;bottom:0;background:var(--screen-paper);padding:1rem 0 .25rem}.dialog-actions>*{flex:1;text-align:center}}
 .screen-work-card:last-child:nth-child(odd){grid-column:1/-1}.screen-hero h1,.screen-app h2,.screen-app h3,.screen-app button,.screen-app select,.screen-work-card,.screen-location-row>button,.screen-dialog,.screen-dialog h2,.screen-dialog h3,.screen-dialog button{color:var(--screen-ink)}
 @media(prefers-reduced-motion:no-preference){.screen-work-card{animation:screenReveal .65s both}.screen-location-list:not([hidden]){animation:screenReveal .45s both}.screen-dialog[open] .screen-dialog-inner{animation:screenReveal .5s both}@keyframes screenReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}}
+
+/* V3 typography: readable Chinese first, decorative type only where it earns space. */
+.screen-hero h1{display:flex;flex-direction:column;align-items:flex-start;max-width:none;margin:.75rem 0 1.4rem;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:clamp(2.5rem,5.6vw,5rem);font-weight:760;line-height:1.08;letter-spacing:-.045em;text-wrap:initial;word-break:normal}
+.screen-hero h1 span{display:block;white-space:nowrap}
+.screen-hero .eyebrow{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",sans-serif;letter-spacing:.12em}
+.screen-controls,.screen-work-card,.screen-dialog{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",sans-serif}
+.screen-type-row button{font-family:inherit;font-size:.84rem;letter-spacing:.04em;white-space:nowrap}
+.screen-filter-grid label{font-family:inherit;font-size:.74rem;letter-spacing:.04em}
+.screen-filter-grid select{font-family:inherit;font-size:.9rem;white-space:nowrap}
+.screen-filter-footer button{font-weight:650;text-underline-offset:.35rem;white-space:nowrap}
+.screen-work-card h2{margin:1.75rem 0 .55rem;font-family:inherit;font-size:clamp(1.6rem,2.5vw,2.35rem);font-weight:740;line-height:1.16;letter-spacing:-.035em;word-break:keep-all;overflow-wrap:normal}
+.screen-work-card h2.is-long{font-size:clamp(1.28rem,2vw,1.9rem)}
+.screen-work-card h2.is-very-long{font-size:clamp(1.08rem,1.65vw,1.55rem)}
+.work-ja{min-height:0;color:var(--screen-muted);font-size:.9rem;line-height:1.65;word-break:keep-all}
+.work-meta{gap:.55rem 1.1rem;margin-top:1.6rem;font-family:inherit;font-size:.72rem;letter-spacing:.04em}
+.work-meta span,.work-areas{white-space:nowrap}
+.text-link{font-family:inherit;font-size:.78rem;letter-spacing:.06em;white-space:nowrap}
+.screen-location-row>button{grid-template-columns:2.2rem minmax(0,1fr) auto auto;min-height:96px}
+.location-copy{gap:.2rem}
+.location-copy strong{overflow:hidden;font-family:inherit;font-size:.96rem;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+.location-copy small{font-size:.78rem}
+.location-time{display:block;margin-top:.2rem;color:var(--screen-accent);font-size:.73rem;font-weight:650;line-height:1.45;word-break:keep-all}
+.location-tags em{font-family:inherit;letter-spacing:0}
+.screen-dialog h2{font-family:inherit;font-size:clamp(1.8rem,4vw,3rem);font-weight:740;line-height:1.16;letter-spacing:-.035em;word-break:keep-all}
+.dialog-kicker,.dialog-facts dt,.screen-dialog h3{font-family:inherit;letter-spacing:.05em}
+.word-time{display:grid;gap:.35rem;margin:1.6rem 0 0;padding:1rem 1.15rem;border-left:3px solid var(--screen-accent);background:rgba(85,112,107,.08)}
+.word-time small{color:var(--screen-muted);font-size:.72rem;font-weight:700}
+.word-time strong{font-size:1rem;line-height:1.55;word-break:keep-all}
+.dialog-facts dd{line-height:1.55;word-break:keep-all}
+@media(max-width:520px){.screen-hero h1{font-size:clamp(2.15rem,10vw,3rem)}.screen-work-card h2{font-size:1.55rem}.screen-work-card h2.is-long{font-size:1.18rem}.screen-work-card h2.is-very-long{font-size:1.02rem}.screen-location-row>button{grid-template-columns:1.8rem minmax(0,1fr) auto;min-height:100px}.location-time{font-size:.7rem}.screen-filter-grid select{font-size:.95rem}}
