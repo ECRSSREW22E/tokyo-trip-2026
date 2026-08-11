@@ -6,11 +6,18 @@
   const shoppingTaxonomy = Object.freeze({
     venueTypes: enumSet(['department-store','urban-mall','station-mall','shopping-center','shopping-street','market-street','flagship-district','electronics-complex','specialty-complex','outlet','local-shopping']),
     brandCategories: enumSet(['FASHION','SELECT_SHOP','DESIGNER','STREETWEAR','SNEAKERS','SPORTS','BEAUTY','DRUGSTORE','LIFESTYLE','HOME','TRAVEL','STATIONERY','ANIME','CHARACTER','GAME','HOBBY','ELECTRONICS','CAMERA','FOOD','SOUVENIR','LUXURY','VINTAGE']),
-    styles: enumSet(['BASIC','MINIMAL','CLEAN','CONTEMPORARY','JAPANESE_DESIGNER','STREETWEAR','HARAJUKU','KAWAII','LUXURY','VINTAGE','OUTDOOR','SNEAKER','TECHWEAR','AVANT_GARDE','SMART_CASUAL','AMERICAN_CASUAL']),
+    styles: enumSet(['BASIC','MINIMAL','CLEAN','CASUAL','SMART_CASUAL','CONTEMPORARY','JAPANESE_DESIGNER','STREETWEAR','HARAJUKU','KAWAII','Y2K','VINTAGE','AMERICAN_CASUAL','WORKWEAR','OUTDOOR','SPORT','SNEAKER','TECHWEAR','AVANT_GARDE','LUXURY','MODE','HYPE','UNISEX']),
     targets: enumSet(['MEN','WOMEN','UNISEX','TEEN','YOUNG_ADULT','ADULT','FAMILY','COLLECTOR','TOURIST']),
     priceLevels: enumSet([1,2,3,4]),
     japanValues: enumSet(['NONE','LOW','MEDIUM','HIGH','VERY_HIGH']),
-    trends: enumSet(['TRENDING_2026','TRENDING','EVERGREEN','NICHE','HYPE','DECLINING','UNKNOWN']),
+    trends: enumSet(['TRENDING_2026','TRENDING','EVERGREEN','NICHE','HYPE','REVIVAL','DECLINING','UNKNOWN']),
+    routeSegments: enumSet(['TAKESHITA_STREET','HARAJUKU','JINGUMAE','CAT_STREET','OMOTESANDO','SHIBUYA_CENTER','SHIBUYA_PARCO','SHIBUYA_STATION','MIYASHITA_PARK']),
+    fashionCategories: enumSet(['YOUTH_FAST_FASHION','STREETWEAR','SELECT_SHOP','JAPANESE_DESIGNER','INTERNATIONAL_DESIGNER','BASICS','CASUAL','SNEAKERS','SPORTS_FASHION','HARAJUKU_FASHION','KAWAII','VINTAGE','SECONDHAND','ACCESSORIES','BAGS','JEWELRY','LUXURY','LIFESTYLE_FASHION']),
+    shoppingIntents: enumSet(['CHEAP_TREND','EVERYDAY_BASIC','JAPANESE_FASHION','TREND_HUNTING','DESIGNER_DISCOVERY','STREETWEAR','SNEAKER_HUNT','VINTAGE_HUNT','GIFTS','ACCESSORIES','FLAGSHIP_EXPERIENCE']),
+    ageStyles: enumSet(['TEEN','COLLEGE','YOUNG_ADULT','ADULT','ALL_AGES']),
+    fashionAudiences: enumSet(['TREND_FOCUSED','VALUE_FOCUSED','DESIGN_FOCUSED','BRAND_FOCUSED','COLLECTOR','CASUAL_SHOPPER']),
+    pricePositions: enumSet(['BUDGET','AFFORDABLE','MID','PREMIUM','LUXURY']),
+    visitTimes: enumSet(['QUICK','NORMAL','DEEP','ZONE_DESTINATION']),
     branchStatuses: enumSet(['OPEN','TEMPORARILY_CLOSED','RENOVATING','RELOCATING','OPENING_SOON','CHECK_BEFORE_VISIT','CLOSED'])
   });
 
@@ -69,7 +76,29 @@
     ['dir-src-social-route-report','Tokyo route and shopping field report','SOCIAL','https://www.dcard.tw/f/japan_travel/p/254553652','Field report references LUMINE EST, BEAMS JAPAN and department-store food; used as a route-fit signal.'],
     ['dir-src-social-shinjuku-video','2025 Shinjuku shopping field video','SOCIAL','https://www.youtube.com/watch?v=uVhymusmvH0','Creator field report used only as a discovery and crowd / district orientation signal.'],
     ['dir-src-social-dcard','Dcard Japan travel shopping discussions','SOCIAL','https://www.dcard.tw/topics/%E6%97%A5%E6%9C%AC%E6%97%85%E9%81%8A','Used only for recurring shopping questions and traveller sentiment; never branch status.'],
-    ['dir-src-social-youtube','YouTube Japan shopping field reports','SOCIAL','https://www.youtube.com/results?search_query=2026+%E6%9D%B1%E4%BA%AC+%E8%B3%BC%E7%89%A9','Used only as a discovery and trend signal.']
+    ['dir-src-social-youtube','YouTube Japan shopping field reports','SOCIAL','https://www.youtube.com/results?search_query=2026+%E6%9D%B1%E4%BA%AC+%E8%B3%BC%E7%89%A9','Used only as a discovery and trend signal.'],
+    ['dir-src-takeshita','Takeshita Street official shop list','OFFICIAL_VENUE','https://www.takeshita-street.com/shop.html','Current merchant list for Takeshita Street.'],
+    ['dir-src-wego','WEGO official store list','OFFICIAL_BRANCH','https://wego.jp/a/shops','Current Harajuku and Shibuya branch addresses.'],
+    ['dir-src-wego-summer26','WEGO SUMMER FES 2026','OFFICIAL_BRAND','https://wego.jp/blogs/news/wego-summer-fes-2026','Official 2026 seasonal event evidence; not a stock guarantee.'],
+    ['dir-src-spinns-close','SPINNS Harajuku Takeshita closure notice','OFFICIAL_BRANCH','https://www.spinns.com/topics/58143/','Confirms the former Takeshita branch closed in 2023.'],
+    ['dir-src-spinns-109','SPINNS SHIBUYA109 official tenant page','OFFICIAL_BRANCH','https://www.shibuya109.jp/shop/SPN/','Current SHIBUYA109 branch evidence.'],
+    ['dir-src-angelic-laforet','Angelic Pretty Laforet official tenant page','OFFICIAL_BRANCH','https://www.laforet.ne.jp/shop_search/shop2','Current Laforet tenant and floor evidence.'],
+    ['dir-src-acdcrag','ACDC RAG official company / store page','OFFICIAL_BRANCH','https://acdcrag.com/pages/company','Current Harajuku shop addresses and hours.'],
+    ['dir-src-ragtag','RAGTAG Harajuku official store page','OFFICIAL_BRANCH','https://www.ragtag.jp/real-store/0000000001','Current Cat Street secondhand store, address, hours and fashion mix.'],
+    ['dir-src-2ndstreet','2nd STREET Harajuku official store page','OFFICIAL_BRANCH','https://www.2ndstreet.jp/shop/details?shopsId=30887','Current Harajuku flagship secondhand store and hours.'],
+    ['dir-src-sacai','sacai official store locator','OFFICIAL_BRANCH','https://www.sacai.jp/en/pages/store-locator','Current Aoyama flagship address.'],
+    ['dir-src-hm','H&M Japan official store locator','OFFICIAL_BRANCH','https://www2.hm.com/ja_jp/customer-service/shopping-at-hm/store-locator.html','Current Harajuku and Shibuya stores.'],
+    ['dir-src-zara','ZARA Shibuya official store page','OFFICIAL_BRANCH','https://www.zara.com/jp/ja/stores-locator/zara-%E6%9D%B1%E4%BA%AC-shibuya-s3048','Current Udagawacho branch.'],
+    ['dir-src-stussy','Stussy Harajuku official chapter page','OFFICIAL_BRANCH','https://www.stussy.com/blogs/chapters/stussy-harajuku','Current Harajuku chapter address.'],
+    ['dir-src-supreme','Supreme official store list','OFFICIAL_BRANCH','https://supreme.com/stores','Current Harajuku store listing.'],
+    ['dir-src-xlarge','XLARGE official shop list','OFFICIAL_BRANCH','https://xlarge.jp/shoplist','Current Harajuku branch listing.'],
+    ['dir-src-atmos','atmos official shop list','OFFICIAL_BRANCH','https://www.atmos-tokyo.com/shop/store/shoplist','Current Harajuku, Omotesando and Shibuya branches.'],
+    ['dir-src-atmos-pink26','atmos pink Harajuku relocation 2026','OFFICIAL_BRANCH','https://www.atmos-tokyo.com/news/560','Official July 2026 relocation and reopen notice.'],
+    ['dir-src-adidas','adidas Originals Flagship Store Tokyo official page','OFFICIAL_BRANCH','https://www.adidas.jp/stores/japan/tokyo/jingumae-shibuya-5-17-4/9990017853','Current Jingumae flagship address and hours.'],
+    ['dir-src-fashion-snap26','FASHIONSNAP Harajuku street snap July 2026','FASHION_MEDIA','https://www.fashionsnap.com/article/2026-07-04/fashion-snap-harajuku/','Editorial evidence for current Harajuku layering and Y2K signals; not branch status.'],
+    ['dir-src-timeout-select26','Time Out Tokyo Harajuku select shops 2026','FASHION_MEDIA','https://www.timeout.jp/tokyo/ja/shopping-style/13-unique-select-shops-in-harajuku-andjingumae','Recent editorial discovery source; branches rechecked officially.'],
+    ['dir-src-reddit-harajuku26','Public Harajuku fashion discussion','SOCIAL','https://www.reddit.com/r/HarajukuFashion/comments/1kkq5dw','Subjective style and shopping signal only; never used for store existence.'],
+    ['dir-src-reddit-stussy26','Public Stussy Harajuku visit discussion 2026','SOCIAL','https://www.reddit.com/r/stussy/comments/1rykw5d/harajuku_32026/','Queue and stock uncertainty signal only; stock is never guaranteed.']
   ].map(([id,title,kind,url,note]) => ({
     id,title,kind,url,note,checkedAt:verifiedAt,
     platform:kind === 'SOCIAL' ? (url.includes('youtube.com')?'youtube':'dcard') : 'official',
@@ -92,7 +121,7 @@
     detourLevel:extras.detourLevel || 'ON_ROUTE',timeNeeded:extras.timeNeeded || '30–90 min',summary:extras.summary || '',
     officialUrl:extras.officialUrl || sourceUrl(sourceIds[0]),
     mapUrl:extras.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name+' '+area)}`,
-    sourceIds,status:extras.status || 'OPEN',lastVerified:verifiedAt,needsVerification:extras.needsVerification ?? false
+    routeSegments:extras.routeSegments || [],sourceIds,status:extras.status || 'OPEN',lastVerified:verifiedAt,needsVerification:extras.needsVerification ?? false
   });
 
   const shoppingVenues = [
@@ -114,17 +143,21 @@
     venue('v-divercity','DiverCity Tokyo Plaza','台場',1,'shopping-center',['dir-src-divercity'],{nearestStation:'台場站／東京電訊站'}),
     venue('v-aquacity','AQUA CiTY Odaiba','台場',1,'shopping-center',['dir-src-aquacity'],{nearestStation:'台場站'}),
     venue('v-decks','DECKS Tokyo Beach','台場',1,'shopping-center',['dir-src-decks'],{nearestStation:'御台場海濱公園站'}),
-    venue('v-laforet','Laforet Harajuku','原宿',4,'urban-mall',['dir-src-laforet'],{nearestStation:'明治神宮前'}),
-    venue('v-harakado','Tokyu Plaza Harajuku HARAKADO','原宿',4,'urban-mall',['dir-src-tokyu-plaza'],{nearestStation:'明治神宮前'}),
-    venue('v-omokado','Tokyu Plaza Omotesando OMOKADO','原宿',4,'urban-mall',['dir-src-omohara'],{nearestStation:'明治神宮前'}),
-    venue('v-omotesando-hills','Omotesando Hills','表參道',4,'urban-mall',['dir-src-omotesando-hills'],{nearestStation:'表參道／明治神宮前',taxFree:'TENANT_DEPENDENT'}),
-    venue('v-atcosme','@cosme TOKYO','原宿',4,'specialty-complex',['dir-src-atcosme'],{nearestStation:'原宿站',taxFree:'AVAILABLE'}),
-    venue('v-cat-street','Cat Street','原宿／澀谷',4,'flagship-district',['dir-src-ua','dir-src-baycrews'],{nearestStation:'明治神宮前／澀谷',rainyDay:false,taxFree:'STORE_DEPENDENT'}),
-    venue('v-shibuya-parco','Shibuya PARCO','澀谷',4,'urban-mall',['dir-src-shibuya-parco'],{nearestStation:'澀谷站'}),
-    venue('v-scramble','Shibuya Scramble Square','澀谷',4,'station-mall',['dir-src-scramble'],{nearestStation:'澀谷站'}),
-    venue('v-hikarie','Shibuya Hikarie ShinQs','澀谷',4,'station-mall',['dir-src-hikarie'],{nearestStation:'澀谷站'}),
-    venue('v-miyashita','RAYARD MIYASHITA PARK','澀谷',4,'urban-mall',['dir-src-miyashita'],{nearestStation:'澀谷站'}),
-    venue('v-shibuya109','SHIBUYA109','澀谷',4,'urban-mall',['dir-src-109'],{nearestStation:'澀谷站'}),
+    venue('v-takeshita-street','Takeshita Street','竹下通',4,'shopping-street',['dir-src-takeshita'],{nearestStation:'原宿站竹下口',rainyDay:false,taxFree:'STORE_DEPENDENT',routeSegments:['TAKESHITA_STREET'],summary:'青年平價、原宿系與配件的快速掃街段，只收錄有官方現存證據的代表店。'}),
+    venue('v-jingumae-fashion','Harajuku / Jingumae Fashion District','原宿／神宮前',4,'flagship-district',['dir-src-stussy','dir-src-2ndstreet'],{nearestStation:'原宿／明治神宮前',rainyDay:false,taxFree:'STORE_DEPENDENT',routeSegments:['HARAJUKU','JINGUMAE'],summary:'原宿街頭、球鞋、古著與旗艦店的分店級節點。'}),
+    venue('v-laforet','Laforet Harajuku','原宿',4,'urban-mall',['dir-src-laforet'],{nearestStation:'明治神宮前',routeSegments:['HARAJUKU']}),
+    venue('v-harakado','Tokyu Plaza Harajuku HARAKADO','原宿',4,'urban-mall',['dir-src-tokyu-plaza'],{nearestStation:'明治神宮前',routeSegments:['HARAJUKU']}),
+    venue('v-omokado','Tokyu Plaza Omotesando OMOKADO','原宿',4,'urban-mall',['dir-src-omohara'],{nearestStation:'明治神宮前',routeSegments:['HARAJUKU','OMOTESANDO']}),
+    venue('v-omotesando-hills','Omotesando Hills','表參道',4,'urban-mall',['dir-src-omotesando-hills'],{nearestStation:'表參道／明治神宮前',taxFree:'TENANT_DEPENDENT',routeSegments:['OMOTESANDO']}),
+    venue('v-atcosme','@cosme TOKYO','原宿',4,'specialty-complex',['dir-src-atcosme'],{nearestStation:'原宿站',taxFree:'AVAILABLE',routeSegments:['HARAJUKU']}),
+    venue('v-cat-street','Cat Street','原宿／澀谷',4,'flagship-district',['dir-src-ua','dir-src-baycrews'],{nearestStation:'明治神宮前／澀谷',rainyDay:false,taxFree:'STORE_DEPENDENT',routeSegments:['CAT_STREET','JINGUMAE']}),
+    venue('v-omotesando-aoyama','Omotesando / Aoyama Flagship District','表參道／青山',4,'flagship-district',['dir-src-sacai','dir-src-atmos'],{nearestStation:'表參道站',rainyDay:false,taxFree:'STORE_DEPENDENT',routeSegments:['OMOTESANDO'],summary:'日本設計師與國際旗艦建築的目的型購物段。'}),
+    venue('v-shibuya-center','Shibuya Center / Udagawacho','澀谷中心街／宇田川町',4,'flagship-district',['dir-src-zara','dir-src-atmos'],{nearestStation:'澀谷站',rainyDay:false,taxFree:'STORE_DEPENDENT',routeSegments:['SHIBUYA_CENTER'],summary:'青年服飾、運動鞋與大型街邊店的快速比較段。'}),
+    venue('v-shibuya-parco','Shibuya PARCO','澀谷',4,'urban-mall',['dir-src-shibuya-parco'],{nearestStation:'澀谷站',routeSegments:['SHIBUYA_PARCO']}),
+    venue('v-scramble','Shibuya Scramble Square','澀谷',4,'station-mall',['dir-src-scramble'],{nearestStation:'澀谷站',routeSegments:['SHIBUYA_STATION']}),
+    venue('v-hikarie','Shibuya Hikarie ShinQs','澀谷',4,'station-mall',['dir-src-hikarie'],{nearestStation:'澀谷站',routeSegments:['SHIBUYA_STATION']}),
+    venue('v-miyashita','RAYARD MIYASHITA PARK','澀谷',4,'urban-mall',['dir-src-miyashita'],{nearestStation:'澀谷站',routeSegments:['MIYASHITA_PARK']}),
+    venue('v-shibuya109','SHIBUYA109','澀谷',4,'urban-mall',['dir-src-109'],{nearestStation:'澀谷站',routeSegments:['SHIBUYA_CENTER']}),
     venue('v-midtown','Tokyo Midtown','六本木',2,'urban-mall',['dir-src-midtown'],{nearestStation:'六本木站'}),
     venue('v-roppongi-hills','Roppongi Hills','六本木',2,'urban-mall',['dir-src-roppongi-hills'],{nearestStation:'六本木站'}),
     venue('v-matsuzakaya-ueno','Matsuzakaya Ueno','上野／御徒町',6,'department-store',['dir-src-matsuya-ueno'],{nearestStation:'上野廣小路／御徒町',taxFree:'AVAILABLE'}),
@@ -147,7 +180,9 @@
     originCountry:extras.originCountry || ((extras.japaneseBrand ?? true)?'Japan':'International'),japaneseBrand:extras.japaneseBrand ?? true,
     category,primaryCategory:category,categories:extras.categories || [category],subcategories:extras.subcategories || [],
     styles,styleTags:styles,targets,targetGender:targets.filter(value => ['MEN','WOMEN','UNISEX'].includes(value)),targetAudience:targets,
-    priceLevel:price,bestFor:extras.bestFor || [],notIdealFor:extras.notIdealFor || [],japanValue,trend,trendStatus:trend,
+    priceLevel:price,pricePosition:extras.pricePosition || ({1:'BUDGET',2:'AFFORDABLE',3:'MID',4:'PREMIUM'}[price]),
+    fashionCategories:extras.fashionCategories || [],shoppingIntent:extras.shoppingIntent || [],ageStyle:extras.ageStyle || [],fashionAudience:extras.fashionAudience || [],
+    bestFor:extras.bestFor || [],notIdealFor:extras.notIdealFor || [],whyGo:extras.whyGo || '',skipIf:extras.skipIf || '',japanValue,trend,trendStatus:trend,
     taiwanAvailability:extras.taiwanAvailability || 'CHECK',japanSelectionAdvantage:extras.japanSelectionAdvantage || japanValue,
     exclusivePotential:extras.exclusivePotential || (['HIGH','VERY_HIGH'].includes(japanValue)?'MEDIUM':'LOW'),
     touristFriendly:extras.touristFriendly ?? true,taxFreeLikely:extras.taxFreeLikely ?? true,
@@ -265,7 +300,16 @@
     B('b-wtaps','WTAPS','STREETWEAR',['STREETWEAR','AMERICAN_CASUAL'],['MEN','UNISEX','COLLECTOR'],4,'VERY_HIGH','HYPE'),
     B('b-nike','Nike','SPORTS',['SNEAKER','STREETWEAR'],['MEN','WOMEN','UNISEX'],3,'MEDIUM','EVERGREEN',{japaneseBrand:false,originCountry:'United States'}),
     B('b-adidas','adidas','SPORTS',['SNEAKER','STREETWEAR'],['MEN','WOMEN','UNISEX'],3,'MEDIUM','EVERGREEN',{japaneseBrand:false,originCountry:'Germany'}),
-    B('b-salomon','SALOMON','SPORTS',['OUTDOOR','TECHWEAR','SNEAKER'],['MEN','WOMEN','UNISEX'],3,'MEDIUM','TRENDING_2026',{japaneseBrand:false,originCountry:'France'})
+    B('b-salomon','SALOMON','SPORTS',['OUTDOOR','TECHWEAR','SNEAKER'],['MEN','WOMEN','UNISEX'],3,'MEDIUM','TRENDING_2026',{japaneseBrand:false,originCountry:'France'}),
+    B('b-acdcrag','ACDC RAG','FASHION',['HARAJUKU','KAWAII','Y2K'],['MEN','WOMEN','UNISEX','TEEN','YOUNG_ADULT'],2,'VERY_HIGH','REVIVAL',{fashionCategories:['HARAJUKU_FASHION','KAWAII','ACCESSORIES'],shoppingIntent:['CHEAP_TREND','TREND_HUNTING','JAPANESE_FASHION'],ageStyle:['TEEN','COLLEGE','YOUNG_ADULT'],fashionAudience:['TREND_FOCUSED','VALUE_FOCUSED'],whyGo:'原宿系圖案、配件與平價造型一次看。',skipIf:'只找低調基本款或成熟設計師服飾。',officialUrl:'https://acdcrag.com/',sourceIds:['dir-src-acdcrag','dir-src-fashion-snap26']}),
+    B('b-angelic-pretty','Angelic Pretty','FASHION',['HARAJUKU','KAWAII'],['WOMEN','TEEN','YOUNG_ADULT','COLLECTOR'],3,'VERY_HIGH','EVERGREEN',{fashionCategories:['HARAJUKU_FASHION','KAWAII','ACCESSORIES'],shoppingIntent:['JAPANESE_FASHION','TREND_HUNTING'],ageStyle:['TEEN','COLLEGE','YOUNG_ADULT'],fashionAudience:['DESIGN_FOCUSED','COLLECTOR'],whyGo:'代表性的日本 Lolita／Kawaii 品牌與完整造型。',skipIf:'不穿甜美原宿系或只找中性日常服。',officialUrl:'https://angelicpretty.com/',sourceIds:['dir-src-angelic-laforet']}),
+    B('b-hm','H&M','FASHION',['BASIC','CASUAL','Y2K'],['MEN','WOMEN','UNISEX','TEEN','YOUNG_ADULT'],1,'LOW','TRENDING',{japaneseBrand:false,originCountry:'Sweden',fashionCategories:['YOUTH_FAST_FASHION','BASICS','CASUAL'],shoppingIntent:['CHEAP_TREND','EVERYDAY_BASIC'],ageStyle:['TEEN','COLLEGE','YOUNG_ADULT','ALL_AGES'],fashionAudience:['VALUE_FOCUSED','CASUAL_SHOPPER'],whyGo:'快速補齊平價流行與基本款。',skipIf:'希望買日本品牌或日本限定設計。',officialUrl:'https://www2.hm.com/ja_jp/',sourceIds:['dir-src-hm']}),
+    B('b-zara','ZARA','FASHION',['CONTEMPORARY','CASUAL','MODE'],['MEN','WOMEN','YOUNG_ADULT','ADULT'],2,'LOW','TRENDING',{japaneseBrand:false,originCountry:'Spain',fashionCategories:['YOUTH_FAST_FASHION','CASUAL'],shoppingIntent:['TREND_HUNTING','EVERYDAY_BASIC'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['TREND_FOCUSED','CASUAL_SHOPPER'],whyGo:'在澀谷快速查看當季都會輪廓。',skipIf:'這趟只想買日本品牌。',officialUrl:'https://www.zara.com/jp/',sourceIds:['dir-src-zara']}),
+    B('b-ragtag','RAGTAG','VINTAGE',['VINTAGE','MODE','JAPANESE_DESIGNER'],['MEN','WOMEN','UNISEX','YOUNG_ADULT','ADULT','COLLECTOR'],3,'VERY_HIGH','REVIVAL',{fashionCategories:['SECONDHAND','VINTAGE','JAPANESE_DESIGNER'],shoppingIntent:['VINTAGE_HUNT','DESIGNER_DISCOVERY','JAPANESE_FASHION'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','VALUE_FOCUSED','COLLECTOR'],whyGo:'同時比較日本設計師、街頭與精品二手單品。',skipIf:'只接受全新品或沒有時間翻找。',officialUrl:'https://www.ragtag.jp/',sourceIds:['dir-src-ragtag','dir-src-fashion-snap26']}),
+    B('b-2ndstreet','2nd STREET','VINTAGE',['VINTAGE','CASUAL','STREETWEAR'],['MEN','WOMEN','UNISEX','TEEN','YOUNG_ADULT','ADULT'],2,'HIGH','REVIVAL',{fashionCategories:['SECONDHAND','VINTAGE','CASUAL'],shoppingIntent:['VINTAGE_HUNT','CHEAP_TREND'],ageStyle:['TEEN','COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['VALUE_FOCUSED','TREND_FOCUSED','CASUAL_SHOPPER'],whyGo:'在大型二手旗艦用較寬的預算帶搜尋日常與街頭古著。',skipIf:'只找特定高端設計師收藏。',officialUrl:'https://www.2ndstreet.jp/',sourceIds:['dir-src-2ndstreet','dir-src-timeout-select26']}),
+    B('b-stussy','Stüssy','STREETWEAR',['STREETWEAR','AMERICAN_CASUAL','HYPE'],['MEN','WOMEN','UNISEX','YOUNG_ADULT','COLLECTOR'],3,'MEDIUM','HYPE',{japaneseBrand:false,originCountry:'United States',fashionCategories:['STREETWEAR'],shoppingIntent:['STREETWEAR','FLAGSHIP_EXPERIENCE'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['BRAND_FOCUSED','COLLECTOR','TREND_FOCUSED'],whyGo:'原宿 Chapter 的街頭文化與店舖體驗。',skipIf:'期待特定庫存、限定款或不想排隊。',officialUrl:'https://www.stussy.com/',sourceIds:['dir-src-stussy','dir-src-reddit-stussy26']}),
+    B('b-supreme','Supreme','STREETWEAR',['STREETWEAR','HYPE'],['MEN','WOMEN','UNISEX','YOUNG_ADULT','COLLECTOR'],4,'MEDIUM','HYPE',{japaneseBrand:false,originCountry:'United States',fashionCategories:['STREETWEAR'],shoppingIntent:['STREETWEAR','FLAGSHIP_EXPERIENCE'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['BRAND_FOCUSED','COLLECTOR'],whyGo:'具代表性的原宿 Hype streetwear 節點。',skipIf:'預算偏低或不追品牌發售文化。',officialUrl:'https://supreme.com/',sourceIds:['dir-src-supreme']}),
+    B('b-xlarge','XLARGE','STREETWEAR',['STREETWEAR','AMERICAN_CASUAL'],['MEN','WOMEN','UNISEX','TEEN','YOUNG_ADULT'],3,'VERY_HIGH','EVERGREEN',{fashionCategories:['STREETWEAR','CASUAL'],shoppingIntent:['STREETWEAR','JAPANESE_FASHION'],ageStyle:['TEEN','COLLEGE','YOUNG_ADULT'],fashionAudience:['BRAND_FOCUSED','CASUAL_SHOPPER'],whyGo:'日本街頭品牌、圖像 T 恤與日常休閒較容易入手。',skipIf:'主要找前衛設計師剪裁。',officialUrl:'https://xlarge.jp/',sourceIds:['dir-src-xlarge']})
   ];
 
   const openEvidence = new Map([
@@ -292,12 +336,16 @@
     ['v-divercity',['b-uniqlo','b-gu','b-wego','b-hands','b-donguri','b-abc']],
     ['v-aquacity',['b-north-face','b-onitsuka','b-matsukiyo','b-jump']],
     ['v-decks',['b-surugaya','b-daiso','b-sanrio']],
-    ['v-laforet',['b-undercover','b-wego','b-spinns','b-atmos','b-kicks-lab']],
+    ['v-takeshita-street',['b-wego','b-acdcrag','b-hm']],
+    ['v-jingumae-fashion',['b-acdcrag','b-2ndstreet','b-stussy','b-supreme','b-xlarge','b-asics']],
+    ['v-laforet',['b-angelic-pretty']],
     ['v-harakado',['b-porter','b-muji','b-nakagawa']],
     ['v-omokado',['b-tomorrowland','b-urban-research','b-american-eagle']],
     ['v-omotesando-hills',['b-yohji','b-goldwin','b-jins','b-porter']],
     ['v-atcosme',['b-atcosme']],
-    ['v-cat-street',['b-bape','b-neighborhood','b-wtaps','b-carhartt-wip','b-new-balance','b-atmos','b-journal-standard','b-pulp','b-north-face','b-nike','b-adidas','b-salomon']],
+    ['v-cat-street',['b-bape','b-neighborhood','b-wtaps','b-carhartt-wip','b-new-balance','b-atmos','b-journal-standard','b-pulp','b-north-face','b-nike','b-adidas','b-salomon','b-ragtag']],
+    ['v-omotesando-aoyama',['b-sacai','b-atmos','b-onitsuka','b-issey']],
+    ['v-shibuya-center',['b-atmos','b-zara','b-hm']],
     ['v-shibuya-parco',['b-nintendo','b-pokemon','b-capcom','b-jump','b-human-made','b-undercover','b-comme-des-garcons','b-mihara','b-issey','b-mandarake','b-muji']],
     ['v-scramble',['b-iena','b-edifice','b-journal-standard','b-united-arrows','b-beams','b-porter']],
     ['v-hikarie',['b-cosme-kitchen','b-plaza','b-loft','b-akomeya','b-yokumoku']],
@@ -337,6 +385,55 @@
     if (!shoppingBrands.some(item => item.id === id)) shoppingBrands.push(B(id,name,category,styles,targets,price,value,trend,{japaneseBrand}));
   });
 
+  const fashionDefaults = {
+    FASHION:['CASUAL'],SELECT_SHOP:['SELECT_SHOP'],DESIGNER:['JAPANESE_DESIGNER'],STREETWEAR:['STREETWEAR'],
+    SNEAKERS:['SNEAKERS'],SPORTS:['SPORTS_FASHION'],LUXURY:['LUXURY'],VINTAGE:['VINTAGE'],TRAVEL:['BAGS']
+  };
+  const d4BrandProfiles = {
+    'b-wego':{fashionCategories:['YOUTH_FAST_FASHION','HARAJUKU_FASHION'],styleTags:['HARAJUKU','STREETWEAR','Y2K','UNISEX'],shoppingIntent:['CHEAP_TREND','TREND_HUNTING'],ageStyle:['TEEN','COLLEGE','YOUNG_ADULT'],fashionAudience:['TREND_FOCUSED','VALUE_FOCUSED'],pricePosition:'BUDGET',whyGo:'青年平價、快速看當季日系流行。',skipIf:'主要找高品質日本設計師品牌。',sourceIds:['dir-src-wego','dir-src-wego-summer26']},
+    'b-spinns':{fashionCategories:['YOUTH_FAST_FASHION','HARAJUKU_FASHION'],styleTags:['HARAJUKU','KAWAII','Y2K'],shoppingIntent:['CHEAP_TREND','TREND_HUNTING'],ageStyle:['TEEN','COLLEGE'],fashionAudience:['TREND_FOCUSED','VALUE_FOCUSED'],pricePosition:'BUDGET',whyGo:'SHIBUYA109 內快速看青年原宿系與配件。',skipIf:'想找成熟剪裁或設計師服飾。',sourceIds:['dir-src-spinns-109']},
+    'b-hare':{fashionCategories:['CASUAL','JAPANESE_DESIGNER'],styleTags:['MINIMAL','STREETWEAR','MODE'],shoppingIntent:['JAPANESE_FASHION','TREND_HUNTING'],ageStyle:['COLLEGE','YOUNG_ADULT'],fashionAudience:['TREND_FOCUSED','DESIGN_FOCUSED'],pricePosition:'AFFORDABLE'},
+    'b-lowrys-farm':{fashionCategories:['YOUTH_FAST_FASHION','CASUAL'],shoppingIntent:['CHEAP_TREND','EVERYDAY_BASIC'],ageStyle:['TEEN','COLLEGE','YOUNG_ADULT'],fashionAudience:['VALUE_FOCUSED','CASUAL_SHOPPER'],pricePosition:'AFFORDABLE'},
+    'b-rageblue':{fashionCategories:['YOUTH_FAST_FASHION','CASUAL'],shoppingIntent:['CHEAP_TREND','STREETWEAR'],ageStyle:['TEEN','COLLEGE','YOUNG_ADULT'],fashionAudience:['VALUE_FOCUSED','TREND_FOCUSED'],pricePosition:'AFFORDABLE'},
+    'b-sly':{fashionCategories:['YOUTH_FAST_FASHION','CASUAL'],styleTags:['STREETWEAR','Y2K','MODE'],shoppingIntent:['TREND_HUNTING'],ageStyle:['COLLEGE','YOUNG_ADULT'],fashionAudience:['TREND_FOCUSED'],pricePosition:'AFFORDABLE'},
+    'b-moussy':{fashionCategories:['CASUAL','YOUTH_FAST_FASHION'],styleTags:['CONTEMPORARY','CASUAL','MODE'],shoppingIntent:['TREND_HUNTING','EVERYDAY_BASIC'],ageStyle:['COLLEGE','YOUNG_ADULT'],fashionAudience:['TREND_FOCUSED','CASUAL_SHOPPER'],pricePosition:'AFFORDABLE'},
+    'b-beams':{fashionCategories:['SELECT_SHOP','CASUAL'],shoppingIntent:['JAPANESE_FASHION','DESIGNER_DISCOVERY'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','CASUAL_SHOPPER'],pricePosition:'MID'},
+    'b-united-arrows':{fashionCategories:['SELECT_SHOP'],shoppingIntent:['JAPANESE_FASHION','DESIGNER_DISCOVERY'],ageStyle:['YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED'],pricePosition:'MID'},
+    'b-beauty-youth':{fashionCategories:['SELECT_SHOP','CASUAL'],shoppingIntent:['JAPANESE_FASHION','TREND_HUNTING'],ageStyle:['COLLEGE','YOUNG_ADULT'],fashionAudience:['TREND_FOCUSED','DESIGN_FOCUSED'],pricePosition:'MID'},
+    'b-journal-standard':{fashionCategories:['SELECT_SHOP','CASUAL'],shoppingIntent:['JAPANESE_FASHION','TREND_HUNTING'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','CASUAL_SHOPPER'],pricePosition:'MID'},
+    'b-pulp':{fashionCategories:['SELECT_SHOP','STREETWEAR'],shoppingIntent:['STREETWEAR','DESIGNER_DISCOVERY'],ageStyle:['COLLEGE','YOUNG_ADULT'],fashionAudience:['TREND_FOCUSED','DESIGN_FOCUSED'],pricePosition:'MID'},
+    'b-tomorrowland':{fashionCategories:['SELECT_SHOP','LUXURY'],shoppingIntent:['DESIGNER_DISCOVERY'],ageStyle:['YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','BRAND_FOCUSED'],pricePosition:'PREMIUM'},
+    'b-issey':{fashionCategories:['JAPANESE_DESIGNER','LUXURY'],shoppingIntent:['DESIGNER_DISCOVERY','JAPANESE_FASHION','FLAGSHIP_EXPERIENCE'],ageStyle:['YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','COLLECTOR'],pricePosition:'LUXURY',whyGo:'日本設計師品牌與服裝結構的代表性體驗。',skipIf:'預算只在 ¥／¥¥。'},
+    'b-yohji':{fashionCategories:['JAPANESE_DESIGNER','LUXURY'],shoppingIntent:['DESIGNER_DISCOVERY','JAPANESE_FASHION'],ageStyle:['YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','COLLECTOR'],pricePosition:'LUXURY'},
+    'b-sacai':{fashionCategories:['JAPANESE_DESIGNER','LUXURY'],shoppingIntent:['DESIGNER_DISCOVERY','FLAGSHIP_EXPERIENCE','JAPANESE_FASHION'],ageStyle:['YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','COLLECTOR'],pricePosition:'LUXURY',whyGo:'青山旗艦可直接理解 sacai 的混種剪裁與品牌世界。',skipIf:'只想快速買平價日常服。',sourceIds:['dir-src-sacai']},
+    'b-undercover':{fashionCategories:['JAPANESE_DESIGNER','STREETWEAR'],shoppingIntent:['DESIGNER_DISCOVERY','STREETWEAR'],ageStyle:['YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','COLLECTOR'],pricePosition:'LUXURY'},
+    'b-comme-des-garcons':{fashionCategories:['JAPANESE_DESIGNER','LUXURY'],shoppingIntent:['DESIGNER_DISCOVERY','JAPANESE_FASHION'],ageStyle:['YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','COLLECTOR'],pricePosition:'LUXURY'},
+    'b-mihara':{fashionCategories:['JAPANESE_DESIGNER','SNEAKERS'],shoppingIntent:['DESIGNER_DISCOVERY','SNEAKER_HUNT'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['DESIGN_FOCUSED','COLLECTOR'],pricePosition:'LUXURY'},
+    'b-human-made':{fashionCategories:['STREETWEAR'],shoppingIntent:['STREETWEAR','JAPANESE_FASHION'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['BRAND_FOCUSED','COLLECTOR'],pricePosition:'PREMIUM',whyGo:'日本 Streetwear／Hype 品牌與明確品牌語彙。',skipIf:'只想找便宜日常服。'},
+    'b-bape':{fashionCategories:['STREETWEAR'],shoppingIntent:['STREETWEAR','FLAGSHIP_EXPERIENCE'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['BRAND_FOCUSED','COLLECTOR'],pricePosition:'PREMIUM'},
+    'b-neighborhood':{fashionCategories:['STREETWEAR'],styleTags:['STREETWEAR','AMERICAN_CASUAL','WORKWEAR'],shoppingIntent:['STREETWEAR','JAPANESE_FASHION'],ageStyle:['YOUNG_ADULT','ADULT'],fashionAudience:['BRAND_FOCUSED','COLLECTOR'],pricePosition:'PREMIUM'},
+    'b-wtaps':{fashionCategories:['STREETWEAR'],styleTags:['STREETWEAR','AMERICAN_CASUAL','WORKWEAR'],shoppingIntent:['STREETWEAR','JAPANESE_FASHION'],ageStyle:['YOUNG_ADULT','ADULT'],fashionAudience:['BRAND_FOCUSED','COLLECTOR'],pricePosition:'PREMIUM'},
+    'b-carhartt-wip':{fashionCategories:['STREETWEAR','CASUAL'],styleTags:['STREETWEAR','AMERICAN_CASUAL','WORKWEAR'],shoppingIntent:['STREETWEAR'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['BRAND_FOCUSED','CASUAL_SHOPPER'],pricePosition:'MID'},
+    'b-atmos':{fashionCategories:['SNEAKERS','STREETWEAR'],shoppingIntent:['SNEAKER_HUNT','JAPANESE_FASHION'],ageStyle:['TEEN','COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['TREND_FOCUSED','COLLECTOR'],pricePosition:'MID',whyGo:'日本球鞋選貨與聯名文化，D4 有多個順路分店。',skipIf:'只找最低價基本鞋款。',sourceIds:['dir-src-atmos','dir-src-atmos-pink26']},
+    'b-new-balance':{fashionCategories:['SNEAKERS','SPORTS_FASHION'],shoppingIntent:['SNEAKER_HUNT','FLAGSHIP_EXPERIENCE'],ageStyle:['ALL_AGES'],fashionAudience:['BRAND_FOCUSED','CASUAL_SHOPPER'],pricePosition:'MID'},
+    'b-nike':{fashionCategories:['SNEAKERS','SPORTS_FASHION'],shoppingIntent:['SNEAKER_HUNT','FLAGSHIP_EXPERIENCE'],ageStyle:['ALL_AGES'],fashionAudience:['BRAND_FOCUSED','CASUAL_SHOPPER'],pricePosition:'MID'},
+    'b-adidas':{fashionCategories:['SNEAKERS','SPORTS_FASHION'],shoppingIntent:['SNEAKER_HUNT','FLAGSHIP_EXPERIENCE'],ageStyle:['ALL_AGES'],fashionAudience:['BRAND_FOCUSED','CASUAL_SHOPPER'],pricePosition:'MID',sourceIds:['dir-src-adidas']},
+    'b-onitsuka':{fashionCategories:['SNEAKERS','LIFESTYLE_FASHION'],shoppingIntent:['SNEAKER_HUNT','JAPANESE_FASHION','FLAGSHIP_EXPERIENCE'],ageStyle:['ALL_AGES'],fashionAudience:['DESIGN_FOCUSED','BRAND_FOCUSED'],pricePosition:'MID'},
+    'b-asics':{fashionCategories:['SNEAKERS','SPORTS_FASHION'],shoppingIntent:['SNEAKER_HUNT','FLAGSHIP_EXPERIENCE'],ageStyle:['ALL_AGES'],fashionAudience:['CASUAL_SHOPPER','BRAND_FOCUSED'],pricePosition:'AFFORDABLE'},
+    'b-porter':{fashionCategories:['BAGS','ACCESSORIES'],shoppingIntent:['ACCESSORIES','JAPANESE_FASHION'],ageStyle:['ALL_AGES'],fashionAudience:['DESIGN_FOCUSED','CASUAL_SHOPPER'],pricePosition:'MID'},
+    'b-kith':{fashionCategories:['STREETWEAR','SNEAKERS'],shoppingIntent:['STREETWEAR','SNEAKER_HUNT'],ageStyle:['COLLEGE','YOUNG_ADULT','ADULT'],fashionAudience:['BRAND_FOCUSED','COLLECTOR'],pricePosition:'PREMIUM'}
+  };
+  shoppingBrands.forEach(item => {
+    if (!item.fashionCategories.length && fashionDefaults[item.primaryCategory]) item.fashionCategories = fashionDefaults[item.primaryCategory];
+    const profile = d4BrandProfiles[item.id];
+    if (profile) Object.assign(item,profile);
+    item.styleTags = [...new Set(item.styleTags || item.styles || [])];
+    item.styles = item.styleTags;
+    item.shoppingIntent = item.shoppingIntent || [];
+    item.ageStyle = item.ageStyle?.length ? item.ageStyle : (item.targetAudience.includes('TEEN')?['TEEN']:(item.targetAudience.includes('ADULT')?['ADULT']:['ALL_AGES']));
+    item.fashionAudience = item.fashionAudience?.length ? item.fashionAudience : ['CASUAL_SHOPPER'];
+  });
+
   const socialSignalGroups = [
     [['b-atcosme','b-ainz','b-matsukiyo','b-sundrug','b-cocokara','b-donki'],['dir-src-social-haul-2025','dir-src-social-shopping-review']],
     [['b-beams-japan','b-beams','b-united-arrows','b-tomorrowland','b-lumine-est'],['dir-src-social-route-report','dir-src-social-shinjuku-video']],
@@ -367,9 +464,10 @@
       area:v?.area || '',areaId:v?.areaId || '',days:v?.days || [],tripDays:v?.tripDays || [],floor:'CHECK OFFICIAL GUIDE',
       address:v?.address || 'CHECK OFFICIAL ACCESS PAGE',coordinates:null,status:evidence?'OPEN':'CHECK_BEFORE_VISIT',currentStatus:evidence?'OPEN':'CHECK_BEFORE_VISIT',
       onRoute:v?.routeFit ?? false,onRouteLevel:v?.routeFit?'PRIMARY':'DETOUR',rainyDay:v?.rainyDay ?? false,taxFree:v?.taxFree || 'CHECK_TENANT',
-      branchFormat,
+      branchFormat,routeSegments:v?.routeSegments || [],d4Priority:(v?.tripDays || []).includes(4)?1:3,suggestedVisitTime:'NORMAL',
+      branchStrengths:['ON_ROUTE',v?.rainyDay?'INDOOR':'OPEN_AIR'],exclusivePotential:'CHECK',flagship:false,
+      whyGo:b?.whyGo || b?.summary || '依品牌定位與本次路線判斷是否入店。',bestFor:b?.bestFor || [],skipIf:b?.skipIf || b?.notIdealFor?.join('；') || '',
       storeSize:['v-beams-japan','v-animate-ikebukuro','v-atcosme'].includes(venueId)?'FLAGSHIP_SCALE':'UNKNOWN',
-      branchStrengths:['ON_ROUTE',v?.rainyDay?'INDOOR':'OPEN_AIR'],
       branchExclusivePotential:['OFFICIAL_STORE','FLAGSHIP'].includes(branchFormat)?'HIGH':'CHECK',
       openingHours:'CHECK OFFICIAL GUIDE',
       mapUrl:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((b?.name || brandId)+' '+(v?.name || venueId))}`,
@@ -377,6 +475,39 @@
       needsVerification:!evidence,displayOrder:index
     };
   }));
+
+  const d4BranchOverrides = {
+    'br-takeshita-street-wego':{name:'WEGO 1.3.5 Harajuku',address:'東京都渋谷区神宮前1-8-2 SoLaDo竹下通り B1F',openingHours:'10:30–20:00',sourceIds:['dir-src-wego','dir-src-wego-summer26'],currentStatus:'OPEN',status:'OPEN',branchFormat:'IN_VENUE',d4Priority:0,suggestedVisitTime:'QUICK',taxFree:'AVAILABLE',needsVerification:false},
+    'br-takeshita-street-acdcrag':{name:'ACDC RAG Harajuku Main',address:'東京都渋谷区神宮前1-16-7',openingHours:'11:00–19:00',sourceIds:['dir-src-acdcrag'],currentStatus:'OPEN',status:'OPEN',branchFormat:'STREET_STORE',d4Priority:0,suggestedVisitTime:'QUICK',needsVerification:false},
+    'br-takeshita-street-hm':{name:'H&M WITH HARAJUKU',address:'東京都渋谷区神宮前1丁目14-30',openingHours:'CHECK OFFICIAL STORE LOCATOR',sourceIds:['dir-src-hm'],currentStatus:'OPEN',status:'OPEN',branchFormat:'LARGE_STORE',d4Priority:1,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-jingumae-fashion-acdcrag':{name:'ACDC RAG Wharf Harajuku',address:'東京都渋谷区神宮前1-9-1 2F',openingHours:'11:00–19:00',sourceIds:['dir-src-acdcrag'],currentStatus:'OPEN',status:'OPEN',branchFormat:'STREET_STORE',d4Priority:1,suggestedVisitTime:'QUICK',needsVerification:false},
+    'br-jingumae-fashion-2ndstreet':{name:'2nd STREET Harajuku',address:'東京都渋谷区神宮前4-26-4',openingHours:'11:00–21:00',sourceIds:['dir-src-2ndstreet'],currentStatus:'OPEN',status:'OPEN',branchFormat:'FLAGSHIP',flagship:true,storeSize:'FLAGSHIP_SCALE',d4Priority:0,suggestedVisitTime:'DEEP',taxFree:'AVAILABLE',needsVerification:false},
+    'br-jingumae-fashion-stussy':{name:'Stüssy Harajuku Chapter',address:'東京都渋谷区神宮前4-28-2',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-stussy','dir-src-reddit-stussy26'],currentStatus:'OPEN',status:'OPEN',branchFormat:'CHAPTER_STORE',flagship:true,d4Priority:1,suggestedVisitTime:'QUICK',needsVerification:false},
+    'br-jingumae-fashion-supreme':{name:'Supreme Harajuku',address:'東京都渋谷区神宮前4丁目32-7',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-supreme'],currentStatus:'OPEN',status:'OPEN',branchFormat:'STREET_STORE',d4Priority:1,suggestedVisitTime:'QUICK',needsVerification:false},
+    'br-jingumae-fashion-xlarge':{name:'XLARGE Harajuku',address:'東京都渋谷区神宮前4丁目25-29',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-xlarge'],currentStatus:'OPEN',status:'OPEN',branchFormat:'STREET_STORE',d4Priority:1,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-jingumae-fashion-asics':{name:'ASICS Harajuku Flagship',address:'東京都渋谷区神宮前1-5-8',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-takeshita'],currentStatus:'OPEN',status:'OPEN',branchFormat:'FLAGSHIP',flagship:true,d4Priority:1,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-laforet-angelic-pretty':{name:'Angelic Pretty Laforet Harajuku',floor:'B1.5F',address:'東京都渋谷区神宮前1-11-6',openingHours:'CHECK LAFORet OFFICIAL',sourceIds:['dir-src-angelic-laforet'],currentStatus:'OPEN',status:'OPEN',d4Priority:1,suggestedVisitTime:'QUICK',taxFree:'AVAILABLE',needsVerification:false},
+    'br-cat-street-ragtag':{name:'RAGTAG Harajuku',address:'東京都渋谷区神宮前5-17-9 1F・2F',openingHours:'11:00–20:00',sourceIds:['dir-src-ragtag'],currentStatus:'OPEN',status:'OPEN',branchFormat:'LARGE_STORE',d4Priority:0,suggestedVisitTime:'DEEP',needsVerification:false},
+    'br-cat-street-atmos':{name:'atmos pink flagship Harajuku',address:'東京都渋谷区神宮前6-5-3',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-atmos','dir-src-atmos-pink26'],currentStatus:'OPEN',status:'OPEN',branchFormat:'FLAGSHIP',flagship:true,d4Priority:0,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-cat-street-adidas':{name:'adidas Originals Flagship Store Tokyo',address:'東京都渋谷区神宮前5-17-4 B1F–2F',openingHours:'11:00–20:00',sourceIds:['dir-src-adidas'],currentStatus:'OPEN',status:'OPEN',branchFormat:'FLAGSHIP',flagship:true,d4Priority:0,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-omotesando-aoyama-sacai':{name:'sacai Aoyama',address:'東京都港区南青山5-4-44 1F・2F',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-sacai'],currentStatus:'OPEN',status:'OPEN',branchFormat:'FLAGSHIP',flagship:true,d4Priority:1,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-omotesando-aoyama-atmos':{name:'atmos BLUE Omotesando',address:'東京都渋谷区神宮前4丁目29-4',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-atmos'],currentStatus:'OPEN',status:'OPEN',branchFormat:'STREET_STORE',d4Priority:1,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-shibuya-center-atmos':{name:'atmos Shibuya',address:'東京都渋谷区宇田川町31-8',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-atmos'],currentStatus:'OPEN',status:'OPEN',branchFormat:'STREET_STORE',d4Priority:0,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-shibuya-center-zara':{name:'ZARA Shibuya',address:'東京都渋谷区宇田川町25-10',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-zara'],currentStatus:'OPEN',status:'OPEN',branchFormat:'LARGE_STORE',d4Priority:1,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-shibuya-center-hm':{name:'H&M Shibuya',address:'東京都渋谷区宇田川町33-6',openingHours:'CHECK OFFICIAL',sourceIds:['dir-src-hm'],currentStatus:'OPEN',status:'OPEN',branchFormat:'LARGE_STORE',d4Priority:1,suggestedVisitTime:'NORMAL',needsVerification:false},
+    'br-shibuya109-spinns':{sourceIds:['dir-src-spinns-109'],currentStatus:'OPEN',status:'OPEN',d4Priority:1,suggestedVisitTime:'NORMAL',needsVerification:false}
+  };
+  shoppingBranches.forEach(branch => {
+    const override = d4BranchOverrides[branch.id];
+    if (override) Object.assign(branch,override);
+    if (branch.tripDays.includes(4)) {
+      if (!override && ['v-harakado','v-omokado','v-omotesando-hills','v-scramble','v-hikarie'].includes(branch.venueId)) branch.d4Priority = 2;
+      branch.routeSegments = [...new Set(branch.routeSegments || [])];
+      branch.bestFor = branch.bestFor?.length ? branch.bestFor : (brandById.get(branch.brandId)?.shoppingIntent || []);
+      branch.whyGo = branch.whyGo || brandById.get(branch.brandId)?.whyGo || '';
+      branch.skipIf = branch.skipIf || brandById.get(branch.brandId)?.skipIf || '';
+    }
+  });
 
   shoppingBrands.forEach(item => {
     if (item.officialUrl && !item.sourceIds.length) {
@@ -416,13 +547,13 @@
     1:['v-isetan-shinjuku','v-lumine1','v-lumine2','v-lumine-est','v-beams-japan','v-divercity'],
     2:['v-sunshine','v-animate-ikebukuro','v-ikebukuro-parco','v-yodobashi-akiba','v-radio-kaikan','v-midtown'],
     3:[],
-    4:['v-atcosme','v-laforet','v-cat-street','v-shibuya-parco','v-scramble','v-miyashita'],
+    4:['v-takeshita-street','v-jingumae-fashion','v-laforet','v-atcosme','v-cat-street','v-omotesando-aoyama','v-shibuya-center','v-shibuya-parco','v-scramble','v-miyashita'],
     5:['v-sogo-yokohama','v-landmark','v-markis-mm','v-world-porters','v-redbrick'],
     6:['v-asakusa-rox','v-ekimise','v-ameyoko','v-matsuzakaya-ueno','v-parcoya']
   });
 
   window.TokyoShoppingDirectory = {
     verifiedAt,shoppingTaxonomy,directorySources,shoppingVenues,shoppingBrands,shoppingBranches,brandAliases,routePriority,
-    meta:{schemaVersion:1,recordCounts:{venues:shoppingVenues.length,brands:shoppingBrands.length,branches:shoppingBranches.length},officialFirst:true}
+    meta:{schemaVersion:2,recordCounts:{venues:shoppingVenues.length,brands:shoppingBrands.length,branches:shoppingBranches.length},officialFirst:true,d4FashionV2:true}
   };
 })();

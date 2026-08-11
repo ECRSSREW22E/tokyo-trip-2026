@@ -595,3 +595,6 @@ h1,h2,h3,.spot-title,.food-hero h1,.theme-hero h1,.directory-hero h1 { font-fami
   .editorial-hero img,.day-card img,.text-link,.day-nav a::after { transition:none!important; transform:none!important; }
   .page-leaving { opacity:1; transition:none; }
 }
+
+/* D4 shopping mode */
+.d4-shopping-mode>.shell{display:grid;grid-template-columns:minmax(0,1.4fr) 1fr auto;gap:2rem;align-items:end;border-block:1px solid var(--line);padding-block:2.2rem}.d4-shopping-mode h2{margin:.6rem 0;font-family:var(--serif);font-size:clamp(2rem,4vw,3.8rem);font-weight:500}.d4-shopping-mode p{max-width:48rem;line-height:1.8}.d4-shopping-mode ol{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:0;padding:0;list-style-position:inside}.d4-shopping-mode li{font-size:.76rem;letter-spacing:.06em}.d4-shopping-mode .btn{min-height:44px;white-space:nowrap}@media(max-width:780px){.d4-shopping-mode>.shell{grid-template-columns:1fr;align-items:start}.d4-shopping-mode .btn{width:100%;text-align:center}}

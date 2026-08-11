@@ -40,11 +40,68 @@
   if (migrated) persist();
 
   const productState = {query:'',category:'',area:'',day:'',tier:'',price:''};
-  const directoryState = {query:'',area:'',day:'',category:'',style:'',price:'',japanese:'',gender:'',trend:'',value:'',venueType:'',format:'',onRoute:false,taxFree:false,rainy:false};
+  const directoryState = {query:'',segment:'',day:'',fashionCategory:'',style:'',price:'',japanese:'',gender:'',ageStyle:'',intent:'',trend:'',value:'',priority:'',condition:'',flagship:false,taxFree:false,rainy:false};
+  const d4Presets = {
+    youth:{label:'YOUTH & AFFORDABLE',day:'4',fashionCategory:'YOUTH_FAST_FASHION',price:'1,2'},
+    street:{label:'STREETWEAR',day:'4',fashionCategory:'STREETWEAR'},
+    designer:{label:'JAPANESE DESIGNER',day:'4',fashionCategory:'JAPANESE_DESIGNER',japanese:'true'},
+    vintage:{label:'VINTAGE',day:'4',condition:'VINTAGE'},
+    sneakers:{label:'SNEAKERS',day:'4',fashionCategory:'SNEAKERS'},
+    select:{label:'JAPANESE SELECT SHOPS',day:'4',fashionCategory:'SELECT_SHOP',japanese:'true'},
+    harajuku:{label:'HARAJUKU STYLE',day:'4',style:'HARAJUKU'},
+    premium:{label:'PREMIUM OMOTESANDO',day:'4',segment:'OMOTESANDO',price:'3,4'}
+  };
+  const d4RouteGroups = [
+    {index:'01',label:'TAKESHITA STREET',segments:['TAKESHITA_STREET']},
+    {index:'02',label:'HARAJUKU',segments:['HARAJUKU','JINGUMAE']},
+    {index:'03',label:'CAT STREET',segments:['CAT_STREET']},
+    {index:'04',label:'OMOTESANDO',segments:['OMOTESANDO']},
+    {index:'05',label:'SHIBUYA',segments:['SHIBUYA_CENTER','SHIBUYA_PARCO','SHIBUYA_STATION','MIYASHITA_PARK']}
+  ];
   let placeType = 'ALL';
   let showAllPlaces = false;
   let showAllBrands = false;
   let activeDay = 1;
+
+  function syncDirectoryControls() {
+    document.querySelectorAll('[data-dir-filter]').forEach(control => {
+      const key = control.dataset.dirFilter;
+      if (!(key in directoryState)) return;
+      if (control.type === 'checkbox') control.checked = Boolean(directoryState[key]);
+      else control.value = directoryState[key];
+    });
+  }
+
+  function readDirectoryUrl() {
+    const params = new URLSearchParams(location.search);
+    const aliases = {routeSegment:'segment',category:'fashionCategory',shoppingIntent:'intent',d4Priority:'priority'};
+    params.forEach((value,key) => {
+      const stateKey = aliases[key] || key;
+      if (!(stateKey in directoryState)) return;
+      directoryState[stateKey] = typeof directoryState[stateKey] === 'boolean' ? value === 'true' : value.toUpperCase().replaceAll('-','_');
+      if (['query','day','price','japanese','priority'].includes(stateKey)) directoryState[stateKey] = value;
+    });
+  }
+
+  function updateDirectoryUrl() {
+    const params = new URLSearchParams(location.search);
+    ['routeSegment','category','shoppingIntent','d4Priority','segment','fashionCategory','intent','priority','style','price','day','japanese','gender','ageStyle','trend','value','condition','flagship'].forEach(key => params.delete(key));
+    const keys = {segment:'segment',fashionCategory:'category',intent:'shoppingIntent',priority:'d4Priority',style:'style',price:'price',day:'day',japanese:'japanese',gender:'gender',ageStyle:'ageStyle',trend:'trend',value:'value',condition:'condition',flagship:'flagship'};
+    Object.entries(keys).forEach(([stateKey,paramKey]) => { if (directoryState[stateKey] !== '' && directoryState[stateKey] !== false) params.set(paramKey,String(directoryState[stateKey]).toLowerCase().replaceAll('_','-')); });
+    if (directoryState.day === '4' || params.get('view') === 'stores') params.set('view','stores');
+    history.replaceState(null,'',`${location.pathname}${params.size?`?${params}`:''}${location.hash}`);
+  }
+
+  function applyPreset(id) {
+    const preset = d4Presets[id];
+    if (!preset) return;
+    Object.keys(directoryState).forEach(key => { directoryState[key] = typeof directoryState[key] === 'boolean' ? false : ''; });
+    Object.entries(preset).forEach(([key,value]) => { if (key !== 'label') directoryState[key] = value; });
+    showAllBrands = false;
+    syncDirectoryControls();
+    renderDirectory();
+    document.getElementById('store-directory')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  }
 
   function persist() {
     try { localStorage.setItem(storageKey, JSON.stringify([...saved])); } catch (_) {}
@@ -108,11 +165,10 @@
       const venue = venueById.get(branch.venueId);
       if (!venue || branch.currentStatus === 'CLOSED') return false;
       const taxFree = /AVAILABLE|ELIGIBLE/.test(String(branch.taxFree));
-      return (!directoryState.area || branch.area.includes(directoryState.area)) &&
+      return (!directoryState.segment || branch.routeSegments?.includes(directoryState.segment)) &&
         (!directoryState.day || branch.tripDays.includes(Number(directoryState.day))) &&
-        (!directoryState.venueType || venue.venueType === directoryState.venueType) &&
-        (!directoryState.format || branch.branchFormat === directoryState.format) &&
-        (!directoryState.onRoute || branch.onRoute) &&
+        (directoryState.priority === '' || branch.d4Priority === Number(directoryState.priority)) &&
+        (!directoryState.flagship || branch.flagship) &&
         (!directoryState.taxFree || taxFree) &&
         (!directoryState.rainy || branch.rainyDay);
     });
@@ -121,16 +177,23 @@
   function brandMatches(brand) {
     const matchingBranches = activeBranchesForBrand(brand);
     const allBranches = branchesByBrand.get(brand.id) || [];
-    const routeFilterActive = directoryState.area || directoryState.day || directoryState.venueType || directoryState.format || directoryState.onRoute || directoryState.taxFree || directoryState.rainy;
+    const routeFilterActive = directoryState.segment || directoryState.day || directoryState.priority !== '' || directoryState.flagship || directoryState.taxFree || directoryState.rainy;
+    const prices = directoryState.price ? directoryState.price.split(',').map(Number) : [];
+    const vintage = brand.fashionCategories.some(value => ['VINTAGE','SECONDHAND'].includes(value));
     const searchable = `${brand.name} ${brand.nameZh} ${brand.nameJa} ${brand.category} ${brand.styles.join(' ')} ${allBranches.map(branch => `${branch.name} ${branch.area} ${venueById.get(branch.venueId)?.name || ''}`).join(' ')}`.toLowerCase();
-    return (!directoryState.query || searchable.includes(directoryState.query)) &&
-      (!directoryState.category || brand.primaryCategory === directoryState.category) &&
+    const d4FashionMode = directoryState.day === '4' && new URLSearchParams(location.search).get('view') === 'stores';
+    return (!d4FashionMode || brand.fashionCategories.length > 0) &&
+      (!directoryState.query || searchable.includes(directoryState.query)) &&
+      (!directoryState.fashionCategory || brand.fashionCategories.includes(directoryState.fashionCategory)) &&
       (!directoryState.style || brand.styleTags.includes(directoryState.style)) &&
-      (!directoryState.price || brand.priceLevel === Number(directoryState.price)) &&
+      (!prices.length || prices.includes(brand.priceLevel)) &&
       (!directoryState.japanese || String(brand.japaneseBrand) === directoryState.japanese) &&
       (!directoryState.gender || brand.targetGender.includes(directoryState.gender)) &&
+      (!directoryState.ageStyle || brand.ageStyle.includes(directoryState.ageStyle)) &&
+      (!directoryState.intent || brand.shoppingIntent.includes(directoryState.intent)) &&
       (!directoryState.trend || brand.trendStatus === directoryState.trend) &&
       (!directoryState.value || brand.japanValue === directoryState.value) &&
+      (!directoryState.condition || (directoryState.condition === 'VINTAGE' ? vintage : !vintage)) &&
       (!routeFilterActive || matchingBranches.length > 0);
   }
 
@@ -142,17 +205,31 @@
   function brandCard(brand) {
     const allBranches = (branchesByBrand.get(brand.id) || []).filter(branch => branch.currentStatus !== 'CLOSED');
     const visibleBranches = activeBranchesForBrand(brand);
-    const routeBranches = (directoryState.area || directoryState.day || directoryState.venueType || directoryState.format || directoryState.onRoute || directoryState.taxFree || directoryState.rainy) ? visibleBranches : allBranches;
+    const routeBranches = (directoryState.segment || directoryState.day || directoryState.priority !== '' || directoryState.flagship || directoryState.taxFree || directoryState.rainy) ? visibleBranches : allBranches;
     const days = unique(routeBranches.flatMap(branch => branch.tripDays)).sort();
     const branchPreview = routeBranches.slice(0,3);
+    const bestBranch = [...routeBranches].sort((a,b) => a.d4Priority-b.d4Priority)[0];
+    const venue = bestBranch ? venueById.get(bestBranch.venueId) : null;
     return `<article class="brand-card" data-brand-id="${e(brand.id)}">
-      <div class="brand-card-top"><span>${e(brand.primaryCategory.replaceAll('_',' '))}</span><b>${'¥'.repeat(brand.priceLevel)}</b></div>
+      <div class="brand-card-top"><span>${e((brand.fashionCategories[0] || brand.primaryCategory).replaceAll('_',' '))}</span><b>${'¥'.repeat(brand.priceLevel)}</b></div>
       <h3>${e(brand.nameEn)}</h3><p class="brand-origin">${brand.japaneseBrand?'JAPANESE BRAND':e(brand.originCountry)} · ${e(brand.japanValue.replaceAll('_',' '))} JAPAN VALUE</p>
       <div class="brand-tags">${brand.styleTags.slice(0,3).map(tag => `<span>${e(tag.replaceAll('_',' '))}</span>`).join('')}</div>
-      <p class="brand-route">${days.length?`ON YOUR ROUTE · ${days.map(day => `D${day}`).join(' / ')}`:'DETOUR / NO MATCHING BRANCH'}</p>
+      <p class="brand-route">${bestBranch?`D${bestBranch.tripDays.join(' / D')} · ${e((bestBranch.routeSegments?.[0] || bestBranch.area).replaceAll('_',' '))} · ${e(bestBranch.suggestedVisitTime.replaceAll('_',' '))}`:(days.length?`ON YOUR ROUTE · ${days.map(day => `D${day}`).join(' / ')}`:'DETOUR / NO MATCHING BRANCH')}</p>
+      ${bestBranch?`<p class="brand-best-branch"><span>BEST MATCH</span><strong>${e(venue?.nameEn || bestBranch.name)}</strong><small>D4 PRIORITY ${bestBranch.d4Priority} · ${bestBranch.flagship?'FLAGSHIP':'CURATED BRANCH'}</small></p>`:''}
       <ul class="brand-branch-preview">${branchPreview.map(branch => `<li><button type="button" data-open-branch="${e(branch.id)}"><strong>${e(venueById.get(branch.venueId)?.name || branch.name)}</strong><span>${e(branch.area)} · ${e(branch.branchFormat.replaceAll('_',' '))}</span></button></li>`).join('')}</ul>
       <button class="card-link" type="button" data-open-brand="${e(brand.id)}">VIEW BRAND & ${routeBranches.length} BRANCHES <span>→</span></button>
     </article>`;
+  }
+
+  function renderD4Route() {
+    const target = document.querySelector('[data-d4-route]');
+    if (!target) return;
+    target.innerHTML = d4RouteGroups.map(group => {
+      const routeBranches = branches.filter(branch => branch.tripDays.includes(4) && branch.currentStatus !== 'CLOSED' && group.segments.some(segment => branch.routeSegments?.includes(segment)) && brandById.get(branch.brandId)?.fashionCategories.length)
+        .sort((a,b) => a.d4Priority-b.d4Priority || a.displayOrder-b.displayOrder);
+      const names = priority => unique(routeBranches.filter(branch => branch.d4Priority === priority).map(branch => brandById.get(branch.brandId)?.nameEn).filter(Boolean)).slice(0, priority === 0 ? 4 : 3);
+      return `<article class="d4-route-stop"><button type="button" data-route-segment="${e(group.segments[0])}"><span>${group.index}</span><h4>${e(group.label)}</h4><i>FILTER THIS STOP →</i></button><div><p>TOP PICKS</p><strong>${names(0).join(' · ') || '依你的篩選決定'}</strong><p>OPTIONAL</p><span>${names(1).join(' · ') || '—'}</span><p>SKIP IF SHORT ON TIME</p><small>${names(2).join(' · ') || 'Priority 2 店舖可直接略過'}</small></div></article>`;
+    }).join('');
   }
 
   function renderDirectory() {
@@ -170,14 +247,14 @@
     more.hidden = found.length <= 18;
     more.textContent = showAllBrands ? 'SHOW FEWER BRANDS' : `SHOW ${found.length-18} MORE BRANDS`;
 
-    const area = directoryState.area;
     const day = directoryState.day;
-    const venueType = directoryState.venueType;
-    const filteredVenues = venues.filter(venue => (!area || venue.area.includes(area)) && (!day || venue.tripDays.includes(Number(day))) && (!venueType || venue.venueType === venueType));
+    const segment = directoryState.segment;
+    const filteredVenues = venues.filter(venue => (!segment || venue.routeSegments?.includes(segment)) && (!day || venue.tripDays.includes(Number(day))));
     document.querySelector('[data-venue-directory]').innerHTML = filteredVenues.slice(0,12).map(venue => {
       const tenantCount = branches.filter(branch => branch.venueId === venue.id && branch.currentStatus !== 'CLOSED').length;
       return `<button class="venue-index-card" type="button" data-open-venue="${e(venue.id)}"><span>${e(venue.venueType.replaceAll('-',' '))}</span><strong>${e(venue.nameEn)}</strong><small>${e(venue.area)} · D${venue.tripDays.join(' / D')} · ${tenantCount} CURATED BRANDS</small><i>→</i></button>`;
     }).join('');
+    updateDirectoryUrl();
   }
 
   function directorySourceLinks(ids) {
@@ -187,9 +264,10 @@
   function openBrand(id) {
     const brand = brandById.get(id); if (!brand) return;
     const brandBranches = (branchesByBrand.get(id) || []).filter(branch => branch.currentStatus !== 'CLOSED').sort((a,b) => (a.tripDays[0] || 9)-(b.tripDays[0] || 9));
-    document.querySelector('[data-directory-detail]').innerHTML = `<header class="detail-head"><p>${e(brand.primaryCategory)} · ${brand.japaneseBrand?'JAPANESE BRAND':e(brand.originCountry)}</p><h2 id="directory-dialog-title">${e(brand.nameEn)}</h2><span>${'¥'.repeat(brand.priceLevel)} · ${e(brand.trendStatus.replaceAll('_',' '))} · ${e(brand.japanValue.replaceAll('_',' '))} JAPAN VALUE</span></header>
-      <div class="directory-detail-intro"><p>${e(brand.summary || '品牌定位依官方資料與本次行程相關店舖整理。')}</p><div>${brand.styleTags.map(tag => `<span>${e(tag.replaceAll('_',' '))}</span>`).join('')}</div></div>
-      <section class="directory-branch-list"><p>BRANCHES ON THIS TRIP</p>${brandBranches.map(branch => `<article><div><span>D${branch.tripDays.join(' / D')} · ${e(branch.area)}</span><h3>${e(venueById.get(branch.venueId)?.nameEn || branch.nameEn)}</h3><small>${e(branch.branchFormat.replaceAll('_',' '))} · ${e(branchStatus(branch))}</small></div><button type="button" data-open-branch="${e(branch.id)}">DETAILS →</button></article>`).join('') || '<p>本次行程沒有已建立的分店。</p>'}</section>
+    document.querySelector('[data-directory-detail]').innerHTML = `<header class="detail-head"><p>${e((brand.fashionCategories[0] || brand.primaryCategory).replaceAll('_',' '))} · ${brand.japaneseBrand?'JAPANESE BRAND':e(brand.originCountry)}</p><h2 id="directory-dialog-title">${e(brand.nameEn)}</h2><span>${'¥'.repeat(brand.priceLevel)} · ${e(brand.pricePosition)} · ${e(brand.trendStatus.replaceAll('_',' '))} · ${e(brand.japanValue.replaceAll('_',' '))} JAPAN VALUE</span></header>
+      <div class="directory-detail-intro"><p>${e(brand.summary || '品牌定位依官方資料與本次行程相關店舖整理。')}</p><div>${[...brand.fashionCategories,...brand.styleTags].map(tag => `<span>${e(tag.replaceAll('_',' '))}</span>`).join('')}</div></div>
+      <div class="brand-decision"><section><p>WHY GO</p><h3>${e(brand.whyGo || '符合你的風格、預算或本次路線時再進店。')}</h3></section><section><p>BEST FOR</p><h3>${e([...brand.shoppingIntent,...brand.fashionAudience].slice(0,5).map(x=>x.replaceAll('_',' ')).join(' · '))}</h3></section><section><p>SKIP IF</p><h3>${e(brand.skipIf || '不符合目前預算與購物目的。')}</h3></section></div>
+      <section class="directory-branch-list"><p>BRANCHES ON THIS TRIP</p>${brandBranches.map(branch => `<article><div><span>D${branch.tripDays.join(' / D')} · ${e((branch.routeSegments?.[0] || branch.area).replaceAll('_',' '))}</span><h3>${e(venueById.get(branch.venueId)?.nameEn || branch.nameEn)}</h3><small>${e(branch.branchFormat.replaceAll('_',' '))} · PRIORITY ${branch.d4Priority} · ${e(branch.suggestedVisitTime)} · ${e(branchStatus(branch))}</small></div><button type="button" data-open-branch="${e(branch.id)}">DETAILS →</button></article>`).join('') || '<p>本次行程沒有已建立的分店。</p>'}</section>
       ${brand.needsVerification?'<p class="verify-note">BRAND CLASSIFICATION CHECK · 尚缺完整官方品牌分類資料，分店狀態仍以商場官方頁為準。</p>':''}
       <section class="detail-sources"><p>SOURCES</p><div>${directorySourceLinks(brand.sourceIds)}${brand.officialUrl?`<a href="${e(brand.officialUrl)}" target="_blank" rel="noopener noreferrer">BRAND OFFICIAL ↗</a>`:''}</div></section>`;
     showDialog(document.querySelector('[data-directory-dialog]'));
@@ -210,7 +288,8 @@
     const branch = branches.find(item => item.id === id); if (!branch) return;
     const brand = brandById.get(branch.brandId); const venue = venueById.get(branch.venueId);
     document.querySelector('[data-directory-detail]').innerHTML = `<header class="detail-head"><p>${e(branch.branchFormat.replaceAll('_',' '))} · ${e(branchStatus(branch))}</p><h2 id="directory-dialog-title">${e(brand?.nameEn || branch.nameEn)}</h2><span>${e(venue?.nameEn || '')} · ${e(branch.area)} · D${branch.tripDays.join(' / D')}</span></header>
-      <div class="branch-facts"><dl><div><dt>FLOOR</dt><dd>${e(branch.floor)}</dd></div><div><dt>HOURS</dt><dd>${e(branch.openingHours)}</dd></div><div><dt>TAX FREE</dt><dd>${e(branch.taxFree)}</dd></div><div><dt>ROUTE</dt><dd>${e(branch.onRouteLevel)}</dd></div></dl></div>
+      <div class="branch-facts"><dl><div><dt>FLOOR</dt><dd>${e(branch.floor)}</dd></div><div><dt>HOURS</dt><dd>${e(branch.openingHours)}</dd></div><div><dt>VISIT TIME</dt><dd>${e(branch.suggestedVisitTime)}</dd></div><div><dt>D4 PRIORITY</dt><dd>${e(branch.d4Priority)}</dd></div><div><dt>ROUTE</dt><dd>${e((branch.routeSegments || []).join(' · ').replaceAll('_',' '))}</dd></div><div><dt>TAX FREE</dt><dd>${e(branch.taxFree)}</dd></div><div><dt>FORMAT</dt><dd>${branch.flagship?'FLAGSHIP':e(branch.branchFormat)}</dd></div><div><dt>STATUS</dt><dd>${e(branchStatus(branch))}</dd></div></dl></div>
+      <div class="brand-decision"><section><p>WHY GO</p><h3>${e(branch.whyGo || brand?.whyGo || '')}</h3></section><section><p>BEST FOR</p><h3>${e((branch.bestFor || []).map(x=>x.replaceAll('_',' ')).join(' · '))}</h3></section><section><p>SKIP IF</p><h3>${e(branch.skipIf || brand?.skipIf || '')}</h3></section></div>
       ${branch.needsVerification?'<p class="verify-note">CHECK BEFORE VISIT · 2026 年 8 月樓層、營業與免稅條件請由官方商場指南再次確認。</p>':''}
       <div class="detail-actions"><a href="${e(branch.mapUrl)}" target="_blank" rel="noopener noreferrer">GOOGLE MAPS ↗</a>${branch.officialUrl?`<a href="${e(branch.officialUrl)}" target="_blank" rel="noopener noreferrer">OFFICIAL ↗</a>`:''}</div><section class="detail-sources"><p>STATUS EVIDENCE</p><div>${directorySourceLinks(branch.sourceIds)}</div></section>`;
     showDialog(document.querySelector('[data-directory-dialog]'));
@@ -289,14 +368,19 @@
       const select = document.querySelector(selector);
       if (select) select.insertAdjacentHTML('beforeend',values.map(value => `<option value="${e(value)}">${e(format(value))}</option>`).join(''));
     };
-    optionList('[data-dir-filter="area"]',unique(venues.map(venue => venue.area)).sort());
-    optionList('[data-dir-filter="category"]',taxonomy.brandCategories || []);
+    optionList('[data-dir-filter="segment"]',taxonomy.routeSegments || []);
+    optionList('[data-dir-filter="fashionCategory"]',taxonomy.fashionCategories || []);
     optionList('[data-dir-filter="style"]',taxonomy.styles || []);
     optionList('[data-dir-filter="trend"]',taxonomy.trends || []);
     optionList('[data-dir-filter="value"]',taxonomy.japanValues || []);
-    optionList('[data-dir-filter="venueType"]',taxonomy.venueTypes || []);
+    optionList('[data-dir-filter="ageStyle"]',taxonomy.ageStyles || []);
+    optionList('[data-dir-filter="intent"]',taxonomy.shoppingIntents || []);
+    const presetTarget = document.querySelector('[data-d4-presets]');
+    if (presetTarget) presetTarget.innerHTML = Object.entries(d4Presets).map(([id,preset]) => `<button type="button" data-d4-preset="${e(id)}">${e(preset.label)}</button>`).join('');
     const japaneseCount = brands.filter(brand => brand.japaneseBrand).length;
-    document.querySelector('[data-directory-summary]').innerHTML = `<div><span>CURATED VENUES</span><strong>${venues.length}</strong></div><div><span>BRANDS</span><strong>${brands.length}</strong></div><div><span>BRANCH RELATIONS</span><strong>${branches.length}</strong></div><div><span>JAPANESE / FOREIGN</span><strong>${japaneseCount} / ${brands.length-japaneseCount}</strong></div>`;
+    const d4Branches = branches.filter(branch => branch.tripDays.includes(4) && branch.currentStatus !== 'CLOSED');
+    const d4Brands = new Set(d4Branches.map(branch => branch.brandId));
+    document.querySelector('[data-directory-summary]').innerHTML = `<div><span>D4 FASHION BRANDS</span><strong>${[...d4Brands].filter(id => brandById.get(id)?.fashionCategories.length).length}</strong></div><div><span>D4 BRANCHES</span><strong>${d4Branches.length}</strong></div><div><span>FULL DIRECTORY</span><strong>${brands.length}</strong></div><div><span>JAPANESE / FOREIGN</span><strong>${japaneseCount} / ${brands.length-japaneseCount}</strong></div>`;
   }
 
   document.addEventListener('click', event => {
@@ -306,6 +390,8 @@
     const brand = event.target.closest('[data-open-brand]'); if (brand) { openBrand(brand.dataset.openBrand); return; }
     const venue = event.target.closest('[data-open-venue]'); if (venue) { openVenue(venue.dataset.openVenue); return; }
     const branch = event.target.closest('[data-open-branch]'); if (branch) { openBranch(branch.dataset.openBranch); return; }
+    const preset = event.target.closest('[data-d4-preset]'); if (preset) { applyPreset(preset.dataset.d4Preset); return; }
+    const route = event.target.closest('[data-route-segment]'); if (route) { directoryState.day='4'; directoryState.segment=route.dataset.routeSegment; syncDirectoryControls(); showAllBrands=false; renderDirectory(); document.getElementById('store-directory')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}); return; }
     const category = event.target.closest('[data-category-jump]'); if (category) { productState.category = category.dataset.categoryJump; document.querySelector('[data-filter-category]').value = productState.category; renderProducts(); document.getElementById('what-to-buy').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); return; }
     const placeButton = event.target.closest('[data-place-type]'); if (placeButton) { placeType = placeButton.dataset.placeType; showAllPlaces = false; document.querySelectorAll('[data-place-type]').forEach(button => button.setAttribute('aria-pressed', String(button === placeButton))); renderPlaces(); return; }
     const day = event.target.closest('[data-strategy-day]'); if (day) { activeDay = Number(day.dataset.strategyDay); renderStrategy(); return; }
@@ -332,5 +418,5 @@
     renderDirectory();
   }));
 
-  initControls(); updateListCount(); renderProducts(); renderDirectory(); renderPlaces(); renderDistricts(); renderStrategy();
+  initControls(); readDirectoryUrl(); syncDirectoryControls(); renderD4Route(); updateListCount(); renderProducts(); renderDirectory(); renderPlaces(); renderDistricts(); renderStrategy();
 })();
