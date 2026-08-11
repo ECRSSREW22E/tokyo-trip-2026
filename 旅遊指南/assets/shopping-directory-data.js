@@ -357,8 +357,9 @@
     const v = venueById.get(venueId);
     const b = brandById.get(brandId);
     const evidence = openEvidence.get(venueId);
-    const branchFormat = ['b-nintendo','b-pokemon','b-capcom','b-jump','b-mugiwara','b-donguri','b-animate','b-atcosme','b-beams-japan'].includes(brandId)
-      ? 'OFFICIAL_STORE' : ['v-beams-japan','v-animate-ikebukuro','v-atcosme'].includes(venueId) ? 'FLAGSHIP' : 'IN_VENUE';
+    const branchFormat = ['v-beams-japan','v-animate-ikebukuro','v-atcosme'].includes(venueId)
+      ? 'FLAGSHIP' : ['b-nintendo','b-pokemon','b-capcom','b-jump','b-mugiwara','b-donguri','b-animate','b-atcosme','b-beams-japan'].includes(brandId)
+        ? 'OFFICIAL_STORE' : 'IN_VENUE';
     return {
       id:`br-${venueId.slice(2)}-${brandId.slice(2)}`,brandId,venueId,name:`${b?.name || brandId} — ${v?.name || venueId}`,
       nameZh:`${b?.name || brandId} — ${v?.name || venueId}`,nameJa:`${b?.nameJa || b?.name || brandId} — ${v?.nameJa || v?.name || venueId}`,
