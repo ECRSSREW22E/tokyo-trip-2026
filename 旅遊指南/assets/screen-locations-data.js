@@ -29,6 +29,24 @@
     area('shinagawa','品川・大井町','Shinagawa / Oimachi',['D5']), area('yokohama','橫濱','Yokohama',['D5']), area('asakusa','淺草','Asakusa',['D6']), area('ueno','上野','Ueno',['D1','D6'])
   ];
 
+  // 《日本行.docx》是停留時段與正式動線的唯一標準。
+  // locationIds 只包含 Word 原行程明確涵蓋的區域；其餘場景保留為可選支線，不擠壓既定行程。
+  const screenSchedule = [
+    { id:'word-d1-kameari', day:'D1', start:'11:40', end:'13:30', label:'午餐與龜有景點', locationIds:['kameari-south-statues','kochikame-museum'] },
+    { id:'word-d1-odaiba', day:'D1', start:'14:40', end:'17:00', label:'台場停留', locationIds:['odaiba-waterfront','fuji-tv-building','dream-bridge'] },
+    { id:'word-d1-shinjuku', day:'D1', start:'18:30', end:'22:00', label:'晚餐、歌舞伎町與新宿東西口', locationIds:['kabukicho-gate'] },
+    { id:'word-d2-ikebukuro', day:'D2', start:'12:30', end:'15:30', label:'池袋 Sunshine City', locationIds:['sunshine-60-street','naka-ikebukuro-park'] },
+    { id:'word-d2-akihabara', day:'D2', start:'16:10', end:'19:00', label:'秋葉原停留', locationIds:['radio-kaikan'] },
+    { id:'word-d2-tokyo-tower', day:'D2', start:'21:20', end:'22:30', label:'東京鐵塔周邊拍照', locationIds:['shiba-park-4'] },
+    { id:'word-d3-shonan', day:'D3', start:'08:30', end:'10:30', label:'鎌倉高校前、海灘散步與七里濱早餐', locationIds:['kamakurakokomae-crossing','shichirigahama-beach'] },
+    { id:'word-d3-enoshima', day:'D3', start:'11:00', end:'16:00', label:'江之島島上行程', locationIds:['katase-enoshima-station','enoshima-benten-bridge','enoshima-nakamise','dragon-love-bell','enoshima-sea-candle'] },
+    { id:'word-d3-atami-shopping', day:'D3', start:'17:30', end:'19:00', label:'熱海平和通用餐與逛街', locationIds:['atami-ginza'] },
+    { id:'word-d3-atami-fireworks', day:'D3', start:'19:00', end:'20:45', label:'熱海親水公園花火', locationIds:['atami-rainbow-deck','atami-sun-beach'] },
+    { id:'word-d4-shibuya', day:'D4', start:'13:30', end:'19:00', label:'原宿、表參道與澀谷；17:00–19:00 SHIBUYA SKY', locationIds:['shibuya-crossing'] },
+    { id:'word-d5-yokohama', day:'D5', start:'16:00', end:'21:00', label:'港未來、紅磚倉庫、日落與晚餐', locationIds:['kitanaka-bridge','yokohama-red-brick','sakuragicho-square','minatomirai-waterfront'] },
+    { id:'word-d6-asakusa', day:'D6', start:'08:15', end:'09:30', label:'淺草寺參拜', locationIds:['sensoji-nakamise'] }
+  ].map(item => ({ ...item, source:'日本行.docx', isAbsolute:true }));
+
   const screenSources = [
     source('src-go-tokyo-anime','GO TOKYO｜東京動漫觀光 88','https://www.gotokyo.org/jp/anime-and-manga/animetourism88/index.html','tourism-official','TOURISM_OFFICIAL'),
     source('src-katsushika-kochikame','葛飾區／觀光協會｜こち亀龜有巡禮','https://katsushika-kanko.jp/kame-ao/index.html','tourism-official','TOURISM_OFFICIAL'),
@@ -144,11 +162,11 @@
   ];
 
   const screenAppearances = [
-    appearance('kochikame-statues','kochikame','kameari-south-statues','官方角色銅像巡禮','OFFICIAL_PROMOTION_LOCATION','TOURISM_OFFICIAL','HIGH',['src-katsushika-kochikame'],['D1'],'DIRECT',{legacyId:'kochikame',suggestedTime:'12:00–12:15'}),
+    appearance('kochikame-statues','kochikame','kameari-south-statues','官方角色銅像巡禮','OFFICIAL_PROMOTION_LOCATION','TOURISM_OFFICIAL','HIGH',['src-katsushika-kochikame'],['D1'],'DIRECT',{legacyId:'kochikame'}),
     appearance('kochikame-museum-stop','kochikame','kochikame-museum','作品世界展示與城市巡禮基地','OFFICIAL_PROMOTION_LOCATION','OFFICIAL','HIGH',['src-kochikame-museum'],['D1'],'NEARBY',{visitTime:'DEDICATED',detourMinutes:20}),
-    appearance('nijigasaki-waterfront','nijigasaki','odaiba-waterfront','台場海灣城市背景','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-go-tokyo-anime'],['D1'],'DIRECT',{legacyId:'nijigasaki',suggestedTime:'17:20–18:20'}),
+    appearance('nijigasaki-waterfront','nijigasaki','odaiba-waterfront','台場海灣城市背景','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-go-tokyo-anime'],['D1'],'DIRECT',{legacyId:'nijigasaki'}),
     appearance('nijigasaki-dream-bridge','nijigasaki','dream-bridge','夢之大橋城市構圖','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-go-tokyo-anime'],['D1'],'SMALL_DETOUR',{visitTime:'PHOTO_STOP',detourMinutes:15}),
-    appearance('digimon-fuji-tv','digimon-adventure','fuji-tv-building','富士電視台與台場天際線','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-go-tokyo-anime'],['D1'],'DIRECT',{legacyId:'digimon',suggestedTime:'16:50–17:30'}),
+    appearance('digimon-fuji-tv','digimon-adventure','fuji-tv-building','富士電視台與台場天際線','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-go-tokyo-anime'],['D1'],'DIRECT',{legacyId:'digimon'}),
     appearance('odoru-odaiba-waterfront','odoru-daisosasen','odaiba-waterfront','灣岸城市印象','OFFICIAL_PROMOTION_LOCATION','TOURISM_OFFICIAL','MEDIUM',['src-odaiba-odoru'],['D1'],'DIRECT',{legacyId:'odoru-odaiba'}),
     appearance('city-hunter-kabukicho','city-hunter','kabukicho-gate','作品中的新宿・歌舞伎町城市印象','BACKGROUND_REFERENCE','TOURISM_OFFICIAL','MEDIUM',['src-shinjuku-culture'],['D1'],'DIRECT'),
     appearance('durarara-sunshine','durarara','sunshine-60-street','Sunshine 60 通街景','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-go-tokyo-anime'],['D2'],'DIRECT',{legacyId:'durarara'}),
@@ -158,7 +176,7 @@
     appearance('love-live-otokozaka','love-live','kanda-myojin-otokozaka','神田明神男坂','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-go-tokyo-anime'],['D2'],'NEARBY',{legacyId:'love-live-kanda'}),
     appearance('saekano-nozokizaka','saekano','nozokizaka','雜司谷望遠坡','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-go-tokyo-anime'],['D2'],'OPTIONAL_DETOUR',{detourMinutes:25}),
     appearance('sailor-moon-tower','sailor-moon','shiba-park-4','東京鐵塔地標致敬','REFERENCE_ONLY','REFERENCE_ONLY','LOW',['src-tokyo-tower'],['D2'],'DIRECT',{legacyId:'sailor-moon'}),
-    appearance('slam-dunk-crossing','slam-dunk','kamakurakokomae-crossing','平交道與江之電海岸構圖','COMMUNITY_IDENTIFIED','COMMUNITY_CONSENSUS','HIGH',['src-slam-dunk-guide'],['D3'],'SMALL_DETOUR',{legacyId:'slam-dunk',suggestedTime:'10:40–11:00'}),
+    appearance('slam-dunk-crossing','slam-dunk','kamakurakokomae-crossing','平交道與江之電海岸構圖','COMMUNITY_IDENTIFIED','COMMUNITY_CONSENSUS','HIGH',['src-slam-dunk-guide'],['D3'],'SMALL_DETOUR',{legacyId:'slam-dunk'}),
     appearance('bunny-katase-station','bunny-girl','katase-enoshima-station','片瀨江之島站','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-fujisawa-bunny'],['D3'],'DIRECT',{legacyId:'bunny-girl'}),
     appearance('bunny-shichirigahama','bunny-girl','shichirigahama-beach','七里濱海岸','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-fujisawa-bunny'],['D3'],'DIRECT'),
     appearance('bunny-aquarium','bunny-girl','enoshima-aquarium','水族館周邊','ANIME_MODEL','TOURISM_OFFICIAL','HIGH',['src-fujisawa-bunny'],['D3'],'NEARBY'),
@@ -171,7 +189,7 @@
     appearance('hibana-sunbeach','hibana','atami-sun-beach','Sun Beach 外景','LIVE_ACTION_FILMING_LOCATION','FILM_COMMISSION_CONFIRMED','HIGH',['src-atami-works'],['D3'],'DIRECT'),
     appearance('hibana-ginza','hibana','atami-ginza','熱海商店街外景','LIVE_ACTION_FILMING_LOCATION','FILM_COMMISSION_CONFIRMED','HIGH',['src-atami-works'],['D3'],'NEARBY'),
     appearance('onsen-shark-rainbow','onsen-shark','atami-rainbow-deck','官方支援外景地','LIVE_ACTION_FILMING_LOCATION','FILM_COMMISSION_CONFIRMED','HIGH',['src-atami-works'],['D3'],'DIRECT'),
-    appearance('your-name-stairs','your-name','suga-shrine-stairs','結尾相遇階梯','COMMUNITY_IDENTIFIED','COMMUNITY_CONSENSUS','HIGH',['src-your-name-official','src-your-name-guide'],['D4'],'DIRECT',{legacyId:'your-name-stairs',scenePart:'ENDING',suggestedTime:'08:30–09:00',visitTime:'PHOTO_STOP'}),
+    appearance('your-name-stairs','your-name','suga-shrine-stairs','結尾相遇階梯','COMMUNITY_IDENTIFIED','COMMUNITY_CONSENSUS','HIGH',['src-your-name-official','src-your-name-guide'],['D4'],'DIRECT',{legacyId:'your-name-stairs',scenePart:'ENDING',visitTime:'PHOTO_STOP'}),
     appearance('your-name-bridge','your-name','shinanomachi-footbridge','通勤轉場步道橋','COMMUNITY_IDENTIFIED','COMMUNITY_CONSENSUS','MEDIUM',['src-your-name-guide'],['D4'],'NEARBY',{legacyId:'your-name-bridge'}),
     appearance('your-name-yotsuya','your-name','yotsuya-station','四谷站周邊轉場','COMMUNITY_IDENTIFIED','COMMUNITY_CONSENSUS','MEDIUM',['src-your-name-guide'],['D4'],'NEARBY'),
     appearance('your-name-nact','your-name','nact','約會場景建築','COMMUNITY_IDENTIFIED','COMMUNITY_CONSENSUS','MEDIUM',['src-your-name-guide'],['D2','D4'],'OPTIONAL_DETOUR',{detourMinutes:30}),
@@ -193,6 +211,15 @@
     appearance('teiichi-museum','teiichi-no-kuni','tokyo-national-museum','校園建築外景','LIVE_ACTION_FILMING_LOCATION','FILM_COMMISSION_CONFIRMED','HIGH',['src-taito-performance'],['D6'],'NEARBY')
   ];
 
+  const scheduleByLocationAndDay = new Map();
+  screenSchedule.forEach(slot => slot.locationIds.forEach(locationId => scheduleByLocationAndDay.set(`${slot.day}:${locationId}`, slot)));
+  screenAppearances.forEach(item => {
+    const slot = item.tripDays.map(day => scheduleByLocationAndDay.get(`${day}:${item.locationId}`)).find(Boolean);
+    item.scheduleId = slot?.id || null;
+    item.suggestedTime = slot ? `${slot.start}–${slot.end}｜${slot.label}` : '未列入 Word 正式行程；僅作可選支線';
+    if (!slot && ['DIRECT','NEARBY','SMALL_DETOUR'].includes(item.routeRelevance)) item.routeRelevance = 'OPTIONAL_DETOUR';
+  });
+
   const rejectedWorks = [
     { name: 'Weathering With You', reason: 'LOW_EVIDENCE', note: '路線內候選點不少，但本輪未取得足以支持精確地點的官方／製作方來源。' },
     { name: 'Tokyo Revengers', reason: 'OUTSIDE_ROUTE', note: '主要候選外景無法穩定落在本次六日動線。' },
@@ -200,5 +227,5 @@
     { name: '私人住宅型外景候選', reason: 'PRIVATE_LOCATION', note: '即使社群辨識度高，也不納入可導航推薦。' }
   ];
 
-  window.TokyoScreenData = { version: 2, verifiedAt, screenAreas, screenWorks, screenLocations, screenAppearances, screenSources, rejectedWorks };
+  window.TokyoScreenData = { version: 3, verifiedAt, screenAreas, screenSchedule, screenWorks, screenLocations, screenAppearances, screenSources, rejectedWorks };
 })();

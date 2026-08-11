@@ -15,6 +15,9 @@
   const gallery = d.gallery || [[d.image, d.title, d.desc, d.credit ? `${d.credit[0]}・${d.credit[2]}` : '照片來源請見全站照片出處']];
   const social = d.social || [];
   const shops = d.shops || [];
+  const titleParts = d.title.match(/《[^》]+》|[A-Za-z0-9]+(?:\s+[A-Za-z0-9]+)*|[^《》A-Za-z0-9\s]+/g) || [d.title];
+  const titleMarkup = titleParts.map(part => `<span>${part}</span>`).join('');
+  const titleLengthClass = d.title.replace(/\s/g, '').length > 14 ? 'is-very-long' : d.title.replace(/\s/g, '').length > 9 ? 'is-long' : '';
   const imageUrl = (src) => /^(?:https?:|data:|\.\.\/)/.test(src) ? src : `${root}../${src}`;
   if (!document.querySelector('link[data-spot-gallery]')) {
     const galleryStyles = document.createElement('link');
@@ -35,7 +38,7 @@
         <figure class="spot-visual"><img src="${imageUrl(d.image)}" alt="${d.title}">${credit}</figure>
         <div class="spot-hero-copy">
           <div class="eyebrow">${d.city} ・ ${d.area}</div>
-          <h1>${d.title}</h1>
+          <h1 class="${titleLengthClass}">${titleMarkup}</h1>
           <p>${d.desc}</p>
           ${d.notice ? `<div class="warning">${d.notice}</div>` : ''}
           <div class="spot-tags"><span class="spot-tag">${d.day}</span><span class="spot-tag">${d.photos.length} 個拍照點</span><span class="spot-tag">${d.sources.length} 個正式來源</span><span class="spot-tag">${social.length} 則社群實訪</span></div>
