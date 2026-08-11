@@ -6,7 +6,7 @@
   <meta name="description" content="依 2025–2026 社群實買、官方資料與東京六日動線重新篩選的日本購物指南。">
   <title>Social-driven 日本購物指南｜東京六天五夜</title>
   <link rel="stylesheet" href="../style.css?v=10">
-  <link rel="stylesheet" href="../assets/shopping.css?v=11">
+  <link rel="stylesheet" href="../assets/shopping.css?v=12">
 </head>
 <body class="shopping-page">
   <header class="topbar"><div class="shell nav"><a class="brand" href="../index.html">TOKYO 2026</a><nav class="day-nav" aria-label="主要頁面"><a href="../day1.html">D1</a><a href="../day2.html">D2</a><a href="../day3.html">D3</a><a href="../day4.html">D4</a><a href="../day5.html">D5</a><a href="../day6.html">D6</a><a href="../destinations/index.html">景點</a><a class="active" href="index.html">主題</a><a href="../sources/index.html">來源</a><a href="../checklist/index.html">清單</a></nav></div></header>
@@ -28,7 +28,7 @@
       </div>
     </section>
 
-    <nav class="shopping-index" aria-label="購物指南章節"><div class="shell"><a href="#what-to-buy">WHAT TO BUY</a><a href="#where-to-buy">WHERE TO BUY</a><a href="#by-area">BY AREA</a><a href="#by-day">ON YOUR ROUTE</a></div></nav>
+    <nav class="shopping-index" aria-label="購物指南章節"><div class="shell"><a href="#what-to-buy">WHAT TO BUY</a><a href="#store-directory">STORE DIRECTORY</a><a href="#where-to-buy">LEGACY PLACES</a><a href="#by-area">BY AREA</a><a href="#by-day">ON YOUR ROUTE</a></div></nav>
 
     <section class="shopping-intro shell" aria-labelledby="looking-heading">
       <div class="section-heading"><p>01 / START HERE</p><h2 id="looking-heading">What are you looking for?</h2><span>先選需求，再看推薦理由與最順路店舖。</span></div>
@@ -49,9 +49,38 @@
       <div class="product-grid" data-product-grid aria-live="polite"></div>
     </section>
 
+    <section class="shopping-section directory-v2" id="store-directory" aria-labelledby="directory-heading">
+      <div class="shell">
+        <div class="section-heading section-heading-split"><div><p>03 / STORE DIRECTORY V2</p><h2 id="directory-heading">Find a brand, then choose its best branch.</h2></div><span>商場證明店舖存在；品牌只顯示一次，再展開 D1–D6 順路分店。</span></div>
+        <div class="directory-summary" data-directory-summary></div>
+        <div class="directory-toolbar" aria-label="品牌與分店篩選">
+          <label class="directory-search"><span>SEARCH</span><input type="search" data-dir-filter="query" placeholder="品牌、商場、區域"></label>
+          <label><span>AREA</span><select data-dir-filter="area"><option value="">全部區域</option></select></label>
+          <label><span>DAY</span><select data-dir-filter="day"><option value="">全部日期</option><option value="1">DAY 01</option><option value="2">DAY 02</option><option value="3">DAY 03</option><option value="4">DAY 04</option><option value="5">DAY 05</option><option value="6">DAY 06</option></select></label>
+          <label><span>CATEGORY</span><select data-dir-filter="category"><option value="">全部分類</option></select></label>
+          <label><span>STYLE</span><select data-dir-filter="style"><option value="">全部風格</option></select></label>
+          <label><span>PRICE</span><select data-dir-filter="price"><option value="">全部價格</option><option value="1">¥</option><option value="2">¥¥</option><option value="3">¥¥¥</option><option value="4">¥¥¥¥</option></select></label>
+          <label><span>JAPANESE BRAND</span><select data-dir-filter="japanese"><option value="">全部</option><option value="true">日本品牌</option><option value="false">海外品牌</option></select></label>
+          <label><span>GENDER</span><select data-dir-filter="gender"><option value="">全部客群</option><option>MEN</option><option>WOMEN</option><option>UNISEX</option></select></label>
+          <label><span>TREND</span><select data-dir-filter="trend"><option value="">全部趨勢</option></select></label>
+          <label><span>JAPAN VALUE</span><select data-dir-filter="value"><option value="">全部價值</option></select></label>
+          <label><span>VENUE TYPE</span><select data-dir-filter="venueType"><option value="">全部商場類型</option></select></label>
+          <label><span>BRANCH FORMAT</span><select data-dir-filter="format"><option value="">全部分店</option><option value="OFFICIAL_STORE">OFFICIAL STORE</option><option value="FLAGSHIP">FLAGSHIP</option><option value="IN_VENUE">IN VENUE</option></select></label>
+          <label class="directory-toggle"><input type="checkbox" data-dir-filter="onRoute"><span>ON ROUTE</span></label>
+          <label class="directory-toggle"><input type="checkbox" data-dir-filter="taxFree"><span>TAX FREE</span></label>
+          <label class="directory-toggle"><input type="checkbox" data-dir-filter="rainy"><span>RAINY DAY</span></label>
+        </div>
+        <div class="result-line"><strong data-directory-count></strong><button type="button" data-clear-directory>RESET FILTERS</button></div>
+        <div class="brand-directory-grid" data-brand-directory aria-live="polite"></div>
+        <button class="load-more" type="button" data-more-brands>SHOW MORE BRANDS</button>
+        <div class="venue-directory-head"><p>VENUE INDEX</p><h3>先看一棟商場，再看它裡面的品牌。</h3></div>
+        <div class="venue-directory-grid" data-venue-directory></div>
+      </div>
+    </section>
+
     <section class="shopping-section shopping-places" id="where-to-buy" aria-labelledby="places-heading">
       <div class="shell">
-        <div class="section-heading section-heading-split"><div><p>03 / WHERE TO BUY</p><h2 id="places-heading">Choose the right kind of store.</h2></div><span>百貨、都市商場、藥妝與專門店各自解決不同問題。沒有一家店永遠最便宜。</span></div>
+        <div class="section-heading section-heading-split"><div><p>04 / LEGACY PLACE GUIDE</p><h2 id="places-heading">Choose the right kind of store.</h2></div><span>保留原有商品導向店舖索引，方便既有購物清單繼續使用。</span></div>
         <div class="place-type-nav" data-place-types aria-label="店舖類型"></div>
         <div class="place-grid" data-place-grid></div>
         <button class="load-more" type="button" data-more-places>SHOW MORE PLACES</button>
@@ -81,11 +110,13 @@
 
   <dialog class="shopping-dialog" data-product-dialog aria-labelledby="product-dialog-title"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉">×</button><div data-product-detail></div></dialog>
   <dialog class="shopping-dialog place-dialog" data-place-dialog aria-labelledby="place-dialog-title"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉">×</button><div data-place-detail></div></dialog>
+  <dialog class="shopping-dialog directory-dialog" data-directory-dialog aria-labelledby="directory-dialog-title"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉">×</button><div data-directory-detail></div></dialog>
   <dialog class="shopping-dialog list-dialog" data-list-dialog aria-labelledby="list-dialog-title"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉">×</button><div class="list-dialog-head"><p>YOUR SHOPPING LIST</p><h2 id="list-dialog-title">帶著這份清單去旅行。</h2><span>資料只儲存在這台裝置。</span></div><div data-list-detail></div></dialog>
 
   <footer class="footer"><div class="shell">價格、庫存、活動與免稅條件會變動；標示 CHECK BEFORE VISIT 的資料請於出發前再次核對官方。</div></footer>
   <script src="../assets/site-ui.js?v=10"></script>
-  <script src="../assets/shopping-data.js?v=11"></script>
-  <script src="../assets/shopping.js?v=11"></script>
+  <script src="../assets/shopping-directory-data.js?v=12"></script>
+  <script src="../assets/shopping-data.js?v=12"></script>
+  <script src="../assets/shopping.js?v=12"></script>
 </body>
 </html>

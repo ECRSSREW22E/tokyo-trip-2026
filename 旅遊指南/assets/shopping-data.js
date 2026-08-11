@@ -253,6 +253,28 @@
     {group:'SHINJUKU WEST',places:['keio-shinjuku','odakyu-shinjuku'],verdicts:{fullDepartment:'keio-shinjuku',quickFoodAndTransit:'odakyu-shinjuku'}}
   ];
 
+  const directory = window.TokyoShoppingDirectory || {
+    shoppingTaxonomy:{}, directorySources:[], shoppingVenues:[], shoppingBrands:[], shoppingBranches:[], brandAliases:{}, routePriority:{}
+  };
+  const allShoppingSources = [...shoppingSources, ...directory.directorySources]
+    .filter((entry,index,list) => list.findIndex(candidate => candidate.id === entry.id) === index);
+  const directoryBranchByBrand = directory.shoppingBranches.reduce((index, branch) => {
+    if (!index.has(branch.brandId)) index.set(branch.brandId, []);
+    index.get(branch.brandId).push(branch);
+    return index;
+  }, new Map());
+
+  shoppingItems.forEach(entry => {
+    const brandId = directory.brandAliases[entry.brand];
+    if (!brandId) return;
+    const tripDays = Array.isArray(entry.tripDays) ? entry.tripDays : [];
+    const matchingBranches = (directoryBranchByBrand.get(brandId) || [])
+      .filter(branch => !tripDays.length || branch.days.some(day => tripDays.includes(day)));
+    entry.brandId = brandId;
+    entry.recommendedBranchIds = matchingBranches.slice(0,6).map(branch => branch.id);
+    entry.recommendedVenueIds = [...new Set(matchingBranches.map(branch => branch.venueId))].slice(0,6);
+  });
+
   const itemById = new Map(shoppingItems.map(entry => [entry.id, entry]));
   shoppingPlaces.forEach(entry => {
     entry.recommendedItemIds = shoppingItems
@@ -261,7 +283,7 @@
   });
 
   const meta = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     storageKey: 'tokyo-trip-shopping-list-v1',
     scoringWeights:{socialPopularity:25,independentFrequency:20,japanAdvantage:20,usefulness:15,routeAvailability:10,recentTrend:10},
     oldListAudit:{original:36,retained:28,removed:5,merged:3,added:22},
@@ -270,7 +292,12 @@
   };
 
   window.TokyoShoppingData = {
-    verifiedAt, signal, shoppingSources, shoppingPlaces, shoppingItems,
+    verifiedAt, signal, shoppingSources:allShoppingSources, shoppingPlaces, shoppingItems,
+    shoppingTaxonomy:directory.shoppingTaxonomy,
+    shoppingVenues:directory.shoppingVenues,
+    shoppingBrands:directory.shoppingBrands,
+    shoppingBranches:directory.shoppingBranches,
+    routePriority:directory.routePriority,
     shoppingDistricts, shoppingStrategies, drugstoreComparison,
     departmentComparisons, itemById, meta
   };
