@@ -107,4 +107,15 @@
     library.innerHTML = `<div class="shopping-source-head"><div class="eyebrow">SHOPPING RESEARCH</div><h2>購物指南來源帳本</h2><p>社群用於發現需求，官方用於核對事實。登入受限或只能讀取搜尋索引的來源會明確分開，不列為完整實訪。</p><dl><div><dt>ITEMS</dt><dd>${shoppingData.shoppingItems.length}</dd></div><div><dt>PLACES</dt><dd>${shoppingData.shoppingPlaces.length}</dd></div><div><dt>SOURCES</dt><dd>${shoppingData.shoppingSources.length}</dd></div></dl></div><details class="panel source-group" open><summary><strong>可完整核對的購物來源</strong><span>${accessible.length} 筆 · ${Object.entries(platformCounts).map(([name,total]) => `${name} ${total}`).join(' · ')}</span></summary><ol class="source-list shopping-source-list">${accessible.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a><small>${source.kind.toUpperCase()} · ${source.platform.toUpperCase()} · ${source.evidence}</small></li>`).join('')}</ol></details><details class="panel source-group"><summary><strong>存取受限／只保留索引證據</strong><span>${restricted.length} 筆 · 不作 HIGH evidence</span></summary><ol class="source-list shopping-source-list">${restricted.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a><small>${source.platform.toUpperCase()} · ${source.evidence}</small></li>`).join('')}</ol></details>`;
     root.append(library);
   }
+
+  const mediaRights = window.TokyoMediaRights;
+  if (mediaRights) {
+    const ledger = document.createElement('section');
+    const approved = mediaRights.media.filter((item) => item.deploymentStatus === 'APPROVED');
+    const blocked = mediaRights.media.filter((item) => item.deploymentStatus === 'DO_NOT_DEPLOY');
+    const referenceOnly = mediaRights.media.filter((item) => item.deploymentStatus === 'REFERENCE_ONLY');
+    ledger.className = 'shopping-source-library shell';
+    ledger.innerHTML = `<div class="shopping-source-head"><div class="eyebrow">MEDIA RIGHTS LEDGER</div><h2>圖片與 PDF 部署資格</h2><p>私人、非營利不會自動取得圖片重製權。只有同時留存原始作品頁、授權條款與必要署名的檔案，才會進入 GitHub Pages。</p><dl><div><dt>APPROVED</dt><dd>${approved.length}</dd></div><div><dt>DO NOT DEPLOY</dt><dd>${blocked.length}</dd></div><div><dt>REFERENCE ONLY</dt><dd>${referenceOnly.length}</dd></div></dl></div><details class="panel source-group" open><summary><strong>目前媒體審核結果</strong><span>${mediaRights.media.length} 筆 · ${mediaRights.reviewedAt}</span></summary><ol class="source-list shopping-source-list">${mediaRights.media.map(item => `<li><strong>${item.fileName}</strong><small>${item.deploymentStatus} · ${item.area} · ${item.reason}</small></li>`).join('')}</ol></details><details class="panel source-group"><summary><strong>官方授權規則</strong><span>${mediaRights.policySources.length} 筆</span></summary><ol class="source-list shopping-source-list">${mediaRights.policySources.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a><small>${source.decision}</small></li>`).join('')}</ol></details>`;
+    root.append(ledger);
+  }
 })();
