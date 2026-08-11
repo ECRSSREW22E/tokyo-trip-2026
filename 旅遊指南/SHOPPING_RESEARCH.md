@@ -59,3 +59,28 @@ The normalized directory is authored in `assets/shopping-directory-data.js` and 
 - `tokyo-trip-shopping-list-v1` remains unchanged.
 
 Run `node 旅遊指南/tests/validate-shopping-directory.cjs` before integration. It checks record counts, duplicate IDs, enum values, relation IDs, trip days, source IDs, product relations and branch status values.
+# D4 Fashion Shopping V2 audit — 2026-08-11
+
+## Baseline and decision rule
+
+- Baseline at `ca5e7b4`: 44 venues, 117 brands, 216 branch relations.
+- D4 baseline: 11 venues, 49 unique brands, 60 branch relations.
+- Reuse the normalized Venue → Branch → Brand → Product system. No second fashion database.
+- Official brand, store-locator and venue tenant pages establish existence, address and branch status. Social/editorial material may only influence trend, visit experience and discovery.
+- A search-index-only social result is not treated as a completed field report or branch-status source.
+
+## D4 audit findings
+
+- Takeshita Street had no route node, so affordable youth results could not be separated from the rest of Harajuku.
+- Existing D4 branches inherited broad venue-level route and time values; they could not answer which part of the walk a store belongs to.
+- `FASHION`, `DESIGNER` and `STREETWEAR` were too coarse for decision-making. D4 V2 adds controlled fashion category, intent, age style, audience and price-position fields.
+- The former Laforet group (`UNDERCOVER`, `WEGO`, `SPINNS`, `atmos`, `KICKS LAB.`) was not supported by the current official Laforet directory. It was replaced by the currently verified Angelic Pretty tenant; the closed SPINNS Takeshita branch is retained only as a closure source and is never recommended.
+- Representative current branches were selected by route value, not store-count maximization: WEGO / ACDC RAG / H&M, RAGTAG / 2nd STREET, Stüssy / Supreme / XLARGE, atmos / adidas, sacai, ZARA and verified existing mall tenants.
+
+## D4 research ledger
+
+- Official venue: Takeshita Street merchant list, Laforet, SHIBUYA109.
+- Official branch / locator: WEGO, ACDC RAG, RAGTAG, 2nd STREET, sacai, H&M, ZARA, Stüssy, Supreme, XLARGE, atmos and adidas.
+- Current correction evidence: SPINNS Harajuku Takeshita closure notice; atmos pink July 2026 relocation notice.
+- Fashion/editorial signals: FASHIONSNAP Harajuku street snap and current Harajuku select-shop editorial.
+- Public social notes are explicitly subjective; Stüssy queue/stock discussion is used only to warn that stock and chapter items cannot be guaranteed.
