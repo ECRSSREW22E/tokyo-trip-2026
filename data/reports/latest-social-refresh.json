@@ -1,0 +1,17 @@
+{
+  "runAt": "2026-08-12T06:45:10.675Z",
+  "sourcesRefreshed": 4,
+  "platformDistribution": {
+    "Dcard": 2,
+    "PTT": 1,
+    "Threads": 1
+  },
+  "confidenceDistribution": {
+    "HIGH": 0,
+    "MEDIUM": 3,
+    "LOW": 0,
+    "SEARCH_INDEX_ONLY": 1
+  },
+  "officialVerificationCount": 2,
+  "publishable": 2
+}

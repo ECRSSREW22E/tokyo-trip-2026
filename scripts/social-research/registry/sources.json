@@ -1,0 +1,11 @@
+[
+  {"id":"dcard","platform":"Dcard","accessMode":"PUBLIC_HTML","baseUrl":"https://www.dcard.tw/","confidenceCeiling":"MEDIUM"},
+  {"id":"ptt","platform":"PTT","accessMode":"PUBLIC_HTML","baseUrl":"https://www.ptt.cc/","confidenceCeiling":"MEDIUM"},
+  {"id":"youtube","platform":"YouTube","accessMode":"PUBLIC_HTML","baseUrl":"https://www.youtube.com/","confidenceCeiling":"MEDIUM"},
+  {"id":"threads","platform":"Threads","accessMode":"LOGIN_REQUIRED","baseUrl":"https://www.threads.net/","confidenceCeiling":"SEARCH_INDEX_ONLY"},
+  {"id":"instagram","platform":"Instagram","accessMode":"LOGIN_REQUIRED","baseUrl":"https://www.instagram.com/","confidenceCeiling":"SEARCH_INDEX_ONLY"},
+  {"id":"facebook","platform":"Facebook","accessMode":"LOGIN_REQUIRED","baseUrl":"https://www.facebook.com/","confidenceCeiling":"SEARCH_INDEX_ONLY"},
+  {"id":"xiaohongshu","platform":"小紅書","accessMode":"LOGIN_REQUIRED","baseUrl":"https://www.xiaohongshu.com/","confidenceCeiling":"SEARCH_INDEX_ONLY"},
+  {"id":"tiktok","platform":"TikTok","accessMode":"LOGIN_REQUIRED","baseUrl":"https://www.tiktok.com/","confidenceCeiling":"SEARCH_INDEX_ONLY"},
+  {"id":"x","platform":"X","accessMode":"LOGIN_REQUIRED","baseUrl":"https://x.com/","confidenceCeiling":"SEARCH_INDEX_ONLY"}
+]

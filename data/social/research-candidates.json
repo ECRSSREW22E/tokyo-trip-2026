@@ -1,0 +1,101 @@
+[
+  {
+    "platform": "Dcard",
+    "canonicalUrl": "https://www.dcard.tw/f/makeup/p/257539578",
+    "publishedAt": null,
+    "retrievedAt": "2026-08-12",
+    "query": "@cosme 東京旗艦店 實訪",
+    "entityIds": [
+      "atcosme-tokyo"
+    ],
+    "shortSummary": "公開實訪提到店內品項與試用品集中，尖峰時段人潮較多；人潮屬旅客經驗，不視為固定事實。",
+    "positiveSignals": [
+      "可集中試用多品牌",
+      "結帳等待未必很久"
+    ],
+    "negativeSignals": [
+      "熱門時段擁擠",
+      "部分底妝評價因膚質而異"
+    ],
+    "accessMode": "PUBLIC_HTML",
+    "sourceAccessible": true,
+    "confidence": "MEDIUM",
+    "evidenceType": "PUBLIC_POST",
+    "officialVerification": "CONFIRMED",
+    "sourceHash": "1ab2ef98584fd8f51aad491d56a51778e3af1bda3064d07c157c36fe24b44b16",
+    "authorHash": "30710e7d4ef4252e"
+  },
+  {
+    "platform": "Dcard",
+    "canonicalUrl": "https://www.dcard.tw/f/makeup/p/258454295",
+    "publishedAt": "2025-04-04",
+    "retrievedAt": "2026-08-12",
+    "query": "日本美妝戰利品 @cosme LOFT",
+    "entityIds": [
+      "atcosme-tokyo",
+      "loft-jp"
+    ],
+    "shortSummary": "公開戰利品文顯示 @cosme 與 LOFT 適合做多品牌比較，但也容易超出原定清單；單品口碑仍需依膚質判斷。",
+    "positiveSignals": [
+      "多品牌集中",
+      "容易發現新品"
+    ],
+    "negativeSignals": [
+      "容易衝動購物",
+      "單品評價分歧"
+    ],
+    "accessMode": "PUBLIC_HTML",
+    "sourceAccessible": true,
+    "confidence": "MEDIUM",
+    "evidenceType": "PUBLIC_POST",
+    "officialVerification": "CONFIRMED",
+    "sourceHash": "4535b0f297768d7f810c6e32856610ec7d573c63a4218523f4681d930ac8ea6e",
+    "authorHash": "6a9b80146f8f9cc5"
+  },
+  {
+    "platform": "PTT",
+    "canonicalUrl": "https://www.ptt.cc/bbs/Ind-travel/M.1737699657.A.4F5.html",
+    "publishedAt": "2025-01-24",
+    "retrievedAt": "2026-08-12",
+    "query": "日本 藥妝 價格 實買",
+    "entityIds": [
+      "drugstore-guide"
+    ],
+    "shortSummary": "公開旅遊板文章列出多項現場價格，可作價差研究線索；價格與庫存具時效性，網站僅保留為待複核候選。",
+    "positiveSignals": [
+      "有具體實買價格",
+      "便於建立候選清單"
+    ],
+    "negativeSignals": [
+      "價格會變動",
+      "分店庫存不一致"
+    ],
+    "accessMode": "PUBLIC_HTML",
+    "sourceAccessible": true,
+    "confidence": "MEDIUM",
+    "evidenceType": "PUBLIC_POST",
+    "officialVerification": "PENDING",
+    "sourceHash": "28c34e8d7f05e4699fc83c005a0b12785ff395f277746f78d7ce3e119a348c69",
+    "authorHash": "e379b2fb805d1a4b"
+  },
+  {
+    "platform": "Threads",
+    "canonicalUrl": "https://www.threads.net/search?q=%E4%BC%8A%E5%8B%A2%E4%B8%B9%E9%99%90%E5%AE%9A",
+    "publishedAt": null,
+    "retrievedAt": "2026-08-12",
+    "query": "伊勢丹限定 2026",
+    "entityIds": [
+      "isetan-shinjuku"
+    ],
+    "shortSummary": "只能讀取搜尋索引，內容未核實。",
+    "positiveSignals": [],
+    "negativeSignals": [],
+    "accessMode": "LOGIN_REQUIRED",
+    "sourceAccessible": false,
+    "confidence": "SEARCH_INDEX_ONLY",
+    "evidenceType": "SEARCH_INDEX_ONLY",
+    "officialVerification": "PENDING",
+    "sourceHash": "139ff2405dd6c51cfeeb3417656902aa6b69b1e9022c883d1410c41b6e0d292d",
+    "authorHash": null
+  }
+]

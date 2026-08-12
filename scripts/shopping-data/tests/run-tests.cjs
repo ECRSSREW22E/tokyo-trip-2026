@@ -1,0 +1,18 @@
+const assert=require('node:assert/strict');
+const p=require('../lib/pipeline.cjs');
+const crawler=require('../lib/crawler.cjs');
+const fs=require('node:fs');const path=require('node:path');
+const fixture=JSON.parse(fs.readFileSync(path.join(__dirname,'..','fixtures','products.json'),'utf8'));
+assert.deepEqual(p.parseSize('９０ｍＬ'),{value:90,unit:'ml'});
+assert.deepEqual(p.parseSize('2 kg'),{value:2000,unit:'g'});
+const n=fixture.raw.map(x=>({...p.normalizeProduct(x),priceTaxIncluded:x.priceTaxIncluded,merchantId:x.merchantId}));
+assert.equal(p.matchProducts(n[0],n[1]).level,'EXACT');
+assert.equal(p.matchProducts(n[2],n[3]).level,'SIMILAR');
+const direct=p.comparePrices(n[0],n[1],p.matchProducts(n[0],n[1]),fixture.fx);assert.equal(direct.type,'EXACT_MATCH');assert.equal(direct.differencePercent,34);
+const unit=p.comparePrices(n[2],n[3],p.matchProducts(n[2],n[3]),fixture.fx);assert.equal(unit.type,'SIZE_NORMALIZED');assert.equal(unit.differencePercent,null);
+const history=p.metrics([{price:700,salePrice:null,observedAt:'2026-08-01'},{price:680,salePrice:null,observedAt:'2026-08-08'},{price:680,salePrice:650,observedAt:'2026-08-12'}]);assert.deepEqual(history,{currentPrice:650,previousPrice:680,firstSeen:'2026-08-01',lowestObserved:650,highestObserved:700,lastChanged:'2026-08-12'});
+assert.equal(p.classifyResponse(403),'BLOCKED');assert.equal(p.classifyResponse(404),'BLOCKED');assert.equal(p.classifyResponse(429),'RATE_LIMITED');assert.equal(p.classifyResponse(401),'LOGIN_REQUIRED');
+const dedup=new Set(fixture.raw.map(p.sourceHash));assert.equal(dedup.size,fixture.raw.length);
+const html=fs.readFileSync(path.join(__dirname,'..','fixtures','product-page.html'),'utf8'),nodes=crawler.productNodes(crawler.extractJsonLd(html));assert.equal(nodes.length,1);const extracted=crawler.extractProduct(nodes[0],'fixture','https://example.invalid',new Date(0).toISOString());assert.equal(extracted.jan,'4900000000001');assert.equal(extracted.priceTaxIncluded,1980);
+assert.equal(p.sourceHash(html),p.sourceHash(html),'delta hash must stay stable');
+console.log('PASS shopping pipeline: normalization, SKU match, size comparison, price history, blocked handling, dedup');

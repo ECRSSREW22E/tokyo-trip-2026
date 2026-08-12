@@ -12,3 +12,11 @@ desktop.ini
 *.temp
 *.bak
 ~$*
+
+# Research pipeline local cache and secrets
+data/cache/
+data/raw/
+*.session.json
+*.cookies.json
+.env
+.env.*

@@ -1,0 +1,9 @@
+const fs=require('node:fs');const path=require('node:path');const p=require('./lib/pipeline.cjs');
+const root=path.resolve(__dirname,'..','..');const fixture=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures','products.json'),'utf8'));
+const normalized=fixture.raw.map(raw=>{const item=p.normalizeProduct(raw);return{...item,merchantId:raw.merchantId,country:raw.country,priceTaxIncluded:raw.priceTaxIncluded,currency:raw.currency,stockStatus:raw.stockStatus,sourceUrl:raw.sourceUrl,fetchedAt:raw.fetchedAt,sourceHash:p.sourceHash(raw)}});
+const pairs=[['anessa-jp','anessa-tw'],['example-jp','example-tw']].map(([a,b])=>{const jp=normalized.find(x=>x.merchantId===a),tw=normalized.find(x=>x.merchantId===b),match=p.matchProducts(jp,tw);return{japanProductId:jp.canonicalProductId,taiwanProductId:tw.canonicalProductId,match,...p.comparePrices(jp,tw,match,fixture.fx)}});
+const observations=normalized.map(p.observation);const report={runAt:new Date().toISOString(),runtime:process.version,mode:'FIXTURE_SAFE_DEFAULT',productsRefreshed:normalized.length,pricesChanged:0,newLimitedProducts:0,storesChanged:0,socialSources:0,blockedSources:0,productionUpdated:false,fx:fixture.fx};
+p.writeJson(path.join(root,'data','shopping','normalized-products.json'),normalized);p.writeJson(path.join(root,'data','shopping','price-observations.json'),observations);p.writeJson(path.join(root,'data','shopping','comparisons.json'),pairs);p.writeJson(path.join(root,'data','reports','latest-refresh.json'),report);
+const curated={meta:{generatedAt:report.runAt,mode:report.mode,fx:fixture.fx},comparisons:pairs.filter(x=>['EXACT','HIGH_CONFIDENCE'].includes(x.match.level)).map((item,index)=>({...item,productId:index===0?'v3-anessa-milk-na-60':null})).filter(x=>x.productId)};
+fs.writeFileSync(path.join(root,'旅遊指南','assets','shopping-price-data.js'),`window.TokyoShoppingPriceData=${JSON.stringify(curated,null,2)};\n`);
+console.log(JSON.stringify(report,null,2));

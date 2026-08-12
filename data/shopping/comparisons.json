@@ -1,0 +1,26 @@
+[
+  {
+    "japanProductId": "cp-368c2b12ffa3",
+    "taiwanProductId": "cp-47ac09fc0121",
+    "match": {
+      "level": "EXACT",
+      "reason": "SKU"
+    },
+    "type": "EXACT_MATCH",
+    "japanTwd": 624,
+    "differenceTwd": 326,
+    "differencePercent": 34
+  },
+  {
+    "japanProductId": "cp-db6e90668c3a",
+    "taiwanProductId": "cp-eaed0bdb8525",
+    "match": {
+      "level": "SIMILAR",
+      "reason": "BRAND_BASE_NAME"
+    },
+    "type": "SIZE_NORMALIZED",
+    "japanUnitTwd": 8.164,
+    "taiwanUnitTwd": 13.333333333333334,
+    "differencePercent": null
+  }
+]
