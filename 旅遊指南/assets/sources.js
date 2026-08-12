@@ -17,6 +17,7 @@
   const formalReady = spots.filter((spot) => spot.sources.length >= targetPerSpot).length;
   const socialReady = spots.filter((spot) => (spot.social || []).length >= targetPerSpot).length;
   const shoppingData = window.TokyoShoppingData;
+  const shoppingV3 = window.TokyoShoppingV3;
 
   const stats = document.createElement('section');
   stats.className = 'source-stats';
@@ -26,6 +27,13 @@
     <article class="source-stat"><small>正式來源完成度</small><strong>${formalTotal} 個</strong><span>${formalReady}／${spots.length} 頁達到 20 筆</span><progress max="${spots.length}" value="${formalReady}" aria-label="正式來源頁面完成度"></progress></article>
     <article class="source-stat is-social"><small>可信社群實訪完成度</small><strong>${socialTotal}／${targetTotal}</strong><span>${socialReady}／${spots.length} 頁達到 20 筆</span><progress max="${targetTotal}" value="${socialTotal}" aria-label="社群實訪完成度"></progress></article>`;
   controls.before(stats);
+  if (shoppingV3) {
+    const ledger=document.createElement('section'); ledger.className='source-ledger';
+    const official=shoppingV3.sources.filter(source=>source.kind==='OFFICIAL').length;
+    const social=shoppingV3.sources.filter(source=>source.kind==='SOCIAL').length;
+    ledger.innerHTML=`<div class="source-ledger-head"><div><p>購物指南 V3</p><h2>商品、價格與限定證據</h2></div><p>同規格才計算台日價差；沒有官方限定證據就只標示出發前確認。</p></div><div class="source-ledger-stats"><article><span>具體商品</span><strong>${shoppingV3.products.length}</strong></article><article><span>官方來源</span><strong>${official}</strong></article><article><span>公開社群</span><strong>${social}</strong></article><article><span>可直接比價</span><strong>${shoppingV3.products.filter(product=>product.directComparison).length}</strong></article></div><div class="rights-ledger">${shoppingV3.sources.map(source=>`<article><div><span>${source.kind==='OFFICIAL'?'官方':'社群'}</span><h3>${source.title}</h3></div><a href="${source.url}" target="_blank" rel="noopener noreferrer">開啟來源 ↗</a></article>`).join('')}</div>`;
+    stats.after(ledger);
+  }
 
   controls.innerHTML = `
     <label>搜尋景點或來源

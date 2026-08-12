@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="依 2025–2026 社群實買、官方資料與東京六日動線重新篩選的日本購物指南。">
-  <title>Social-driven 日本購物指南｜東京六天五夜</title>
-  <link rel="stylesheet" href="../style.css?v=12">
-  <link rel="stylesheet" href="../assets/shopping.css?v=15">
+  <title>第一次日本購物指南｜東京六天五夜</title>
+  <link rel="stylesheet" href="../style.css?v=14">
+  <link rel="stylesheet" href="../assets/shopping.css?v=16">
 </head>
 <body class="shopping-page">
   <header class="topbar"><div class="shell nav"><a class="brand" href="../index.html">TOKYO 2026</a><nav class="day-nav" aria-label="主要頁面"><a href="../day1.html">D1</a><a href="../day2.html">D2</a><a href="../day3.html">D3</a><a href="../day4.html">D4</a><a href="../day5.html">D5</a><a href="../day6.html">D6</a><a href="../destinations/index.html">景點</a><a class="active" href="index.html">主題</a><a href="../sources/index.html">來源</a><a href="../checklist/index.html">清單</a></nav></div></header>
@@ -15,20 +15,32 @@
     <section class="shopping-hero">
       <div class="shell shopping-hero-grid">
         <div class="shopping-hero-copy">
-          <p class="shopping-kicker">SHOPPING / TOKYO 2026</p>
-          <h1>東京不是只有「買什麼」，<br>還要知道在哪裡買最值得。</h1>
-          <p class="shopping-lede">從近期旅客實買、回購與踩雷開始，再用官方資料核對商品與店舖。這份指南把選擇縮小成真正順路、值得比較的 45 件 CORE PICKS。</p>
-          <div class="shopping-hero-actions"><a class="shopping-link-primary" href="#what-to-buy">EXPLORE THE PICKS <span>↘</span></a><button class="shopping-link-quiet" type="button" data-open-list>MY LIST <span data-list-count>0</span></button></div>
+          <p class="shopping-kicker">第一次日本購物指南 / 東京 2026</p>
+          <h1>第一次去日本<br>買得具體，也買得明白</h1>
+          <p class="shopping-lede">先理解百貨、藥妝、選品店與生活雜貨店各自適合買什麼，再用官方價格、台灣售價與限定證據，做出真正適合這趟六日行程的選擇。</p>
+          <div class="shopping-hero-actions"><a class="shopping-link-primary" href="#shopping-101">先看店型差異 <span>↘</span></a><button class="shopping-link-quiet" type="button" data-open-list>我的清單 <span data-list-count>0</span></button></div>
         </div>
         <aside class="shopping-hero-note" aria-label="推薦原則">
-          <span>THE EDITOR’S RULE</span>
+          <span>推薦原則</span>
           <p>熱門不等於必買。台灣好買、價差不清楚、要大幅繞路，或有電壓與保存風險的商品，都會明確降級。</p>
-          <dl><div><dt>DISCOVERY</dt><dd>Social voices</dd></div><div><dt>VERIFICATION</dt><dd>Official facts</dd></div><div><dt>DECISION</dt><dd>Your route</dd></div></dl>
+          <dl><div><dt>發現</dt><dd>社群實買訊號</dd></div><div><dt>核實</dt><dd>官方商品與價格</dd></div><div><dt>決定</dt><dd>是否適合你的動線</dd></div></dl>
         </aside>
       </div>
     </section>
 
-    <nav class="shopping-index" aria-label="購物指南章節"><div class="shell"><a href="#what-to-buy">WHAT TO BUY</a><a href="#store-directory">STORE DIRECTORY</a><a href="#where-to-buy">LEGACY PLACES</a><a href="#by-area">BY AREA</a><a href="#by-day">ON YOUR ROUTE</a></div></nav>
+    <nav class="shopping-index" aria-label="購物指南章節"><div class="shell"><a href="#shopping-101">店型入門</a><a href="#product-research">具體商品</a><a href="#what-to-buy">核心推薦</a><a href="#store-directory">商店資料庫</a><a href="#by-day">每日動線</a></div></nav>
+
+    <section class="shopping-section shopping-101 shell" id="shopping-101" aria-labelledby="shopping-101-title">
+      <div class="section-heading section-heading-split"><div><p>01 / 日本購物入門</p><h2 id="shopping-101-title">先選對店，再選商品</h2></div><span>十種常見店型不只是名稱不同；價格、品牌深度、限定品與適合的購買目的都不同。</span></div>
+      <div class="shopping-type-grid" data-shopping-types></div>
+      <div class="beginner-journey"><p>第一次購物順序</p><div data-beginner-journey></div></div>
+    </section>
+
+    <section class="shopping-section product-research" id="product-research" aria-labelledby="product-research-title"><div class="shell">
+      <div class="section-heading section-heading-split"><div><p>02 / 具體商品研究</p><h2 id="product-research-title">不是必買清單，是購買判斷</h2></div><span>只在同規格、同容量且有官方台灣售價時顯示價差百分比；限定與庫存狀態則保留證據等級。</span></div>
+      <div class="v3-toolbar" aria-label="具體商品篩選"><label><span>商品類型</span><select data-v3-filter="type"><option value="">全部類型</option></select></label><label><span>限定類型</span><select data-v3-filter="exclusive"><option value="">全部</option></select></label><label><span>價格優勢</span><select data-v3-filter="advantage"><option value="">全部</option></select></label><label><span>台灣取得</span><select data-v3-filter="taiwan"><option value="">全部</option></select></label><label><span>第一次優先度</span><select data-v3-filter="priority"><option value="">全部</option></select></label></div>
+      <div class="result-line"><strong data-v3-count></strong><span class="price-stamp">價格核實：2026-08-12 · ¥1 ≈ NT$0.2041</span></div><div class="v3-product-grid" data-v3-products></div>
+    </div></section>
 
     <section class="shopping-intro shell" aria-labelledby="looking-heading">
       <div class="section-heading"><p>01 / START HERE</p><h2 id="looking-heading">What are you looking for?</h2><span>先選需求，再看推薦理由與最順路店舖。</span></div>
@@ -120,9 +132,11 @@
   <dialog class="shopping-dialog list-dialog" data-list-dialog aria-labelledby="list-dialog-title"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉">×</button><div class="list-dialog-head"><p>YOUR SHOPPING LIST</p><h2 id="list-dialog-title">帶著這份清單去旅行。</h2><span>資料只儲存在這台裝置。</span></div><div data-list-detail></div></dialog>
 
   <footer class="footer"><div class="shell">價格、庫存、活動與免稅條件會變動；標示 CHECK BEFORE VISIT 的資料請於出發前再次核對官方。</div></footer>
-  <script src="../assets/site-ui.js?v=13"></script>
+  <script src="../assets/site-ui.js?v=14"></script>
+  <script src="../assets/shopping-v3-data.js?v=1"></script>
   <script src="../assets/shopping-directory-data.js?v=14"></script>
   <script src="../assets/shopping-data.js?v=12"></script>
-  <script src="../assets/shopping.js?v=15"></script>
+  <script src="../assets/shopping.js?v=16"></script>
+  <script src="../assets/shopping-v3.js?v=1"></script>
 </body>
 </html>

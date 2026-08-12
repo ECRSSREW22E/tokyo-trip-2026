@@ -678,6 +678,42 @@ dialog::backdrop { background: rgba(15, 18, 17, .58); backdrop-filter: blur(5px)
 .special-pick-body dt { color:var(--text-secondary); font-size:.88rem; }
 .special-pick-body dd { margin:0; color:var(--text-primary); }
 .special-pick-body a { color:var(--link); text-underline-offset:.24em; }
+
+/* Global typography V3 — one editorial hierarchy across every major page. */
+:root {
+  --type-display: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif TC", "PMingLiU", serif;
+  --type-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --type-display-size: clamp(2.55rem, 6.8vw, 5.75rem);
+  --type-section-size: clamp(2rem, 4vw, 3.8rem);
+  --type-card-size: clamp(1.2rem, 2vw, 1.7rem);
+}
+body { font-family:var(--type-body); font-weight:430; letter-spacing:0; }
+h1,h2,h3,h4,.spot-title,.food-hero h1,.theme-hero h1,.directory-hero h1 {
+  font-family:var(--type-display); font-optical-sizing:auto; font-weight:600;
+  letter-spacing:-.035em; word-break:keep-all; overflow-wrap:normal; text-wrap:balance;
+}
+h1 { line-height:1.08; }
+h2 { line-height:1.16; }
+h3,h4 { line-height:1.3; }
+.eyebrow,.page-eyebrow,.section-kicker { font-family:var(--type-body); font-weight:700; letter-spacing:.11em; text-transform:none; }
+.directory-hero,.theme-hero,.food-hero,.rain-hero,.screen-hero {
+  padding-block:clamp(6rem,12vw,10rem) clamp(4.5rem,8vw,7rem);
+}
+.directory-hero>.shell,.theme-hero>.shell,.food-hero>.shell,.screen-hero>.shell {
+  width:min(calc(100% - 64px),1240px); margin-inline:auto;
+}
+.directory-hero h1,.theme-hero h1,.food-hero h1,.rain-hero h1,.screen-hero h1 {
+  max-width:min(16ch,100%); margin:.3em 0 .32em; font-size:var(--type-display-size); line-height:1.07;
+}
+.directory-hero p,.theme-hero p,.food-hero p,.rain-hero p,.screen-hero p { max-width:48rem; font-size:clamp(1rem,1.25vw,1.15rem); line-height:1.85; }
+.section h2,.section-title,.section-heading h2 { font-size:var(--type-section-size); }
+.card-title,.day-card h3,.branch-card h3,.restaurant-card h3 { font-size:var(--type-card-size); }
+@media(max-width:620px){
+  .directory-hero,.theme-hero,.food-hero,.rain-hero,.screen-hero { padding-block:5.25rem 3.75rem; }
+  .directory-hero>.shell,.theme-hero>.shell,.food-hero>.shell,.screen-hero>.shell { width:min(calc(100% - 28px),1240px); }
+  .directory-hero h1,.theme-hero h1,.food-hero h1,.rain-hero h1,.screen-hero h1 { max-width:100%; font-size:clamp(2.35rem,11vw,3.4rem); letter-spacing:-.045em; }
+}
+.shopping-day-note{border-block:1px solid var(--line);background:color-mix(in srgb,var(--sea-soft) 30%,var(--paper))}.shopping-day-note .section-head{align-items:end}.shopping-day-note-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line-strong)}.shopping-day-note-grid section{padding:clamp(1.2rem,3vw,2rem);border-right:1px solid var(--line)}.shopping-day-note-grid section:last-child{border-right:0}.shopping-day-note-grid h3{margin:0 0 1rem;font-size:clamp(1.25rem,2vw,1.7rem)}.shopping-day-note-grid ul{margin:0;padding-left:1.2rem}.shopping-day-note-grid li{margin:.55rem 0}@media(max-width:620px){.shopping-day-note-grid{grid-template-columns:1fr}.shopping-day-note-grid section{border-right:0;border-bottom:1px solid var(--line)}}
 .special-pick-body small { display:block; margin-top:.65rem; color:var(--text-muted); font-size:.8rem; }
 .special-pick-card[open] { box-shadow:0 8px 30px rgba(20,28,31,.06); }
 .special-pick-card[open] summary { min-height:auto; }

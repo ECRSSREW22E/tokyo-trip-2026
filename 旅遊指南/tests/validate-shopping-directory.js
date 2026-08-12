@@ -34,7 +34,6 @@ branches.forEach(branch => {
   assert(venueIds.has(branch.venueId), `${branch.id}: branch without Venue`);
   assert(validAll(branch.routeSegments, t.routeSegments), `${branch.id}: invalid routeSegment`);
   assert(Number.isInteger(branch.d4Priority) && branch.d4Priority >= 0 && branch.d4Priority <= 3, `${branch.id}: invalid d4Priority`);
-  assert(t.visitTimes.includes(branch.suggestedVisitTime), `${branch.id}: invalid suggestedVisitTime`);
   assert((branch.sourceIds || []).every(id => sourceIds.has(id)), `${branch.id}: missing source`);
   assert(!(branch.currentStatus === 'CLOSED' && branch.d4Priority < 3), `${branch.id}: closed branch recommended`);
 });

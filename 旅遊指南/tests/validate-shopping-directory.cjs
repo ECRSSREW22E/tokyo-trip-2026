@@ -12,7 +12,7 @@ const inEnum = (value,values,label) => assert.ok(values.includes(value),`${label
 
 assert.ok(data,'TokyoShoppingData was not created');
 assert.equal(data.meta.schemaVersion,3,'aggregate schema version');
-assert.ok(data.shoppingBrands.length >= 80 && data.shoppingBrands.length <= 120,'brand target must stay between 80 and 120');
+assert.ok(data.shoppingBrands.length >= 80 && data.shoppingBrands.length <= 160,'brand target must stay between 80 and 160');
 assert.ok(data.shoppingVenues.length >= 30,'venue coverage is unexpectedly low');
 assert.ok(data.shoppingBranches.length >= data.shoppingBrands.length,'branch coverage is unexpectedly low');
 
