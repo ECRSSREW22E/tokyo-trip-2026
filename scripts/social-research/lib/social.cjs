@@ -5,4 +5,21 @@ const normalizeRecord=raw=>{const url=canonicalUrl(raw.canonicalUrl);return{plat
 const dedupe=records=>{const seenUrl=new Set(),seenHash=new Set(),seenAuthorSummary=new Set();return records.filter(item=>{const key=`${item.authorHash}|${hash(item.shortSummary)}`;if(seenUrl.has(item.canonicalUrl)||seenHash.has(item.sourceHash)||(item.authorHash&&seenAuthorSummary.has(key)))return false;seenUrl.add(item.canonicalUrl);seenHash.add(item.sourceHash);if(item.authorHash)seenAuthorSummary.add(key);return true})};
 const confidence=records=>{const accessible=records.filter(x=>x.sourceAccessible),platforms=new Set(accessible.map(x=>x.platform)),recent=accessible.filter(x=>x.publishedAt&&Date.now()-Date.parse(x.publishedAt)<1000*60*60*24*730);if(accessible.length>=3&&platforms.size>=2&&recent.length>=2)return'HIGH';if(accessible.length>=1)return'MEDIUM';return'SEARCH_INDEX_ONLY'};
 const publishable=record=>record.sourceAccessible&&['HIGH','MEDIUM'].includes(record.confidence)&&record.officialVerification==='CONFIRMED';
-module.exports={canonicalUrl,normalizeRecord,dedupe,confidence,publishable};
+const rotateQueries=(registry,state,entities)=>{
+  const rotation=registry.scheduledRotation;
+  const previous=new Set(state.previousQueries||[]);
+  const lastIndex=Math.max(-1,rotation.indexOf(state.lastFamily));
+  const familyId=rotation[(lastIndex+1)%rotation.length];
+  const family=registry.families.find(item=>item.id===familyId);
+  const queries=[];
+  for(const entity of entities){
+    for(const [language,terms] of Object.entries(family.terms)){
+      const term=terms[(queries.length+entity.id.length)%terms.length];
+      const query=`${entity.name} ${term}`.trim();
+      if(!previous.has(query)&&!queries.some(item=>item.query===query)) queries.push({entityId:entity.id,language,family:familyId,query});
+    }
+  }
+  return {familyId,queries,nextState:{lastFamily:familyId,previousQueries:[...(state.previousQueries||[]),...queries.map(item=>item.query)].slice(-120)}};
+};
+const perplexityStatus=env=>env.PERPLEXITY_API_KEY||env.PPLX_API_KEY?'AVAILABLE':'PERPLEXITY_USER_ACTION_REQUIRED';
+module.exports={canonicalUrl,normalizeRecord,dedupe,confidence,publishable,rotateQueries,perplexityStatus};

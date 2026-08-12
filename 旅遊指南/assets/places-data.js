@@ -441,7 +441,7 @@
     ['35 周年資訊','https://www.aquarium.gr.jp/news/events/29136','活動官方'],
     ['水族館 Dolphin Cafe','https://www.aquarium.gr.jp/restaurant','餐飲官方'],
     ['京急大森海岸站','https://www.keikyu.co.jp/ride/kakueki/KK07.html','交通官方'],
-    ['品川區民公園','https://www.city.shinagawa.tokyo.jp/PC/kankyo/kankyo-koen/kankyo-koen-kouen/hpg000000365.html','地方官方'],
+    ['品川區民公園','https://www.city.shinagawa.tokyo.jp/PC/shisetsu/shisetsu-bunka/shisetsu-bunka-kouen/hpg000000342.html','地方官方'],
     ['品川水族館年度行事曆','https://www.aquarium.gr.jp/calendar','景點官方'],
     ['品川水族館體驗活動','https://www.aquarium.gr.jp/news/events/','景點官方']
   ]);

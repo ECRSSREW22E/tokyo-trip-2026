@@ -1,0 +1,18 @@
+{
+  "auditedAt": "2026-08-12T07:53:25.448Z",
+  "total": 386,
+  "statuses": {
+    "BLOCKED": 40,
+    "EDITORIAL_VERIFIED": 34,
+    "OFFICIAL_ARCHIVE": 1,
+    "OFFICIAL_CURRENT": 230,
+    "REDIRECTED": 38,
+    "SEARCH_INDEX_ONLY": 1,
+    "SOCIAL_FULLTEXT_VERIFIED": 41,
+    "UNSUPPORTED": 1
+  },
+  "redirected": 38,
+  "dead": 0,
+  "blocked": 40,
+  "errors": 17
+}

@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-08-12T06:45:10.675Z",
+  "runAt": "2026-08-12T07:50:24.963Z",
   "sourcesRefreshed": 4,
   "platformDistribution": {
     "Dcard": 2,
@@ -13,5 +13,132 @@
     "SEARCH_INDEX_ONLY": 1
   },
   "officialVerificationCount": 2,
-  "publishable": 2
+  "publishable": 2,
+  "queryRotation": {
+    "family": "RECOMMENDATION",
+    "queries": [
+      {
+        "entityId": "ueno-toshogu",
+        "language": "zh",
+        "family": "RECOMMENDATION",
+        "query": "上野東照宮 心得"
+      },
+      {
+        "entityId": "ueno-toshogu",
+        "language": "ja",
+        "family": "RECOMMENDATION",
+        "query": "上野東照宮 行ってきた"
+      },
+      {
+        "entityId": "ueno-toshogu",
+        "language": "en",
+        "family": "RECOMMENDATION",
+        "query": "上野東照宮 recent visit"
+      },
+      {
+        "entityId": "enoshima",
+        "language": "zh",
+        "family": "RECOMMENDATION",
+        "query": "江之島 值得去嗎"
+      },
+      {
+        "entityId": "enoshima",
+        "language": "ja",
+        "family": "RECOMMENDATION",
+        "query": "江之島 口コミ"
+      },
+      {
+        "entityId": "enoshima",
+        "language": "en",
+        "family": "RECOMMENDATION",
+        "query": "江之島 worth visiting"
+      },
+      {
+        "entityId": "shibuya-parco",
+        "language": "zh",
+        "family": "RECOMMENDATION",
+        "query": "SHIBUYA PARCO 實訪"
+      },
+      {
+        "entityId": "shibuya-parco",
+        "language": "ja",
+        "family": "RECOMMENDATION",
+        "query": "SHIBUYA PARCO 現地レポ"
+      },
+      {
+        "entityId": "shibuya-parco",
+        "language": "en",
+        "family": "RECOMMENDATION",
+        "query": "SHIBUYA PARCO worth visiting"
+      },
+      {
+        "entityId": "shinagawa-aquarium",
+        "language": "zh",
+        "family": "RECOMMENDATION",
+        "query": "品川水族館 心得"
+      },
+      {
+        "entityId": "shinagawa-aquarium",
+        "language": "ja",
+        "family": "RECOMMENDATION",
+        "query": "品川水族館 行ってきた"
+      },
+      {
+        "entityId": "shinagawa-aquarium",
+        "language": "en",
+        "family": "RECOMMENDATION",
+        "query": "品川水族館 worth visiting"
+      },
+      {
+        "entityId": "yokohama-redbrick",
+        "language": "zh",
+        "family": "RECOMMENDATION",
+        "query": "橫濱紅磚倉庫 值得去嗎"
+      },
+      {
+        "entityId": "yokohama-redbrick",
+        "language": "ja",
+        "family": "RECOMMENDATION",
+        "query": "橫濱紅磚倉庫 口コミ"
+      },
+      {
+        "entityId": "yokohama-redbrick",
+        "language": "en",
+        "family": "RECOMMENDATION",
+        "query": "橫濱紅磚倉庫 worth visiting"
+      },
+      {
+        "entityId": "confirmed-restaurants",
+        "language": "zh",
+        "family": "RECOMMENDATION",
+        "query": "東京 行程餐廳 心得"
+      },
+      {
+        "entityId": "confirmed-restaurants",
+        "language": "ja",
+        "family": "RECOMMENDATION",
+        "query": "東京 行程餐廳 行ってきた"
+      },
+      {
+        "entityId": "confirmed-restaurants",
+        "language": "en",
+        "family": "RECOMMENDATION",
+        "query": "東京 行程餐廳 recent visit"
+      }
+    ]
+  },
+  "perplexity": {
+    "status": "PERPLEXITY_USER_ACTION_REQUIRED",
+    "failureMode": "FAIL_SOFT",
+    "triggers": [
+      "NEW_ENTITY",
+      "LOW_CONFIDENCE",
+      "CONFLICT",
+      "HIGH_VOLATILITY",
+      "IMPORTANT_LIMITED_ITEM",
+      "MAJOR_PRICE_CHANGE",
+      "DEAD_SOURCE",
+      "MISSING_OFFICIAL_VERIFICATION"
+    ]
+  }
 }

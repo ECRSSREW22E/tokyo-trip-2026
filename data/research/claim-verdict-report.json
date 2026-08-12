@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-08-12T07:53:25.577Z",
+  "claims": 820,
+  "counts": {
+    "CHECK_BEFORE_VISIT": 68,
+    "MEDIUM_CONFIDENCE": 208,
+    "SOCIAL_ONLY": 106,
+    "UNSUPPORTED": 135,
+    "VERIFIED_CURRENT": 303
+  },
+  "highVolatilityCheckBeforeVisit": 59
+}

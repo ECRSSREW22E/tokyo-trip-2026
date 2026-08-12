@@ -73,3 +73,11 @@
 - Network: GitHub-hosted action/runtime download and public source access only.
 - Risk review: official GitHub repositories, pinned immutable commits, no project secrets.
 - Update policy: review release and commit before changing SHA.
+
+## Perplexity — not configured
+
+- Purpose: optional independent blind and adversarial source discovery
+- Status: `PERPLEXITY_USER_ACTION_REQUIRED`; no plugin, MCP, bridge or credential available on 2026-08-12
+- Secret names supported: `PERPLEXITY_API_KEY` or `PPLX_API_KEY` (names only; values must never enter Git)
+- Failure policy: fail soft and continue Codex / official-source workflow
+- Evidence policy: model prose is not a source; only original URLs refetched by Codex may support claims

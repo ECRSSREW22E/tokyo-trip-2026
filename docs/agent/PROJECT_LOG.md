@@ -61,4 +61,17 @@
 - Local / remote equality at application deploy: PASS
 - Known warning: GitHub Pages build reports Node.js 20 action-runtime deprecation but deploy completes successfully
 - Next task: P4 pre-trip stock, limited item, closure and event verification
+
+## 2026-08-12 — Source Trust + Social Verification
+
+- Base main SHA: `43ddd7b98a3027ff4b389c7640034928d71360e0`
+- Feature branch: `feature/source-trust-perplexity-review-v1`
+- Inventory: 820 user-facing claims, 386 source records, 380 canonical sources
+- URL audit: 230 official-current, 1 official archive, 41 full-text social, 34 editorial, 38 redirects, 40 blocked, 1 search-index-only, 1 HTTP anomaly, 0 dead after replacement
+- Claim review: 303 verified-current, 68 check-before-visit, 208 medium, 106 social-only, 135 unsupported / not promoted
+- Corrections: D5 Yokohama MORE’S marked closed on 2026-08-20; Shinagawa Aquarium 35th goods / fish goshuin added; official deep links refreshed; Enoshima English work title clarified
+- Social: existing 41 readable public field reports retained; restricted platform snippets were not upgraded; positive and negative query families added
+- Perplexity: `PERPLEXITY_USER_ACTION_REQUIRED`; 0 queries, 0 URLs, no simulated review
+- Remaining P4: 59 high-volatility check-before-visit claims, especially stock, queue and trip-day changes
+- Status: implementation and local validation complete; deployment pending
 - Status: IN_PROGRESS；不得視為已完成或已部署

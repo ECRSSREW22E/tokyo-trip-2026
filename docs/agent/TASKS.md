@@ -21,6 +21,8 @@
 - DONE: Confidence and official verification publishing gate.
 - DONE: Dcard/PTT public candidates plus SEARCH_INDEX_ONLY handling for restricted platforms.
 - TODO: Continue entity-level searches; never publish platform snippets as verified posts.
+- DONE: Six-family scheduled query rotation, previous-query echo prevention and negative / limited / price / first-visit coverage.
+- DONE: Perplexity trigger policy and fail-soft unavailable state; integration itself remains user action required.
 
 ## P3 — Shopping Website Integration
 
@@ -32,9 +34,12 @@
 
 - TODO: Recheck seasonal overlap, stock, temporary closures and event status before 2026-08-16.
 - TODO: Keep uncertain facts as `CHECK_BEFORE_VISIT`.
+- DONE: 2026-08-12 official recheck identified D5 Yokohama MORE’S closure and verified current major seasonal events.
+- TODO: Recheck the remaining 59 high-volatility claims immediately before departure; P4 is not complete.
 
 ## P5 — Source / Tool Maintenance
 
 - DONE: Tool security review and manifest.
 - DONE: Scheduled fixture-safe delta validation and report artifacts.
 - TODO: Review source adapters and blocked sources before each major refresh.
+- DONE: Claim/source inventory, canonical-source normalization, URL status audit, verdict engine and hard validation gates.

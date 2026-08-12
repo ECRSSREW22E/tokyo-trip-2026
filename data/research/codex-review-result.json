@@ -1,0 +1,13 @@
+{
+  "reviewedAt": "2026-08-12",
+  "queriesRun": 16,
+  "languages": ["ja", "zh", "en"],
+  "verifiedClaims": ["熱海花火 2026-08-18 20:15–20:40、雨天決行", "東京鐵塔 Summer landscape 2026 旅程期間開催", "江之島燈籠與青春豬頭少年合作 2026-08-01–09-23", "Disco Brick 2026 旅程期間開催", "品川水族館 35 週年商品與魚朱印"],
+  "downgradedClaims": ["橫濱 MORE’S D5 可逛：改為 2026-08-20 全館休館", "限定品即時庫存：一律維持出發前確認"],
+  "unsupportedClaims": ["自動稽核判為 UNSUPPORTED 的 135 項多為無直接綁定官方來源的資料欄位，未升級為已確認"],
+  "conflicts": ["橫濱 MORE’S 舊資料與 2026 休館公告衝突，已依現行官方公告處理"],
+  "newDiscoveries": ["品川水族館 35 週年徽章、王冠磁鐵與三款隨機魚朱印", "橫濱 MORE’S 2026-08-20 全館休館"],
+  "missingOfficialVerification": ["即時庫存", "部分餐廳精確售價", "受登入限制平台的貼文全文"],
+  "deadSources": 0,
+  "blockedSources": 40
+}

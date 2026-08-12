@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-08-12",
+  "claims": 820,
+  "sources": 386,
+  "userFacingClaims": 820,
+  "claimsWithoutSources": 6,
+  "dateSensitiveClaims": 81,
+  "duplicateCanonicalGroups": [
+    [
+      "src-bf5ea25d373d4591",
+      "src-katsushika-kochikame"
+    ],
+    [
+      "src-f4ad76fe970f969b",
+      "src-radio-kaikan"
+    ],
+    [
+      "src-89636e8ae10efd61",
+      "src-tokyo-tower"
+    ],
+    [
+      "src-ce38ad14e3fbf60c",
+      "sp-off-atami"
+    ],
+    [
+      "dir-src-divercity",
+      "src-f7c743adca6d4f36"
+    ],
+    [
+      "dir-src-brand-tomorrowland",
+      "dir-src-brand-edition"
+    ]
+  ],
+  "entityDistribution": {
+    "BRANCH": 229,
+    "BRAND": 126,
+    "DESTINATION": 223,
+    "PRODUCT": 36,
+    "RESTAURANT": 72,
+    "SCREEN_APPEARANCE": 47,
+    "SEASONAL": 33,
+    "TRIP": 6,
+    "VENUE": 48
+  },
+  "claimTypeDistribution": {
+    "BRANCH_EXISTENCE": 229,
+    "FILMING_LOCATION": 47,
+    "LIMITED_STATUS": 14,
+    "PHOTO_TIP": 57,
+    "PRICE": 37,
+    "PRODUCT_EXISTENCE": 174,
+    "QUEUE": 18,
+    "RESERVATION_STATUS": 6,
+    "ROUTE_ORDER": 119,
+    "SEASONAL_ITEM": 3,
+    "STORE_STATUS": 21,
+    "TRAVELER_RECOMMENDATION": 68,
+    "TRAVELER_WARNING": 21,
+    "TRIP_TIME": 6
+  }
+}
