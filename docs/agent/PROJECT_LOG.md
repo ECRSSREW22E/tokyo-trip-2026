@@ -73,5 +73,9 @@
 - Social: existing 41 readable public field reports retained; restricted platform snippets were not upgraded; positive and negative query families added
 - Perplexity: `PERPLEXITY_USER_ACTION_REQUIRED`; 0 queries, 0 URLs, no simulated review
 - Remaining P4: 59 high-volatility check-before-visit claims, especially stock, queue and trip-day changes
-- Status: implementation and local validation complete; deployment pending
+- Feature commit: `52abd21`
+- Merge commit / final main: `4986f97216fd579cbc349cd39f991be090ea2bb2`
+- GitHub Pages run: `31576303108` — PASS
+- Production QA: six public URLs HTTP 200; D5 closure and Shinagawa special-item payload present; Shopping / D5 at 390px have no overflow, broken images or console errors
+- Status: deployed; Perplexity second pass remains external user action
 - Status: IN_PROGRESS；不得視為已完成或已部署

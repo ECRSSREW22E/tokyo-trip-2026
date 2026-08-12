@@ -2,8 +2,8 @@
 
 ## Current state
 
-- Base main SHA: `8a6a10ee44d1b17e8ee7b8e0da2f4488fabed50c`
-- Deployed application SHA: `2b7071ab2a5cd8b789e6bf72aa6aaa108e8eb758`
+- Base main SHA: `43ddd7b98a3027ff4b389c7640034928d71360e0`
+- Deployed application SHA: `4986f97216fd579cbc349cd39f991be090ea2bb2`
 - Current branch: `main`
 - Website root: `旅遊指南/`
 - Production: `https://ecrssrew22e.github.io/tokyo-trip-2026/旅遊指南/`
@@ -74,7 +74,7 @@ Before departure, perform P4 verification for trip-date limited goods, stock, te
 
 ## Source trust review — 2026-08-12
 
-- Review branch: `feature/source-trust-perplexity-review-v1`
+- Review branch: `feature/source-trust-perplexity-review-v1` (merged)
 - Last successful Codex review: 2026-08-12; 820 claims / 386 source records / 380 canonical sources
 - Perplexity status: `PERPLEXITY_USER_ACTION_REQUIRED`
 - Integration path checked: environment secret or project bridge; neither is configured
