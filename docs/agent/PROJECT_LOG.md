@@ -47,4 +47,18 @@
 - Production test: PENDING
 - Known issues: merchant-specific adapters required; login-restricted sources remain SEARCH_INDEX_ONLY; pre-trip stock/event recheck remains P4
 - Next task: commit, merge, deploy and production QA
+
+## 2026-08-12 — Shopping Research Pipeline V1 deployment
+
+- Agent: Codex
+- Feature commit: `677970c`
+- Merge commit / deployed application SHA: `2b7071ab2a5cd8b789e6bf72aa6aaa108e8eb758`
+- GitHub Pages run: `31571793278`
+- GitHub Pages status: PASS
+- Production HTTP: 7 checked URLs returned 200, including Shopping, Rain, Restaurants, Checklist, Screen and price data
+- Production browser QA: PASS at 390 and 1440; no overflow, broken images or console errors
+- Production interaction: ANESSA detail shows `EXACT · EXACT_MATCH`, NT$326 / 34% verified comparison
+- Local / remote equality at application deploy: PASS
+- Known warning: GitHub Pages build reports Node.js 20 action-runtime deprecation but deploy completes successfully
+- Next task: P4 pre-trip stock, limited item, closure and event verification
 - Status: IN_PROGRESS；不得視為已完成或已部署

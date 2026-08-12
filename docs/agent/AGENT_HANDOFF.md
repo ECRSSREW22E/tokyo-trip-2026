@@ -3,7 +3,8 @@
 ## Current state
 
 - Base main SHA: `8a6a10ee44d1b17e8ee7b8e0da2f4488fabed50c`
-- Active feature branch: `feature/shopping-research-pipeline-v1`
+- Deployed application SHA: `2b7071ab2a5cd8b789e6bf72aa6aaa108e8eb758`
+- Current branch: `main`
 - Website root: `旅遊指南/`
 - Production: `https://ecrssrew22e.github.io/tokyo-trip-2026/旅遊指南/`
 - Trip dates: 2026-08-16 through 2026-08-21
@@ -57,6 +58,8 @@ node 旅遊指南/tests/validate-screen-data.cjs
 ```
 
 Visual report: 90 full responsive checks and 24 required screenshot checks, all PASS. Browser console errors on Shopping: 0.
+
+Production report: GitHub Pages run `31571793278` PASS; 7 public URLs HTTP 200; Shopping and Rain browser QA PASS at 390 / 1440; ANESSA exact-match comparison renders correctly.
 
 ## Refresh and deployment
 
