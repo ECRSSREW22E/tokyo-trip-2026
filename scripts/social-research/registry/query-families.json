@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "families": [
+    {"id":"RECOMMENDATION","label":"推薦與實訪","terms":{"zh":["心得","實訪","值得去嗎"],"ja":["口コミ","行ってきた","現地レポ"],"en":["recent visit","worth visiting"]}},
+    {"id":"NEGATIVE_RISK","label":"負面與風險","terms":{"zh":["踩雷","排隊 很擠","施工 關閉"],"ja":["微妙","混雑 行列","休業 工事"],"en":["overrated crowded","closure queue"]}},
+    {"id":"LIMITED_SEASONAL","label":"限定與季節","terms":{"zh":["2026 8月 限定","夏季限定 售罄"],"ja":["令和8年 8月 期間限定","数量限定 売り切れ","御守 御朱印"],"en":["August 2026 limited"]}},
+    {"id":"PRICE_SHOPPING","label":"價格與購物","terms":{"zh":["購買品 價格","日本 台灣 價差"],"ja":["購入品 価格 在庫","買ってよかった 店舗限定"],"en":["Japan Taiwan price","shopping haul"]}},
+    {"id":"QUEUE_CLOSURE","label":"人潮與停業","terms":{"zh":["排隊 售罄","臨時休館 搬遷"],"ja":["行列 品切れ","臨時休業 移転"],"en":["sold out wait time","temporary closure"]}},
+    {"id":"FIRST_TIME","label":"初訪決策","terms":{"zh":["第一次東京 注意","初日本 不值得買"],"ja":["初めて 東京 注意","初心者 おすすめしない"],"en":["first time Tokyo mistakes","first visit skip"]}},
+    {"id":"FOOD","label":"餐飲實吃","terms":{"zh":["實吃 推薦菜 價格","份量 排隊 預約"],"ja":["実食 おすすめメニュー","量 味 コスパ 予約"],"en":["menu review portion","reservation queue"]}},
+    {"id":"PHOTO","label":"拍攝條件","terms":{"zh":["拍照 最佳角度 人潮","夜景 逆光 腳架"],"ja":["写真スポット 構図 混雑","夜景 逆光 三脚"],"en":["photo spot crowd","best angle light"]}}
+  ],
+  "scheduledRotation": ["RECOMMENDATION","NEGATIVE_RISK","LIMITED_SEASONAL","PRICE_SHOPPING","QUEUE_CLOSURE","FIRST_TIME"],
+  "perplexityTriggers": ["NEW_ENTITY","LOW_CONFIDENCE","CONFLICT","HIGH_VOLATILITY","IMPORTANT_LIMITED_ITEM","MAJOR_PRICE_CHANGE","DEAD_SOURCE","MISSING_OFFICIAL_VERIFICATION"]
+}

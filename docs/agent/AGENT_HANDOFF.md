@@ -71,3 +71,16 @@ Production report: GitHub Pages run `31571793278` PASS; 7 public URLs HTTP 200; 
 ## Next recommended action
 
 Before departure, perform P4 verification for trip-date limited goods, stock, temporary closures and event status. For crawler expansion, build one merchant-specific product adapter at a time with fixtures.
+
+## Source trust review — 2026-08-12
+
+- Review branch: `feature/source-trust-perplexity-review-v1`
+- Last successful Codex review: 2026-08-12; 820 claims / 386 source records / 380 canonical sources
+- Perplexity status: `PERPLEXITY_USER_ACTION_REQUIRED`
+- Integration path checked: environment secret or project bridge; neither is configured
+- Accepted secret names (name only, never value): `PERPLEXITY_API_KEY` or `PPLX_API_KEY`
+- Remaining conflicts: no unresolved official-vs-official conflict; stock/queue remain volatile, Setagaya Digital Museum currently returns HTTP 500
+- Blocked sources: 40 automated requests; blocked is not dead and must be retried manually or with a normal public browser
+- P4: open; 59 high-volatility claims remain `CHECK_BEFORE_VISIT`
+- Next refresh: immediately before departure on 2026-08-15, then each travel morning for closures, stock, weather-sensitive facilities and events
+- Reports: `docs/research/SOURCE_TRUST_AUDIT.md`, `CODEX_RESEARCH_REVIEW.md`, `PERPLEXITY_REVIEW.md`, `RESEARCH_CONFLICTS.md`

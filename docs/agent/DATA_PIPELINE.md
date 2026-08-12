@@ -56,3 +56,12 @@ Use ETag, Last-Modified and source hash. Unchanged extraction skips normalizatio
 
 - Auto-publish: official verified facts, exact/high-confidence price matches, fact-safe high-confidence social summaries.
 - Manual verification: limited goods, stock, login-restricted social content and any fuzzy match.
+
+## Source trust and query rotation
+
+1. `scripts/source-audit/inventory.cjs` extracts user-facing claims and source relations without network access.
+2. `audit-urls.cjs` checks public URLs and records redirect, blocked, dead, official, editorial and social states. HTTP blocking is not interpreted as a dead source.
+3. `claim-verdicts.cjs` applies publishing gates; volatile official facts remain `CHECK_BEFORE_VISIT` when current trip-day confirmation is still required.
+4. `canonical-source-set.json` counts each canonical URL once while retaining legacy IDs for referential integrity.
+5. Social scheduled runs rotate recommendation → negative risk → limited seasonal → price shopping → queue closure → first-time visitor, and retain the last 120 queries to avoid short-term echo.
+6. Perplexity is optional and fail-soft. It triggers only for new, low-confidence, conflicting, high-volatility, limited, major-price-change, dead-source or missing-official cases. Its answer is never evidence without original URLs and Codex refetch.
