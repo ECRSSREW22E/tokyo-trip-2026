@@ -1,0 +1,42 @@
+[
+  {
+    "productId": "cp-368c2b12ffa3",
+    "merchantId": "anessa-jp",
+    "price": 3058,
+    "salePrice": null,
+    "stock": "IN_STOCK",
+    "observedAt": "2026-08-12T00:00:00Z",
+    "sourceUrl": "https://www.shiseido.co.jp/anessa/products/suncare/perfect_uv_sm/",
+    "sourceHash": "330b60857d0a7c7fdea682fd317562797566a27f33bf72677ca1ea74e83d754b"
+  },
+  {
+    "productId": "cp-47ac09fc0121",
+    "merchantId": "anessa-tw",
+    "price": 950,
+    "salePrice": null,
+    "stock": "IN_STOCK",
+    "observedAt": "2026-08-12T00:00:00Z",
+    "sourceUrl": "https://wp.shiseido.com.tw/products/anessa-puv-scm-na",
+    "sourceHash": "3ef9b6d15a26b1dd57d40eefd645f6529da6eab7bfd2afc6a7e2ecab9f8a7978"
+  },
+  {
+    "productId": "cp-db6e90668c3a",
+    "merchantId": "example-jp",
+    "price": 1200,
+    "salePrice": null,
+    "stock": "UNKNOWN",
+    "observedAt": "2026-08-12T00:00:00Z",
+    "sourceUrl": "https://example.invalid/serum-30",
+    "sourceHash": "0fc50a4e5b064795ffd14513da048061ce668a756656322ab81f3f544eb43999"
+  },
+  {
+    "productId": "cp-eaed0bdb8525",
+    "merchantId": "example-tw",
+    "price": 1200,
+    "salePrice": null,
+    "stock": "UNKNOWN",
+    "observedAt": "2026-08-12T00:00:00Z",
+    "sourceUrl": "https://example.invalid/serum-90",
+    "sourceHash": "948cbe6ff49be590e33ff26cffe1d601960496321f950ab7608c67c195d717bf"
+  }
+]

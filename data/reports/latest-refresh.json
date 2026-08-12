@@ -1,0 +1,17 @@
+{
+  "runAt": "2026-08-12T06:45:10.785Z",
+  "runtime": "v24.18.0",
+  "mode": "FIXTURE_SAFE_DEFAULT",
+  "productsRefreshed": 4,
+  "pricesChanged": 0,
+  "newLimitedProducts": 0,
+  "storesChanged": 0,
+  "socialSources": 0,
+  "blockedSources": 0,
+  "productionUpdated": false,
+  "fx": {
+    "rate": 0.2041,
+    "source": "Bank of Taiwan spot sell",
+    "date": "2026-08-12"
+  }
+}

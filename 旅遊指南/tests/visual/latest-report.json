@@ -1,0 +1,35 @@
+{
+  "runDate": "2026-08-12",
+  "baseUrl": "http://127.0.0.1:8765/旅遊指南/",
+  "fullAudit": {
+    "pages": 15,
+    "viewports": [375, 390, 430, 768, 1024, 1440],
+    "checks": 90,
+    "failures": 0
+  },
+  "screenshotQa": {
+    "pages": ["首頁", "購物指南", "雨天備案", "餐廳指南", "行李清單", "取景地巡禮"],
+    "viewports": [375, 390, 430, 1440],
+    "checks": 24,
+    "horizontalOverflow": 0,
+    "clippedHeadings": 0,
+    "brokenImages": 0
+  },
+  "interactionQa": {
+    "shoppingFilter": "2 / 10 件具體商品",
+    "dialogs": ["商品", "品牌", "商場", "店型"],
+    "dialogViewportPass": true,
+    "dialogScrollPass": true,
+    "dialogClosePass": true,
+    "bodyScrollLockPass": true,
+    "rainHeavyState": "heavy",
+    "rainHeavyPressed": true
+  },
+  "rainHero": {
+    "titleMediaCollision": false,
+    "titleEyebrowCollision": false,
+    "titleCtaCollision": false,
+    "desktopScreenshotReviewed": true,
+    "mobileScreenshotReviewed": true
+  }
+}

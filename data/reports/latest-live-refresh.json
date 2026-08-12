@@ -1,0 +1,81 @@
+{
+  "runAt": "2026-08-12T06:45:44.871Z",
+  "runtime": "v24.18.0",
+  "merchants": 8,
+  "products": 0,
+  "blocked": 0,
+  "results": [
+    {
+      "merchantId": "muji-jp",
+      "status": "READY",
+      "httpStatus": 200,
+      "sourceHash": "971cc823e89f19e77bd88e4e94e2fa85d8cb379bef22b4b949485da8069c6adb",
+      "etag": null,
+      "lastModified": null,
+      "productCount": 0
+    },
+    {
+      "merchantId": "loft-jp",
+      "status": "READY",
+      "httpStatus": 200,
+      "sourceHash": "3ec4b8cd0579d6dd8691de576541077ff9e34749fbde329c0c4925e08a765eb5",
+      "etag": "\"a031c0e1\"",
+      "lastModified": null,
+      "productCount": 0
+    },
+    {
+      "merchantId": "matsukiyo-jp",
+      "status": "READY",
+      "httpStatus": 200,
+      "sourceHash": "64b0a908b376cb5054f447e52500d2847f739a16ee5deee4c59f3052ecfb33b9",
+      "etag": null,
+      "lastModified": null,
+      "productCount": 0
+    },
+    {
+      "merchantId": "atcosme-jp",
+      "status": "READY",
+      "httpStatus": 200,
+      "sourceHash": "6eb2fc3930734b67439d66cc386c83814dbfb9b734c519315d43673a891db0dc",
+      "etag": null,
+      "lastModified": null,
+      "productCount": 0
+    },
+    {
+      "merchantId": "beams-jp",
+      "status": "READY",
+      "httpStatus": 200,
+      "sourceHash": "2acb032e618eec982278354bd5bc22194724aadd25348df0fa3cf841b36203dd",
+      "etag": null,
+      "lastModified": null,
+      "productCount": 0
+    },
+    {
+      "merchantId": "mistore-jp",
+      "status": "READY",
+      "httpStatus": 200,
+      "sourceHash": "88480c7f363780f56b426d918ec66ee29586b1447f4450f64bb5e2d22effa9a0",
+      "etag": null,
+      "lastModified": null,
+      "productCount": 0
+    },
+    {
+      "merchantId": "takashimaya-jp",
+      "status": "READY",
+      "httpStatus": 200,
+      "sourceHash": "9272c9c937ec1c67391eb00c0283fdd259ee374b379008275d50476416e545e5",
+      "etag": null,
+      "lastModified": null,
+      "productCount": 0
+    },
+    {
+      "merchantId": "onitsuka-jp",
+      "status": "READY",
+      "httpStatus": 200,
+      "sourceHash": "6245ad47211c448504617a6d2bebfae53bdeabf2f0f46c2e4672dfe8c2f745e5",
+      "etag": null,
+      "lastModified": null,
+      "productCount": 0
+    }
+  ]
+}

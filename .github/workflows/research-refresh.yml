@@ -1,0 +1,39 @@
+name: Research refresh
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 3 * * 2,5'
+    - cron: '47 2 13-21 8 *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: research-refresh
+  cancel-in-progress: false
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.17.0'
+      - name: Validate shopping pipeline
+        run: node scripts/shopping-data/tests/run-tests.cjs
+      - name: Validate social pipeline
+        run: node scripts/social-research/tests/run-tests.cjs
+      - name: Build fixture-safe research outputs
+        run: |
+          node scripts/shopping-data/run.cjs
+          node scripts/social-research/run.cjs
+      - name: Upload refresh reports
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: research-refresh-${{ github.run_id }}
+          path: data/reports/
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,9 @@
+{
+  "fx":{"rate":0.2041,"source":"Bank of Taiwan spot sell","date":"2026-08-12"},
+  "raw":[
+    {"merchantId":"anessa-jp","country":"JP","sourceUrl":"https://www.shiseido.co.jp/anessa/products/suncare/perfect_uv_sm/","productName":"アネッサ パーフェクトUV スキンケアミルク NA 60mL","nameZh":"安耐曬金鑽高效防曬露 NA","brand":"ANESSA","sku":"PUV-SCM-NA-60","variant":"NA","size":"60mL","packCount":1,"priceTaxIncluded":3058,"currency":"JPY","stockStatus":"IN_STOCK","fetchedAt":"2026-08-12T00:00:00Z"},
+    {"merchantId":"anessa-tw","country":"TW","sourceUrl":"https://wp.shiseido.com.tw/products/anessa-puv-scm-na","productName":"安耐曬金鑽高效防曬露 NA 60mL","brand":"ANESSA","sku":"PUV-SCM-NA-60","variant":"NA","size":"60mL","packCount":1,"priceTaxIncluded":950,"currency":"TWD","stockStatus":"IN_STOCK","fetchedAt":"2026-08-12T00:00:00Z"},
+    {"merchantId":"example-jp","country":"JP","sourceUrl":"https://example.invalid/serum-30","productName":"Example Serum 30mL","brand":"EXAMPLE","sku":"EX-30","variant":"standard","size":"30mL","packCount":1,"priceTaxIncluded":1200,"currency":"JPY","stockStatus":"UNKNOWN","fetchedAt":"2026-08-12T00:00:00Z"},
+    {"merchantId":"example-tw","country":"TW","sourceUrl":"https://example.invalid/serum-90","productName":"Example Serum 90mL","brand":"EXAMPLE","sku":"EX-90","variant":"standard","size":"90mL","packCount":1,"priceTaxIncluded":1200,"currency":"TWD","stockStatus":"UNKNOWN","fetchedAt":"2026-08-12T00:00:00Z"}
+  ]
+}
