@@ -1,0 +1,12 @@
+const fs=require('fs'),vm=require('vm'),path=require('path');
+const root=path.resolve(__dirname,'..'); const context={window:{}}; vm.createContext(context);
+vm.runInContext(fs.readFileSync(path.join(root,'assets','shopping-v3-data.js'),'utf8'),context);
+const d=context.window.TokyoShoppingV3, fail=[]; const assert=(v,m)=>{if(!v)fail.push(m)};
+assert(d.schemaVersion===3,'schemaVersion'); assert(d.shoppingTypes.length===10,'shopping types must be 10');
+const productIds=new Set(), sourceIds=new Set(d.sources.map(s=>s.id));
+const brandIds=new Set(d.brands.map(x=>x.id)), venueIds=new Set(d.venues.map(x=>x.id));
+d.sources.forEach(s=>assert(/^https:\/\//.test(s.url),`${s.id}: invalid URL`));
+d.products.forEach(p=>{assert(!productIds.has(p.id),`${p.id}: duplicate id`);productIds.add(p.id);['brandId','branchIds','venueIds','nameZh','nameJa','nameEn','productCategory','productType','size','japanPriceTaxIncluded','taiwanAvailable','priceComparisonDate','fxRate','fxDate','directComparison','exclusiveType','availability','whyBuy','whySkip','recommendedFor','officialProductUrl','officialJapanSource','socialSourceIds','lastVerified','needsVerification','productVisual'].forEach(k=>assert(k in p,`${p.id}: missing ${k}`));assert(brandIds.has(p.brandId),`${p.id}: bad brand relation`);p.venueIds.forEach(id=>assert(venueIds.has(id),`${p.id}: bad venue relation ${id}`));assert(sourceIds.has(p.officialJapanSource),`${p.id}: bad JP source`);if(p.officialTaiwanSource)assert(sourceIds.has(p.officialTaiwanSource),`${p.id}: bad TW source`);p.socialSourceIds.forEach(id=>assert(sourceIds.has(id),`${p.id}: bad social source ${id}`));assert(['APPROVED','REMOTE_REFERENCE','REFERENCE_ONLY','BLOCKED'].includes(p.productVisual.imageRightsStatus),`${p.id}: image rights`);if(p.directComparison){assert(Number.isFinite(p.japanPrice)&&Number.isFinite(p.taiwanOfficialPrice),`${p.id}: direct price missing`);assert(p.officialTaiwanSource,`${p.id}: direct comparison without TW official source`);assert(p.priceDifferencePercent!==null,`${p.id}: missing difference`)}else{assert(p.priceDifferencePercent===null,`${p.id}: invalid indirect percentage`)}if(p.exclusiveType!=='NONE'&&p.exclusiveType!=='UNKNOWN')assert(p.officialJapanSource,`${p.id}: exclusive without official evidence`)});
+if(fail.length){console.error(fail.join('\n'));process.exit(1)}
+assert(d.dailyNotes.length===6,'daily notes must cover D1-D6');
+console.log(`PASS Shopping V3: ${d.products.length} products, ${d.shoppingTypes.length} types, ${d.sources.length} sources, D1-D6 notes`);

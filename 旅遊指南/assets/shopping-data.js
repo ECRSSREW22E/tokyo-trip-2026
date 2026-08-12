@@ -71,7 +71,7 @@
 
   const place = (data) => ({
     coordinates: null, tripDays: [], priceLevel: '¥¥', strengths: [], bestFor: [],
-    notIdealFor: [], timeNeeded: {quick:'30–45 min',normal:'1–2 hr',deep:'2–4 hr'},
+    notIdealFor: [],
     detourLevel: 1, taxFreeInfo: '依分店及櫃位公告；出示護照前先確認適用範圍。',
     travelerNotes: '', recommendedItemIds: [], needsVerification: false,
     socialSummary: '', socialConfidence: 'NONE', socialSources: [],

@@ -1,4 +1,9 @@
 (() => {
+  document.querySelectorAll('h1').forEach(title => {
+    const walker=document.createTreeWalker(title,NodeFilter.SHOW_TEXT); let node,last;
+    while((node=walker.nextNode())) if(node.nodeValue.trim()) last=node;
+    if(last) last.nodeValue=last.nodeValue.replace(/。\s*$/,'');
+  });
   const doc = document;
   const root = doc.documentElement;
   root.classList.add('js');
@@ -64,8 +69,20 @@
     const screenCallout = doc.createElement('section');
     screenCallout.className = 'panel shell';
     screenCallout.dataset.screenDayLink = screenDayMatch[1];
-    screenCallout.innerHTML = `<div class="eyebrow">當日作品場景</div><h2>第 ${screenDayMatch[1]} 天的場景巡禮</h2><p>正式停留時間完全依照《日本行.docx》；未列入原行程的地點只會標示為可選支線，不會擠壓交通與訂位時間。</p><a class="btn alt" href="${new URL(`../themes/screen-locations.html?day=D${screenDayMatch[1]}`, ownScript.src).href}">查看第 ${screenDayMatch[1]} 天作品場景 →</a>`;
+    screenCallout.innerHTML = `<div class="eyebrow">當日作品場景</div><h2>第 ${screenDayMatch[1]} 天的場景巡禮</h2><p>正式動線完全依照《日本行.docx》；未列入原行程的地點只會標示為可選支線，不會擠壓交通與訂位時間。</p><a class="btn alt" href="${new URL(`../themes/screen-locations.html?day=D${screenDayMatch[1]}`, ownScript.src).href}">查看第 ${screenDayMatch[1]} 天作品場景 →</a>`;
     main.appendChild(screenCallout);
+  }
+  if (screenDayMatch && ownScript && main && !main.querySelector('[data-shopping-day-note]')) {
+    const v3DataScript=doc.createElement('script');
+    v3DataScript.src=new URL('../assets/shopping-v3-data.js?v=1',ownScript.src).href;
+    v3DataScript.addEventListener('load',()=>{
+      const note=window.TokyoShoppingV3?.dailyNotes?.find(entry=>entry.day===Number(screenDayMatch[1]));
+      if(!note)return;
+      const section=doc.createElement('section'); section.className='section shopping-day-note'; section.dataset.shoppingDayNote=note.day;
+      section.innerHTML=`<div class="shell"><div class="section-head"><div><div class="eyebrow">第 ${note.day} 天購物判斷</div><h2>${note.area}，今天買什麼</h2></div><a class="btn alt" href="${new URL(`../themes/shopping.html?day=${note.day}`,ownScript.src).href}">開啟購物指南 →</a></div><div class="shopping-day-note-grid"><section><h3>今天值得買</h3><ul>${note.buy.map(value=>`<li>${value}</li>`).join('')}</ul></section><section><h3>晚點再買</h3><ul>${note.defer.map(value=>`<li>${value}</li>`).join('')}</ul></section></div></div>`;
+      main.appendChild(section);
+    });
+    doc.body.appendChild(v3DataScript);
   }
   if (ownScript && (screenDayMatch || doc.body.dataset.spot)) {
     const dataScript = doc.createElement('script');
